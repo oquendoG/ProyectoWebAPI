@@ -6,5 +6,5 @@ public interface IUnitOfWork
     ICategoriaRepository Categorias { get; }
 
     void Dispose();
-    int Save();
+    Task<int> SaveAsync();
 }

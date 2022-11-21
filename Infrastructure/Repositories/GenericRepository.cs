@@ -29,12 +29,12 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
         return context.Set<T>().Where(expression);
     }
 
-    public async Task<IEnumerable<T>> GetAllAsync()
+    public virtual async Task<IEnumerable<T>> GetAllAsync()
     {
         return await context.Set<T>().ToListAsync();
     }
 
-    public async Task<T> GetByIdAsync(int id)
+    public virtual async Task<T> GetByIdAsync(int id)
     {
         return await context.Set<T>().FindAsync(id);
     }

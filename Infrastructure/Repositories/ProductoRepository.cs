@@ -12,12 +12,27 @@ public class ProductoRepository : GenericRepository<Producto>,
 
 	}
 
-	public async Task<IEnumerable<Producto>>
-		GetProductosMasCaros(int cantidad)
+	public async Task<IEnumerable<Producto>> GetProductosMasCaros(int cantidad)
 	{
-		return await this.context.Productos
+		return await context.Productos
 		.OrderByDescending(p => p.Precio)
 		.Take(cantidad)
 		.ToListAsync();
 	}
+
+	public override async Task<Producto> GetByIdAsync(int id)
+	{
+		return await context.Productos
+			.Include(p => p.Marca)
+			.Include(p => p.Categoria)
+			.FirstOrDefaultAsync(p => p.Id == id);
+	}
+
+    public override async Task<IEnumerable<Producto>> GetAllAsync()
+    {
+		return await context.Productos
+			.Include(p => p.Marca)
+			.Include(p => p.Categoria)
+			.ToListAsync();
+    }
 }

@@ -42,3 +42,14 @@ F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\Data\Csvs\categorias.csv
 F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\Data\Csvs\marcas.csv
 F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\Data\Csvs\productos.csv
 F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\CsvHelper.dll
+F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\AutoMapper.dll
+F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+F:\Proyectos .NET\Proyectos\Tienda\API\obj\Debug\net6.0\staticwebassets\msbuild.API.Microsoft.AspNetCore.StaticWebAssets.props
+F:\Proyectos .NET\Proyectos\Tienda\API\obj\Debug\net6.0\staticwebassets\msbuild.build.API.props
+F:\Proyectos .NET\Proyectos\Tienda\API\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.API.props
+F:\Proyectos .NET\Proyectos\Tienda\API\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.API.props
+F:\Proyectos .NET\Proyectos\Tienda\API\obj\Debug\net6.0\staticwebassets.pack.json
+F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\AspNetCoreRateLimit.dll
+F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\Newtonsoft.Json.dll
+F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Versioning.dll
