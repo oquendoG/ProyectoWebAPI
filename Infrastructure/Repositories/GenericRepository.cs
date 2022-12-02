@@ -34,6 +34,18 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
         return await context.Set<T>().ToListAsync();
     }
 
+    public virtual async Task<(int totalRegistros, IEnumerable<T> registros)>
+        GetAllAsync(int pageIndex, int pageSize, string search)
+    {
+        int totalRegistros = await context.Set<T>().CountAsync();
+        List<T> registros = await context.Set<T>()
+            .Skip((pageIndex - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+
+        return (totalRegistros, registros);
+    }
+
     public virtual async Task<T> GetByIdAsync(int id)
     {
         return await context.Set<T>().FindAsync(id);

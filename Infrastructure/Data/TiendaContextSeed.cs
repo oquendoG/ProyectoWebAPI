@@ -29,7 +29,7 @@ public class TiendaContextSeed
             }
 
             if(!context.Categorias.Any()){
-                
+
                 using var readerCategorias = new StreamReader(ruta+"/Data/CSVS/categorias.csv");
 
                 using var csvcategorias = new CsvReader(readerCategorias, CultureInfo.InvariantCulture);
@@ -40,7 +40,7 @@ public class TiendaContextSeed
             }
 
             if(!context.Productos.Any()){
-                
+
                 using var readerProductos = new StreamReader(ruta+"/Data/CSVS/productos.csv");
 
                 using var csvProductos = new CsvReader(readerProductos, CultureInfo.InvariantCulture);
@@ -62,6 +62,29 @@ public class TiendaContextSeed
                 await context.SaveChangesAsync();
             }
 
+        }
+        catch (Exception ex)
+        {
+            var logger = loggerFactory.CreateLogger<TiendaContextSeed>();
+            logger.LogError(ex.Message);
+        }
+    }
+
+    public static async Task SeedRolesAsync(TiendaContext context, ILoggerFactory loggerFactory)
+    {
+        try
+        {
+            if (!context.Roles.Any())
+            {
+                var roles = new List<Rol>()
+                {
+                    new Rol{Id=1, Nombre="Administrador"},
+                    new Rol{Id=2, Nombre="Gerente"},
+                    new Rol{Id=3, Nombre="Empleado"},
+                };
+                context.Roles.AddRange(roles);
+                await context.SaveChangesAsync();
+            }
         }
         catch (Exception ex)
         {
