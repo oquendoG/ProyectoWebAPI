@@ -53,3 +53,11 @@ F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\AspNetCoreRateLimit.dll
 F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
 F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\Newtonsoft.Json.dll
 F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Versioning.dll
+F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll

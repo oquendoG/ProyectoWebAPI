@@ -1,6 +1,8 @@
-﻿using CORE.Interfaces;
+﻿using Core.Interfaces;
+using CORE.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.UnitOfWork;
 public class UnitOfWork : IUnitOfWork, IDisposable
@@ -9,6 +11,8 @@ public class UnitOfWork : IUnitOfWork, IDisposable
     private IProductoRepository productos;
     private IMarcaRepository marcas;
     private ICategoriaRepository categorias;
+    private IUsuarioRepository usuarios;
+    private IRolRepository roles;
 
     public UnitOfWork(TiendaContext context)
     {
@@ -51,6 +55,30 @@ public class UnitOfWork : IUnitOfWork, IDisposable
             }
 
             return categorias;
+        }
+    }
+
+    public IRolRepository Roles
+    {
+        get
+        {
+            if (roles == null)
+            {
+                roles = new RolRepository(context);
+            }
+            return roles;
+        }
+    }
+
+    public IUsuarioRepository Usuarios
+    {
+        get
+        {
+            if (usuarios == null)
+            {
+                usuarios = new UsuarioRepository(context);
+            }
+            return usuarios;
         }
     }
 

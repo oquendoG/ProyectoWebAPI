@@ -19,6 +19,7 @@ builder.Services.AddControllers(options =>
 }).AddXmlSerializerFormatters();
 builder.Services.AddAplicacionServices();
 builder.Services.ConfigureApiVersioning();
+builder.Services.AddJwt(builder.Configuration);
 
 builder.Services.AddDbContext<TiendaContext>(options =>
 {
@@ -64,6 +65,7 @@ app.UseCors("CorsPolicy");
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
