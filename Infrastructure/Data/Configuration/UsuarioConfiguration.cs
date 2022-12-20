@@ -31,5 +31,9 @@ public class UsuarioConfiguration : IEntityTypeConfiguration<Usuario>
                     EBuilder.HasKey(ur => new { ur.UsuarioId, ur.RolId });
                 }
             );
+
+        builder.HasMany(user => user.RefreshTokens)
+            .WithOne(rtk => rtk.Usuario)
+            .HasForeignKey(rtk => rtk.UsuarioId);
     }
 }

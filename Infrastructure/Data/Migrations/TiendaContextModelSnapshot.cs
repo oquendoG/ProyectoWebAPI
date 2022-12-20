@@ -82,6 +82,34 @@ namespace Infrastructure.Data.Migrations
                     b.ToTable("Producto", (string)null);
                 });
 
+            modelBuilder.Entity("CORE.Entities.RefreshToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("Expires")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("Revoked")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Token")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("RefreshToken", (string)null);
+                });
+
             modelBuilder.Entity("CORE.Entities.Rol", b =>
                 {
                     b.Property<int>("Id")
@@ -169,6 +197,17 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("Marca");
                 });
 
+            modelBuilder.Entity("CORE.Entities.RefreshToken", b =>
+                {
+                    b.HasOne("CORE.Entities.Usuario", "Usuario")
+                        .WithMany("RefreshTokens")
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Usuario");
+                });
+
             modelBuilder.Entity("CORE.Entities.UsuariosRoles", b =>
                 {
                     b.HasOne("CORE.Entities.Rol", "Rol")
@@ -205,6 +244,8 @@ namespace Infrastructure.Data.Migrations
 
             modelBuilder.Entity("CORE.Entities.Usuario", b =>
                 {
+                    b.Navigation("RefreshTokens");
+
                     b.Navigation("UsuariosRoles");
                 });
 #pragma warning restore 612, 618

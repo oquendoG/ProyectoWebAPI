@@ -43,20 +43,20 @@ if (app.Environment.IsDevelopment())
 }
 
 //ejecuta migraciones pendientes al iniciar la aplicación
-using (var scope = app.Services.CreateScope())
+using (IServiceScope scope = app.Services.CreateScope())
 {
-    var services = scope.ServiceProvider;
-    var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+    IServiceProvider services = scope.ServiceProvider;
+    ILoggerFactory loggerFactory = services.GetRequiredService<ILoggerFactory>();
     try
     {
-        var context = services.GetRequiredService<TiendaContext>();
+        TiendaContext context = services.GetRequiredService<TiendaContext>();
         await context.Database.MigrateAsync();
         await TiendaContextSeed.SeedAsync(context, loggerFactory);
         await TiendaContextSeed.SeedRolesAsync(context, loggerFactory);
     }
     catch (Exception ex)
     {
-        var logger = loggerFactory.CreateLogger<Program>();
+        ILogger logger = loggerFactory.CreateLogger<Program>();
         logger.LogError(ex, "Ocurrió un error durante la migración");
     }
 }

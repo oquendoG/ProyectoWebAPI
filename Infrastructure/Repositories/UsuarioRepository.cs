@@ -15,6 +15,15 @@ public class UsuarioRepository : GenericRepository<Usuario>, IUsuarioRepository
     {
         return await context.Usuarios
                 .Include(u=>u.Roles)
+                .Include(u=>u.RefreshTokens)
                 .FirstOrDefaultAsync(u=>u.UserName.ToLower()==username.ToLower());
+    }
+
+    public async Task<Usuario> GetByRefreshTokenAsync(string refreshToken)
+    {
+        return await context.Usuarios
+                 .Include(u => u.Roles)
+                 .Include(u => u.RefreshTokens)
+                 .FirstOrDefaultAsync(u => u.RefreshTokens.Any(rt => rt.Token==refreshToken));
     }
 }

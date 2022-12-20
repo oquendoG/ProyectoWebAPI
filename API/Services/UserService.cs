@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 namespace API.Services;
 
@@ -52,7 +53,7 @@ public class UserService : IUserService
                 unitOfWork.Usuarios.Add(usuario);
                 await unitOfWork.SaveAsync();
 
-                return $"El usuario  {registerDto.Username } ha sido registrado exitosamente";
+                return $"El usuario  {registerDto.Username} ha sido registrado exitosamente";
             }
             catch (Exception ex)
             {
@@ -62,10 +63,9 @@ public class UserService : IUserService
         }
         else
         {
-            return $"El usuario con {registerDto.Username } ya se encuentra registrado.";
+            return $"El usuario con {registerDto.Username} ya se encuentra registrado.";
         }
     }
-
 
     public async Task<DatosUsuarioDto> GetTokenAsync(LoginDTO model)
     {
@@ -90,15 +90,36 @@ public class UserService : IUserService
             JwtSecurityToken jwtSecurityToken = CreateJwtToken(usuario);
             datosUsuarioDto.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
             datosUsuarioDto.Email = usuario.Email;
-            datosUsuarioDto.UserName = usuario.UserName;
+            datosUsuarioDto.Username = usuario.UserName;
             datosUsuarioDto.Roles = usuario.Roles
                                             .Select(u => u.Nombre)
                                             .ToList();
+            await AssingRefreshToken(datosUsuarioDto, usuario);
             return datosUsuarioDto;
         }
         datosUsuarioDto.EstaAutenticado = false;
         datosUsuarioDto.Mensaje = $"Credenciales incorrectas para el usuario {usuario.UserName}.";
         return datosUsuarioDto;
+    }
+
+    private async Task AssingRefreshToken(DatosUsuarioDto datosUsuarioDto, Usuario usuario)
+    {
+        if (usuario.RefreshTokens.Any(rt => rt.IsActive))
+        {
+            RefreshToken activeRefreshToken =
+                usuario.RefreshTokens.Where(rt => rt.IsActive).FirstOrDefault();
+            datosUsuarioDto.RefreshToken = activeRefreshToken.Token;
+            datosUsuarioDto.RefreshTokenExpiration = activeRefreshToken.Expires;
+        }
+        else
+        {
+            var refreshToken = CreateRefreshToken();
+            datosUsuarioDto.RefreshToken = refreshToken.Token;
+            datosUsuarioDto.RefreshTokenExpiration = refreshToken.Expires;
+            usuario.RefreshTokens.Add(refreshToken);
+            unitOfWork.Usuarios.Update(usuario);
+            await unitOfWork.SaveAsync();
+        }
     }
 
     public async Task<string> AddRoleAsync(AddRoleDto model)
@@ -143,6 +164,19 @@ public class UserService : IUserService
         return $"Rol {model.Role} agregado a la cuenta {model.Username} de forma exitosa.";
     }
 
+    private RefreshToken CreateRefreshToken()
+    {
+        var randomNumber = new byte[32];
+        using var generator = RandomNumberGenerator.Create();
+        generator.GetBytes(randomNumber);
+        return new RefreshToken
+        {
+            Token = Convert.ToBase64String(randomNumber),
+            Expires = DateTime.UtcNow.AddDays(10),
+            Created = DateTime.UtcNow
+        };
+    }
+
     private JwtSecurityToken CreateJwtToken(Usuario usuario)
     {
         ICollection<Rol> roles = usuario.Roles;
@@ -170,4 +204,45 @@ public class UserService : IUserService
         return jwtSecurityToken;
     }
 
+    public async Task<DatosUsuarioDto> RefreshTokenAsync(string refreshToken)
+    {
+        var datosUsuarioDto = new DatosUsuarioDto();
+        Usuario usuario = await unitOfWork.Usuarios
+                        .GetByRefreshTokenAsync(refreshToken);
+        if (usuario is null)
+        {
+            datosUsuarioDto.EstaAutenticado = false;
+            datosUsuarioDto.Mensaje = "El token no pertenece a ningún usuario.";
+            return datosUsuarioDto;
+        }
+
+        RefreshToken refreshTokenBd = usuario.RefreshTokens.Single(rt => rt.Token == refreshToken);
+        if (!refreshTokenBd.IsActive)
+        {
+            datosUsuarioDto.EstaAutenticado = false;
+            datosUsuarioDto.Mensaje = "El token no está activo.";
+            return datosUsuarioDto;
+        }
+
+        //Revocamos el Refresh Token actual y
+        refreshTokenBd.Revoked = DateTime.UtcNow;
+
+        //generamos un nuevo Refresh Token y lo guardamos en la Base de Datos
+        RefreshToken newRefreshToken = CreateRefreshToken();
+        usuario.RefreshTokens.Add(newRefreshToken);
+        unitOfWork.Usuarios.Update(usuario);
+        await unitOfWork.SaveAsync();
+
+        //Generamos un nuevo Json Web Token
+        datosUsuarioDto.EstaAutenticado = true;
+        JwtSecurityToken jwtSecurityToken = CreateJwtToken(usuario);
+        datosUsuarioDto.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
+        datosUsuarioDto.Email = usuario.Email;
+        datosUsuarioDto.Username = usuario.UserName;
+        datosUsuarioDto.Roles = usuario.Roles.Select(rol => rol.Nombre).ToList();
+        datosUsuarioDto.RefreshToken = newRefreshToken.Token;
+        datosUsuarioDto.RefreshTokenExpiration = newRefreshToken.Expires;
+        return datosUsuarioDto;
+
+    }
 }
