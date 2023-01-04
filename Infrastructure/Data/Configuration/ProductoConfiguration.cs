@@ -19,7 +19,7 @@ public class ProductoConfiguration : IEntityTypeConfiguration<Producto>
         builder.Property(p => p.Precio)
             .HasColumnType("decimal(18,2)");
 
-        //Una marca tiene muchos productos
+        //Un producto tiene una marca que tiene muchos productos
         builder.HasOne(p => p.Marca)
            .WithMany(m => m.Productos)
            .HasForeignKey(p => p.MarcaId);

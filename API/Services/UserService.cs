@@ -13,16 +13,16 @@ namespace API.Services;
 
 public class UserService : IUserService
 {
-    private readonly JWT jwt;
-    private readonly IUnitOfWork unitOfWork;
-    private readonly IPasswordHasher<Usuario> passwordHasher;
+    private readonly JWT _jwt;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly IPasswordHasher<Usuario> _passwordHasher;
 
     public UserService(IUnitOfWork unitOfWork, IOptions<JWT> jwt,
         IPasswordHasher<Usuario> passwordHasher)
     {
-        this.jwt = jwt.Value;
-        this.unitOfWork = unitOfWork;
-        this.passwordHasher = passwordHasher;
+        _jwt = jwt.Value;
+        _unitOfWork = unitOfWork;
+        _passwordHasher = passwordHasher;
     }
 
     public async Task<string> RegisterAsync(RegisterDTO registerDto)
@@ -36,22 +36,22 @@ public class UserService : IUserService
             UserName = registerDto.Username
         };
 
-        usuario.Password = passwordHasher.HashPassword(usuario, registerDto.Password);
+        usuario.Password = _passwordHasher.HashPassword(usuario, registerDto.Password);
 
-        Usuario usuarioExiste = unitOfWork.Usuarios
+        Usuario usuarioExiste = _unitOfWork.Usuarios
                                     .Find(u => u.UserName.ToLower() == registerDto.Username.ToLower())
                                     .FirstOrDefault();
 
         if (usuarioExiste == null)
         {
-            Rol rolPredeterminado = unitOfWork.Roles
+            Rol rolPredeterminado = _unitOfWork.Roles
                                     .Find(u => u.Nombre == Autorizacion.rol_predeterminado.ToString())
                                     .First();
             try
             {
                 usuario.Roles.Add(rolPredeterminado);
-                unitOfWork.Usuarios.Add(usuario);
-                await unitOfWork.SaveAsync();
+                _unitOfWork.Usuarios.Add(usuario);
+                await _unitOfWork.SaveAsync();
 
                 return $"El usuario  {registerDto.Username} ha sido registrado exitosamente";
             }
@@ -70,7 +70,7 @@ public class UserService : IUserService
     public async Task<DatosUsuarioDto> GetTokenAsync(LoginDTO model)
     {
         DatosUsuarioDto datosUsuarioDto = new();
-        Usuario usuario = await unitOfWork.Usuarios
+        Usuario usuario = await _unitOfWork.Usuarios
                     .GetByUsernameAsync(model.Username);
 
         if (usuario is null)
@@ -81,7 +81,7 @@ public class UserService : IUserService
         }
 
         PasswordVerificationResult resultado =
-            passwordHasher
+            _passwordHasher
             .VerifyHashedPassword(usuario, usuario.Password, model.Password);
 
         if (resultado == PasswordVerificationResult.Success)
@@ -117,15 +117,15 @@ public class UserService : IUserService
             datosUsuarioDto.RefreshToken = refreshToken.Token;
             datosUsuarioDto.RefreshTokenExpiration = refreshToken.Expires;
             usuario.RefreshTokens.Add(refreshToken);
-            unitOfWork.Usuarios.Update(usuario);
-            await unitOfWork.SaveAsync();
+            _unitOfWork.Usuarios.Update(usuario);
+            await _unitOfWork.SaveAsync();
         }
     }
 
     public async Task<string> AddRoleAsync(AddRoleDto model)
     {
 
-        Usuario usuario = await unitOfWork.Usuarios
+        Usuario usuario = await _unitOfWork.Usuarios
                     .GetByUsernameAsync(model.Username);
 
         if (usuario == null)
@@ -135,7 +135,7 @@ public class UserService : IUserService
 
 
         PasswordVerificationResult resultado =
-            passwordHasher
+            _passwordHasher
             .VerifyHashedPassword(usuario, usuario.Password, model.Password);
 
         if (resultado != PasswordVerificationResult.Success)
@@ -143,7 +143,7 @@ public class UserService : IUserService
             return $"Credenciales incorrectas para el usuario {usuario.UserName}.";
         }
 
-        Rol rolExiste = unitOfWork.Roles
+        Rol rolExiste = _unitOfWork.Roles
                         .Find(rol => rol.Nombre.ToLower() == model.Role.ToLower())
                         .FirstOrDefault();
 
@@ -157,8 +157,8 @@ public class UserService : IUserService
         if (usuarioTieneRol is false)
         {
             usuario.Roles.Add(rolExiste);
-            unitOfWork.Usuarios.Update(usuario);
-            await unitOfWork.SaveAsync();
+            _unitOfWork.Usuarios.Update(usuario);
+            await _unitOfWork.SaveAsync();
         }
 
         return $"Rol {model.Role} agregado a la cuenta {model.Username} de forma exitosa.";
@@ -193,13 +193,13 @@ public class UserService : IUserService
             new Claim("uid", usuario.Id.ToString())
         }
         .Union(roleClaims);
-        var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt.Key));
+        var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwt.Key));
         var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
         var jwtSecurityToken = new JwtSecurityToken(
-            issuer: jwt.Issuer,
-            audience: jwt.Audience,
+            issuer: _jwt.Issuer,
+            audience: _jwt.Audience,
             claims: claims,
-            expires: DateTime.UtcNow.AddMinutes(jwt.DurationInMinutes),
+            expires: DateTime.UtcNow.AddMinutes(_jwt.DurationInMinutes),
             signingCredentials: signingCredentials);
         return jwtSecurityToken;
     }
@@ -207,7 +207,7 @@ public class UserService : IUserService
     public async Task<DatosUsuarioDto> RefreshTokenAsync(string refreshToken)
     {
         var datosUsuarioDto = new DatosUsuarioDto();
-        Usuario usuario = await unitOfWork.Usuarios
+        Usuario usuario = await _unitOfWork.Usuarios
                         .GetByRefreshTokenAsync(refreshToken);
         if (usuario is null)
         {
@@ -230,8 +230,8 @@ public class UserService : IUserService
         //generamos un nuevo Refresh Token y lo guardamos en la Base de Datos
         RefreshToken newRefreshToken = CreateRefreshToken();
         usuario.RefreshTokens.Add(newRefreshToken);
-        unitOfWork.Usuarios.Update(usuario);
-        await unitOfWork.SaveAsync();
+        _unitOfWork.Usuarios.Update(usuario);
+        await _unitOfWork.SaveAsync();
 
         //Generamos un nuevo Json Web Token
         datosUsuarioDto.EstaAutenticado = true;

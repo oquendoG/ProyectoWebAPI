@@ -9,5 +9,4 @@ public class Producto : BaseEntity
     public Marca Marca { get; set; }
     public int CategoriaId { get; set; }
     public Categoria Categoria { get; set; }
-
 }

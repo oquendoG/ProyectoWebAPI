@@ -13,7 +13,7 @@ public class TiendaContextSeed
     {
         try
         {
-            var ruta = Path.GetDirectoryName(Assembly.GetExecutingAssembly()
+            string ruta = Path.GetDirectoryName(Assembly.GetExecutingAssembly()
             .Location);
 
             if(!context.Marcas.Any()){
@@ -23,7 +23,7 @@ public class TiendaContextSeed
                 using var csvMarcas = new CsvReader(readerMarcas, CultureInfo
                 .InvariantCulture);
 
-                var marcas = csvMarcas.GetRecords<Marca>();
+                IEnumerable<Marca> marcas = csvMarcas.GetRecords<Marca>();
                 context.Marcas.AddRange(marcas);
                 await context.SaveChangesAsync();
             }
@@ -32,9 +32,9 @@ public class TiendaContextSeed
 
                 using var readerCategorias = new StreamReader(ruta+"/Data/CSVS/categorias.csv");
 
-                using var csvcategorias = new CsvReader(readerCategorias, CultureInfo.InvariantCulture);
+                using var csvCategorias = new CsvReader(readerCategorias, CultureInfo.InvariantCulture);
 
-                var categorias = csvcategorias.GetRecords<Categoria>();
+                IEnumerable<Categoria> categorias = csvCategorias.GetRecords<Categoria>();
                 context.Categorias.AddRange(categorias);
                 await context.SaveChangesAsync();
             }
@@ -45,17 +45,18 @@ public class TiendaContextSeed
 
                 using var csvProductos = new CsvReader(readerProductos, CultureInfo.InvariantCulture);
 
-                var ListaproductosCsv = csvProductos.GetRecords<Producto>();
+                IEnumerable<Producto> ListaproductosCsv = csvProductos.GetRecords<Producto>();
 
                 List<Producto> productos = new();
                 foreach(var item in ListaproductosCsv){
-                    productos.Add(new Producto{
-                        Id = item.Id,
-                        Nombre = item.Nombre,
-                        Precio = item.Precio,
-                        FechaCreacion = item.FechaCreacion,
-                        CategoriaId = item.CategoriaId,
-                        MarcaId = item.MarcaId
+                    productos.Add(
+                        new Producto{
+                            Id = item.Id,
+                            Nombre = item.Nombre,
+                            Precio = item.Precio,
+                            FechaCreacion = item.FechaCreacion,
+                            CategoriaId = item.CategoriaId,
+                            MarcaId = item.MarcaId
                     });
                 }
                 context.Productos.AddRange(productos);
@@ -65,7 +66,7 @@ public class TiendaContextSeed
         }
         catch (Exception ex)
         {
-            var logger = loggerFactory.CreateLogger<TiendaContextSeed>();
+            ILogger<TiendaContextSeed> logger = loggerFactory.CreateLogger<TiendaContextSeed>();
             logger.LogError(ex.Message);
         }
     }

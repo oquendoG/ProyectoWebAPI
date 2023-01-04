@@ -4,19 +4,21 @@ using API.Extensions;
 using System.Reflection;
 using AspNetCoreRateLimit;
 
-var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddAutoMapper(Assembly.GetEntryAssembly());
-builder.Services.ConfigureRateLimiting();
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddAutoMapper(Assembly.GetEntryAssembly());
+builder.Services.ConfigureRateLimiting();
 builder.Services.ConfigureCors();
+
 builder.Services.AddControllers(options =>
 {
     options.RespectBrowserAcceptHeader = true;
     options.ReturnHttpNotAcceptable = true;
 
 }).AddXmlSerializerFormatters();
+
+//agregamos los métodos de extensión
 builder.Services.AddAplicacionServices();
 builder.Services.ConfigureApiVersioning();
 builder.Services.AddJwt(builder.Configuration);

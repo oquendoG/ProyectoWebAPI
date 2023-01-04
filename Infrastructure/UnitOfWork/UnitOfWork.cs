@@ -7,28 +7,28 @@ using Microsoft.EntityFrameworkCore;
 namespace Infrastructure.UnitOfWork;
 public class UnitOfWork : IUnitOfWork, IDisposable
 {
-    private readonly TiendaContext context;
-    private IProductoRepository productos;
-    private IMarcaRepository marcas;
-    private ICategoriaRepository categorias;
-    private IUsuarioRepository usuarios;
-    private IRolRepository roles;
+    private readonly TiendaContext _context;
+    private IProductoRepository _productos;
+    private IMarcaRepository _marcas;
+    private ICategoriaRepository _categorias;
+    private IUsuarioRepository _usuarios;
+    private IRolRepository _roles;
 
     public UnitOfWork(TiendaContext context)
     {
-        this.context = context;
+        _context = context;
     }
 
     public IProductoRepository Productos
     {
         get
         {
-            if (productos is null)
+            if (_productos is null)
             {
-                productos = new ProductoRepository(context);
+                _productos = new ProductoRepository(_context);
             }
 
-            return productos;
+            return _productos;
         }
     }
 
@@ -36,12 +36,12 @@ public class UnitOfWork : IUnitOfWork, IDisposable
     {
         get
         {
-            if (marcas is null)
+            if (_marcas is null)
             {
-                marcas = new MarcaRepository(context);
+                _marcas = new MarcaRepository(_context);
             }
 
-            return marcas;
+            return _marcas;
         }
     }
 
@@ -49,12 +49,12 @@ public class UnitOfWork : IUnitOfWork, IDisposable
     {
         get
         {
-            if (categorias is null)
+            if (_categorias is null)
             {
-                categorias = new CategoriaRepository(context);
+                _categorias = new CategoriaRepository(_context);
             }
 
-            return categorias;
+            return _categorias;
         }
     }
 
@@ -62,11 +62,11 @@ public class UnitOfWork : IUnitOfWork, IDisposable
     {
         get
         {
-            if (roles == null)
+            if (_roles == null)
             {
-                roles = new RolRepository(context);
+                _roles = new RolRepository(_context);
             }
-            return roles;
+            return _roles;
         }
     }
 
@@ -74,21 +74,21 @@ public class UnitOfWork : IUnitOfWork, IDisposable
     {
         get
         {
-            if (usuarios == null)
+            if (_usuarios == null)
             {
-                usuarios = new UsuarioRepository(context);
+                _usuarios = new UsuarioRepository(_context);
             }
-            return usuarios;
+            return _usuarios;
         }
     }
 
     public async Task<int> SaveAsync()
     {
-        return await context.SaveChangesAsync();
+        return await _context.SaveChangesAsync();
     }
 
     public void Dispose()
     {
-        context.Dispose();
+        _context.Dispose();
     }
 }

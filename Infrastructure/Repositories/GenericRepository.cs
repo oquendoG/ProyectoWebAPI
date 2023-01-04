@@ -7,38 +7,38 @@ using System.Linq.Expressions;
 namespace Infrastructure.Repositories;
 public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
 {
-    protected readonly TiendaContext context;
+    protected readonly TiendaContext _context;
 
     public GenericRepository(TiendaContext context)
     {
-        this.context = context;
+        _context = context;
     }
 
     public void Add(T entity)
     {
-        context.Set<T>().Add(entity);
+        _context.Set<T>().Add(entity);
     }
 
     public void AddRange(IEnumerable<T> entities)
     {
-        context.Set<T>().AddRange(entities);
+        _context.Set<T>().AddRange(entities);
     }
 
     public IEnumerable<T> Find(Expression<Func<T, bool>> expression)
     {
-        return context.Set<T>().Where(expression);
+        return _context.Set<T>().Where(expression);
     }
 
     public virtual async Task<IEnumerable<T>> GetAllAsync()
     {
-        return await context.Set<T>().ToListAsync();
+        return await _context.Set<T>().ToListAsync();
     }
 
     public virtual async Task<(int totalRegistros, IEnumerable<T> registros)>
         GetAllAsync(int pageIndex, int pageSize, string search)
     {
-        int totalRegistros = await context.Set<T>().CountAsync();
-        List<T> registros = await context.Set<T>()
+        int totalRegistros = await _context.Set<T>().CountAsync();
+        List<T> registros = await _context.Set<T>()
             .Skip((pageIndex - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();
@@ -48,21 +48,21 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
 
     public virtual async Task<T> GetByIdAsync(int id)
     {
-        return await context.Set<T>().FindAsync(id);
+        return await _context.Set<T>().FindAsync(id);
     }
 
     public void Remove(T entity)
     {
-        context.Set<T>().Remove(entity);
+        _context.Set<T>().Remove(entity);
     }
 
     public void RemoveRange(IEnumerable<T> entities)
     {
-        context.Set<T>().RemoveRange(entities);
+        _context.Set<T>().RemoveRange(entities);
     }
 
     public void Update(T entity)
     {
-        context.Set<T>().Update(entity);
+        _context.Set<T>().Update(entity);
     }
 }

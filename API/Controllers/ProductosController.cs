@@ -13,13 +13,13 @@ namespace API.Controllers;
 [Authorize(Roles = "Administrador")]
 public class ProductosController : BaseApiController
 {
-	private readonly IUnitOfWork unitOfWork;
-	private readonly IMapper mapper;
+	private readonly IUnitOfWork _unitOfWork;
+	private readonly IMapper _mapper;
 
 	public ProductosController(IUnitOfWork unitOfWork, IMapper mapper)
 	{
-		this.unitOfWork = unitOfWork;
-		this.mapper = mapper;
+		_unitOfWork = unitOfWork;
+		_mapper = mapper;
 	}
 
 	[HttpGet]
@@ -30,11 +30,11 @@ public class ProductosController : BaseApiController
 	public async Task<ActionResult<Pager<ProductoListDTO>>> Get([FromQuery] Params productParams)
 	{
 		(int totalRegistros, IEnumerable<Producto> registros) resultado =
-			await unitOfWork.Productos
+			await _unitOfWork.Productos
 			.GetAllAsync(productParams.PageIndex, productParams.PageSize, productParams.Search);
 
 		List<ProductoListDTO> listaProductosDTO =
-			mapper.Map<List<ProductoListDTO>>(resultado.registros);
+			_mapper.Map<List<ProductoListDTO>>(resultado.registros);
 
 		Response.Headers.Add("X-InlineCount", resultado.totalRegistros.ToString());
 
@@ -49,13 +49,13 @@ public class ProductosController : BaseApiController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<IEnumerable<ProductoDTO>>> Get11()
     {
-        IEnumerable<Producto> productos = await unitOfWork.Productos.GetAllAsync();
+        IEnumerable<Producto> productos = await _unitOfWork.Productos.GetAllAsync();
         if (productos is null)
         {
             return NotFound();
         }
 
-        return mapper.Map<List<ProductoDTO>>(productos);
+        return _mapper.Map<List<ProductoDTO>>(productos);
     }
 
     [HttpGet("{id}")]
@@ -64,13 +64,13 @@ public class ProductosController : BaseApiController
 	[ProducesResponseType(StatusCodes.Status400BadRequest)]
 	public async Task<ActionResult<ProductoDTO>> Get(int id)
 	{
-		Producto producto = await unitOfWork.Productos.GetByIdAsync(id);
+		Producto producto = await _unitOfWork.Productos.GetByIdAsync(id);
 		if (producto is null)
 		{
 			return NotFound();
 		}
 
-		return mapper.Map<ProductoDTO>(producto);
+		return _mapper.Map<ProductoDTO>(producto);
 	}
 
 	[HttpPost]
@@ -78,10 +78,10 @@ public class ProductosController : BaseApiController
 	[ProducesResponseType(StatusCodes.Status400BadRequest)]
 	public async Task<ActionResult<Producto>> Post(ProductoAddUpdateDTO productoDTO)
 	{
-		Producto producto = mapper.Map<Producto>(productoDTO);
+		Producto producto = _mapper.Map<Producto>(productoDTO);
 
-		unitOfWork.Productos.Add(producto);
-		await unitOfWork.SaveAsync();
+		_unitOfWork.Productos.Add(producto);
+		await _unitOfWork.SaveAsync();
 		if (producto is null)
 		{
 			return BadRequest();
@@ -103,9 +103,9 @@ public class ProductosController : BaseApiController
 			return NotFound();
 		}
 
-        Producto producto = mapper.Map<Producto>(productoDTO);
-		unitOfWork.Productos.Update(producto);
-		await unitOfWork.SaveAsync();
+        Producto producto = _mapper.Map<Producto>(productoDTO);
+		_unitOfWork.Productos.Update(producto);
+		await _unitOfWork.SaveAsync();
 
 		return productoDTO;
 	}
@@ -115,12 +115,12 @@ public class ProductosController : BaseApiController
 	[ProducesResponseType(StatusCodes.Status204NoContent)]
 	public async Task<IActionResult> Delete(int id)
 	{
-		Producto producto = await unitOfWork.Productos.GetByIdAsync(id);
+		Producto producto = await _unitOfWork.Productos.GetByIdAsync(id);
 		if (producto is null)
 			return NotFound();
 
-		unitOfWork.Productos.Remove(producto);
-		await unitOfWork.SaveAsync();
+		_unitOfWork.Productos.Remove(producto);
+		await _unitOfWork.SaveAsync();
 
 		return NoContent();
 	}

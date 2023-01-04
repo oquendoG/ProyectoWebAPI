@@ -14,7 +14,7 @@ public class ProductoRepository : GenericRepository<Producto>,
 
 	public async Task<IEnumerable<Producto>> GetProductosMasCaros(int cantidad)
 	{
-		return await context.Productos
+		return await _context.Productos
 		.OrderByDescending(p => p.Precio)
 		.Take(cantidad)
 		.ToListAsync();
@@ -22,7 +22,7 @@ public class ProductoRepository : GenericRepository<Producto>,
 
 	public override async Task<Producto> GetByIdAsync(int id)
 	{
-		return await context.Productos
+		return await _context.Productos
 			.Include(p => p.Marca)
 			.Include(p => p.Categoria)
 			.FirstOrDefaultAsync(p => p.Id == id);
@@ -30,7 +30,7 @@ public class ProductoRepository : GenericRepository<Producto>,
 
     public override async Task<IEnumerable<Producto>> GetAllAsync()
     {
-		return await context.Productos
+		return await _context.Productos
 			.Include(p => p.Marca)
 			.Include(p => p.Categoria)
 			.ToListAsync();
@@ -39,7 +39,7 @@ public class ProductoRepository : GenericRepository<Producto>,
 	public override async Task<(int totalRegistros, IEnumerable<Producto> registros)>
 		GetAllAsync(int pageIndex, int pageSize, string search)
 	{
-		IQueryable<Producto> consulta = context.Productos;
+		IQueryable<Producto> consulta = _context.Productos;
 		if (!String.IsNullOrEmpty(search))
 		{
 			consulta = consulta.Where(p => p.Nombre.ToLower().Contains(search));
