@@ -31,7 +31,7 @@ public class ProductosController : BaseApiController
 	{
 		(int totalRegistros, IEnumerable<Producto> registros) resultado =
 			await _unitOfWork.Productos
-			.GetAllAsync(productParams.PageIndex, productParams.PageSize, productParams.Search);
+					.GetAllAsync(productParams.PageIndex, productParams.PageSize, productParams.Search);
 
 		List<ProductoListDTO> listaProductosDTO =
 			_mapper.Map<List<ProductoListDTO>>(resultado.registros);
@@ -88,7 +88,7 @@ public class ProductosController : BaseApiController
 		}
 
 		productoDTO.Id = producto.Id;
-		return CreatedAtAction(nameof(Post), new { id = productoDTO.Id, productoDTO });
+		return CreatedAtAction(nameof(Post), new { id = productoDTO.Id }, productoDTO);
 	}
 
 	[HttpPut("{id}")]
@@ -96,7 +96,7 @@ public class ProductosController : BaseApiController
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<ProductoAddUpdateDTO>>
-		Put(int id, [FromBody]ProductoAddUpdateDTO productoDTO)
+							Put(int id, [FromBody]ProductoAddUpdateDTO productoDTO)
 	{
         if (productoDTO is null)
 		{
@@ -117,9 +117,11 @@ public class ProductosController : BaseApiController
 	{
 		Producto producto = await _unitOfWork.Productos.GetByIdAsync(id);
 		if (producto is null)
-			return NotFound();
+        {
+            return NotFound();
+        }
 
-		_unitOfWork.Productos.Remove(producto);
+        _unitOfWork.Productos.Remove(producto);
 		await _unitOfWork.SaveAsync();
 
 		return NoContent();

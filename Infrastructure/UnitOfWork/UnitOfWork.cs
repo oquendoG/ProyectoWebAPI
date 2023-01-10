@@ -2,7 +2,6 @@
 using CORE.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
-using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.UnitOfWork;
 public class UnitOfWork : IUnitOfWork, IDisposable

@@ -15,25 +15,25 @@ public class ProductoRepository : GenericRepository<Producto>,
 	public async Task<IEnumerable<Producto>> GetProductosMasCaros(int cantidad)
 	{
 		return await _context.Productos
-		.OrderByDescending(p => p.Precio)
-		.Take(cantidad)
-		.ToListAsync();
+								.OrderByDescending(p => p.Precio)
+								.Take(cantidad)
+								.ToListAsync();
 	}
 
 	public override async Task<Producto> GetByIdAsync(int id)
 	{
 		return await _context.Productos
-			.Include(p => p.Marca)
-			.Include(p => p.Categoria)
-			.FirstOrDefaultAsync(p => p.Id == id);
+								.Include(p => p.Marca)
+								.Include(p => p.Categoria)
+								.FirstOrDefaultAsync(p => p.Id == id);
 	}
 
     public override async Task<IEnumerable<Producto>> GetAllAsync()
     {
 		return await _context.Productos
-			.Include(p => p.Marca)
-			.Include(p => p.Categoria)
-			.ToListAsync();
+								.Include(p => p.Marca)
+								.Include(p => p.Categoria)
+								.ToListAsync();
     }
 
 	public override async Task<(int totalRegistros, IEnumerable<Producto> registros)>
@@ -48,11 +48,11 @@ public class ProductoRepository : GenericRepository<Producto>,
 		int totalRegistros = await consulta.CountAsync();
 
 		List<Producto> registros = await consulta
-			.Include(p => p.Marca)
-			.Include(p => p.Categoria)
-			.Skip((pageIndex - 1) * pageSize)
-			.Take(pageSize)
-			.ToListAsync();
+											.Include(p => p.Marca)
+											.Include(p => p.Categoria)
+											.Skip((pageIndex - 1) * pageSize)
+											.Take(pageSize)
+											.ToListAsync();
 
 		return (totalRegistros, registros);
 	}

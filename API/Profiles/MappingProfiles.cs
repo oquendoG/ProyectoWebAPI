@@ -17,13 +17,12 @@ public class MappingProfiles : Profile
 			.ForMember(destino => destino.Categoria,
 				origen => origen.MapFrom(origen => origen.Categoria.Nombre))
 			.ReverseMap()
-            .ForMember(origen => origen.Categoria, destino => destino.Ignore())
-            .ForMember(origen => origen.Marca, destino => destino.Ignore());
+            .ForMember(destino => destino.Categoria, origen => origen.Ignore())
+            .ForMember(destino => destino.Marca, origen => origen.Ignore());
 
 		CreateMap<Producto, ProductoAddUpdateDTO>()
 			.ReverseMap()
             .ForMember(origen => origen.Categoria, destino => destino.Ignore())
             .ForMember(origen => origen.Marca, destino => destino.Ignore());
-
 	}
 }
