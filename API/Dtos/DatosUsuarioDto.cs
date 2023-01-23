@@ -3,6 +3,10 @@ using System.Text.Json.Serialization;
 
 namespace API.Dtos;
 
+/// <summary>
+/// Esta clase contiene los valores que se van a devolver cuando
+/// se cree el token de autenticación
+/// </summary>
 public class DatosUsuarioDto
 {
     public string Mensaje { get; set; }

@@ -86,11 +86,11 @@ public static class ApplicationServiceExtensions
             options.DefaultChallengeScheme =
                     JwtBearerDefaults.AuthenticationScheme;
         })
-        .AddJwtBearer(jwtbo =>
+        .AddJwtBearer(options =>
         {
-            jwtbo.RequireHttpsMetadata = false;
-            jwtbo.SaveToken = false;
-            jwtbo.TokenValidationParameters = new TokenValidationParameters
+            options.RequireHttpsMetadata = false;
+            options.SaveToken = false;
+            options.TokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
                 ValidateIssuer = true,

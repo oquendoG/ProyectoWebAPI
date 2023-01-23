@@ -18,13 +18,18 @@ public class UserService : IUserService
     private readonly IPasswordHasher<Usuario> _passwordHasher;
 
     public UserService(IUnitOfWork unitOfWork, IOptions<JWT> jwt,
-        IPasswordHasher<Usuario> passwordHasher)
+                                               IPasswordHasher<Usuario> passwordHasher)
     {
         _jwt = jwt.Value;
         _unitOfWork = unitOfWork;
         _passwordHasher = passwordHasher;
     }
 
+    /// <summary>
+    /// Método que permite agregar un nuevo usuario a la aplicación web con un rol por defecto
+    /// </summary>
+    /// <param name="registerDto">Recive todos los datos del usuraio</param>
+    /// <returns>Un mensaje de error o de exito si el registro fue o no correcto</returns>
     public async Task<string> RegisterAsync(RegisterDTO registerDto)
     {
         var usuario = new Usuario
@@ -38,22 +43,22 @@ public class UserService : IUserService
 
         usuario.Password = _passwordHasher.HashPassword(usuario, registerDto.Password);
 
-        Usuario usuarioExiste = _unitOfWork.Usuarios
-                                    .Find(u => u.UserName.ToLower() == registerDto.Username.ToLower())
-                                    .FirstOrDefault();
+        Usuario usuarioDB = _unitOfWork.Usuarios
+                    .Find(user => user.UserName.ToLower() == registerDto.Username.ToLower())
+                    .FirstOrDefault();
 
-        if (usuarioExiste == null)
+        if (usuarioDB is null)
         {
             Rol rolPredeterminado = _unitOfWork.Roles
-                                    .Find(u => u.Nombre == Autorizacion.rol_predeterminado.ToString())
-                                    .First();
+                                    .Find(rol => rol.Nombre == Autorizacion.rol_predeterminado.ToString())
+                                    .FirstOrDefault();
             try
             {
                 usuario.Roles.Add(rolPredeterminado);
                 _unitOfWork.Usuarios.Add(usuario);
                 await _unitOfWork.SaveAsync();
 
-                return $"El usuario  {registerDto.Username} ha sido registrado exitosamente";
+                return $"El usuario {registerDto.Username} ha sido registrado exitosamente";
             }
             catch (Exception ex)
             {
@@ -67,39 +72,80 @@ public class UserService : IUserService
         }
     }
 
+    /// <summary>
+    /// Logea al usuario y genera un token (JWT)
+    /// </summary>
+    /// <param name="model">Recibe los datos de inicio de sesión del usuario por medio de un dto</param>
+    /// <returns></returns>
     public async Task<DatosUsuarioDto> GetTokenAsync(LoginDTO model)
     {
+        //Esta clase lleva los datos que se incluyen en el web token
         DatosUsuarioDto datosUsuarioDto = new();
-        Usuario usuario = await _unitOfWork.Usuarios
-                    .GetByUsernameAsync(model.Username);
-
-        if (usuario is null)
+        Usuario usuarioDB = await _unitOfWork.Usuarios
+                                        .GetByUsernameAsync(model.Username);
+        if (usuarioDB is null)
         {
             datosUsuarioDto.EstaAutenticado = false;
             datosUsuarioDto.Mensaje = $"No existe ningún usuario con el username {model.Username}.";
             return datosUsuarioDto;
         }
 
+        //Validamos contraseña
         PasswordVerificationResult resultado =
-            _passwordHasher
-            .VerifyHashedPassword(usuario, usuario.Password, model.Password);
+                            _passwordHasher
+                            .VerifyHashedPassword(usuarioDB, usuarioDB.Password, model.Password);
 
         if (resultado == PasswordVerificationResult.Success)
         {
             datosUsuarioDto.EstaAutenticado = true;
-            JwtSecurityToken jwtSecurityToken = CreateJwtToken(usuario);
+            JwtSecurityToken jwtSecurityToken = CreateJwtToken(usuarioDB);
             datosUsuarioDto.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
-            datosUsuarioDto.Email = usuario.Email;
-            datosUsuarioDto.Username = usuario.UserName;
-            datosUsuarioDto.Roles = usuario.Roles
-                                            .Select(u => u.Nombre)
+            datosUsuarioDto.Email = usuarioDB.Email;
+            datosUsuarioDto.Username = usuarioDB.UserName;
+            datosUsuarioDto.Roles = usuarioDB.Roles
+                                            .Select(rol => rol.Nombre)
                                             .ToList();
-            await AssingRefreshToken(datosUsuarioDto, usuario);
+            await AssingRefreshToken(datosUsuarioDto, usuarioDB);
             return datosUsuarioDto;
         }
         datosUsuarioDto.EstaAutenticado = false;
-        datosUsuarioDto.Mensaje = $"Credenciales incorrectas para el usuario {usuario.UserName}.";
+        datosUsuarioDto.Mensaje = $"Credenciales incorrectas para el usuario {usuarioDB.UserName}.";
         return datosUsuarioDto;
+    }
+
+    private JwtSecurityToken CreateJwtToken(Usuario usuario)
+    {
+        ICollection<Rol> roles = usuario.Roles;
+
+        List<Claim> roleClaims = new();
+        foreach (var role in roles)
+        {
+            roleClaims.Add(new Claim("roles", role.Nombre));
+        }
+
+        IEnumerable<Claim> claims = new[]
+        {
+            //Este es el id del jwt
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+
+            //Identifica al sujeto de quien es el jwt
+            new Claim(JwtRegisteredClaimNames.Sub, usuario.UserName),
+
+            new Claim(JwtRegisteredClaimNames.Email, usuario.Email),
+            new Claim("uid", usuario.Id.ToString())
+        }
+        .Union(roleClaims);
+
+        //Esta clase genera la firma del token y genera las credenciales de inicio de sesión
+        var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwt.Key));
+        var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
+        var jwtSecurityToken = new JwtSecurityToken(
+            issuer: _jwt.Issuer,
+            audience: _jwt.Audience,
+            claims: claims,
+            expires: DateTime.UtcNow.AddMinutes(_jwt.DurationInMinutes),
+            signingCredentials: signingCredentials);
+        return jwtSecurityToken;
     }
 
     private async Task AssingRefreshToken(DatosUsuarioDto datosUsuarioDto, Usuario usuario)
@@ -125,43 +171,42 @@ public class UserService : IUserService
     public async Task<string> AddRoleAsync(AddRoleDto model)
     {
 
-        Usuario usuario = await _unitOfWork.Usuarios
-                    .GetByUsernameAsync(model.Username);
+        Usuario usuario = await _unitOfWork.Usuarios.GetByUsernameAsync(model.Username);
 
         if (usuario == null)
         {
             return $"No existe algún usuario registrado con la cuenta {model.Username}.";
         }
 
-
         PasswordVerificationResult resultado =
-            _passwordHasher
-            .VerifyHashedPassword(usuario, usuario.Password, model.Password);
+                            _passwordHasher
+                            .VerifyHashedPassword(usuario, usuario.Password, model.Password);
 
         if (resultado != PasswordVerificationResult.Success)
         {
             return $"Credenciales incorrectas para el usuario {usuario.UserName}.";
         }
 
-        Rol rolExiste = _unitOfWork.Roles
-                        .Find(rol => rol.Nombre.ToLower() == model.Role.ToLower())
-                        .FirstOrDefault();
+        Rol rolExisteEnBd = _unitOfWork.Roles
+                                .Find(rol => rol.Nombre.ToLower() == model.Role.ToLower())
+                                .FirstOrDefault();
 
-        if (rolExiste is null)
+        if (rolExisteEnBd is null)
         {
             return $"Rol {model.Role} no encontrado.";
         }
 
-        bool usuarioTieneRol = usuario.Roles.Any(rol => rol.Id == rolExiste.Id);
+        bool usuarioTieneRol = usuario.Roles.Any(rol => rol.Id == rolExisteEnBd.Id);
 
         if (usuarioTieneRol is false)
         {
-            usuario.Roles.Add(rolExiste);
+            usuario.Roles.Add(rolExisteEnBd);
             _unitOfWork.Usuarios.Update(usuario);
             await _unitOfWork.SaveAsync();
+            return $"Rol {model.Role} agregado a la cuenta {model.Username} de forma exitosa.";
         }
 
-        return $"Rol {model.Role} agregado a la cuenta {model.Username} de forma exitosa.";
+        return $" El usuario ya tiene el Rol {model.Role} asignado";
     }
 
     private RefreshToken CreateRefreshToken()
@@ -175,33 +220,6 @@ public class UserService : IUserService
             Expires = DateTime.UtcNow.AddDays(10),
             Created = DateTime.UtcNow
         };
-    }
-
-    private JwtSecurityToken CreateJwtToken(Usuario usuario)
-    {
-        ICollection<Rol> roles = usuario.Roles;
-        var roleClaims = new List<Claim>();
-        foreach (var role in roles)
-        {
-            roleClaims.Add(new Claim("roles", role.Nombre));
-        }
-        IEnumerable<Claim> claims = new[]
-        {
-            new Claim(JwtRegisteredClaimNames.Sub, usuario.UserName),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new Claim(JwtRegisteredClaimNames.Email, usuario.Email),
-            new Claim("uid", usuario.Id.ToString())
-        }
-        .Union(roleClaims);
-        var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwt.Key));
-        var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
-        var jwtSecurityToken = new JwtSecurityToken(
-            issuer: _jwt.Issuer,
-            audience: _jwt.Audience,
-            claims: claims,
-            expires: DateTime.UtcNow.AddMinutes(_jwt.DurationInMinutes),
-            signingCredentials: signingCredentials);
-        return jwtSecurityToken;
     }
 
     public async Task<DatosUsuarioDto> RefreshTokenAsync(string refreshToken)

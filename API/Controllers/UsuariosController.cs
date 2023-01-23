@@ -13,6 +13,12 @@ public class UsuariosController : BaseApiController
         _userService = userService;
     }
 
+    /// <summary>
+    /// Este método registra el nuevo usario usando el método de registro que está
+    /// en el servicio de usuarios
+    /// </summary>
+    /// <param name="model">Es un DTO que recibe los datos enviados por el usuario</param>
+    /// <returns>Un resultado de satisfacción al regidtrar el usuario</returns>
     [HttpPost("register")]
     public async Task<ActionResult> RegisterAsync(RegisterDTO model)
     {

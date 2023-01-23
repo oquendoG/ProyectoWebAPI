@@ -6,8 +6,17 @@ using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Data;
 
+/// <summary>
+/// Permite agregar información por defecto a la base de datos
+/// </summary>
 public class TiendaContextSeed
 {
+    /// <summary>
+    /// Este método agrega informaciónpor defecto a las tablas
+    /// </summary>
+    /// <param name="context">Este parámetro es la clase de contexto de EF</param>
+    /// <param name="loggerFactory">Este parámetro es para hacer logging</param>
+    /// <returns>Un tarea</returns>
     public static async Task SeedAsync(TiendaContext context,
     ILoggerFactory loggerFactory)
     {
@@ -71,6 +80,12 @@ public class TiendaContextSeed
         }
     }
 
+    /// <summary>
+    /// Este método agrega roles por defecto a la base de datos
+    /// </summary>
+    /// <param name="context">Este parámetro es la clase de contexto de EF</param>
+    /// <param name="loggerFactory">Este parámetro es para hacer logging</param>
+    /// <returns>una tarea</returns>
     public static async Task SeedRolesAsync(TiendaContext context, ILoggerFactory loggerFactory)
     {
         try

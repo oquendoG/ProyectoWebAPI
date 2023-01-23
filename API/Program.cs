@@ -15,7 +15,6 @@ builder.Services.AddControllers(options =>
 {
     options.RespectBrowserAcceptHeader = true;
     options.ReturnHttpNotAcceptable = true;
-
 }).AddXmlSerializerFormatters();
 
 //agregamos los métodos de extensión
@@ -33,7 +32,7 @@ builder.Services.AddDbContext<TiendaContext>(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 app.UseIpRateLimiting();
 
@@ -44,7 +43,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//ejecuta migraciones pendientes al iniciar la aplicación
+// Ejecuta migraciones pendientes al iniciar la aplicación
 using (IServiceScope scope = app.Services.CreateScope())
 {
     IServiceProvider services = scope.ServiceProvider;

@@ -14,16 +14,16 @@ public class UsuarioRepository : GenericRepository<Usuario>, IUsuarioRepository
     public async Task<Usuario> GetByUsernameAsync(string username)
     {
         return await _context.Usuarios
-                .Include(u=>u.Roles)
-                .Include(u=>u.RefreshTokens)
-                .FirstOrDefaultAsync(u=>u.UserName.ToLower()==username.ToLower());
+                        .Include(user=>user.Roles)
+                        .Include(user=>user.RefreshTokens)
+                        .FirstOrDefaultAsync(user=>user.UserName.ToLower()==username.ToLower());
     }
 
     public async Task<Usuario> GetByRefreshTokenAsync(string refreshToken)
     {
         return await _context.Usuarios
-                 .Include(u => u.Roles)
-                 .Include(u => u.RefreshTokens)
+                 .Include(user => user.Roles)
+                 .Include(user => user.RefreshTokens)
                  .FirstOrDefaultAsync(u => u.RefreshTokens.Any(rt => rt.Token==refreshToken));
     }
 }

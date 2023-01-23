@@ -22,19 +22,27 @@ public class ProductosController : BaseApiController
 		_mapper = mapper;
 	}
 
+	/// <summary>
+	/// Version 1 del método que devuelve todos los productos páginados y permite
+	/// buscar productos específicos
+	/// </summary>
+	/// <param name="productParams">Es una clase que permite enviar argumentos
+	/// al método para la paginación</param>
+	/// <returns>Pager<ProductoListDTO></returns>
 	[HttpGet]
 	[MapToApiVersion("1.0")]
 	[ProducesResponseType(StatusCodes.Status200OK)]
 	[ProducesResponseType(StatusCodes.Status404NotFound)]
 	[ProducesResponseType(StatusCodes.Status400BadRequest)]
-	public async Task<ActionResult<Pager<ProductoListDTO>>> Get([FromQuery] Params productParams)
+	public async Task<ActionResult<Pager<ProductoListDTO>>>
+											Get([FromQuery] Params productParams)
 	{
 		(int totalRegistros, IEnumerable<Producto> registros) resultado =
 			await _unitOfWork.Productos
 					.GetAllAsync(productParams.PageIndex, productParams.PageSize, productParams.Search);
 
 		List<ProductoListDTO> listaProductosDTO =
-			_mapper.Map<List<ProductoListDTO>>(resultado.registros);
+						_mapper.Map<List<ProductoListDTO>>(resultado.registros);
 
 		Response.Headers.Add("X-InlineCount", resultado.totalRegistros.ToString());
 
@@ -42,6 +50,10 @@ public class ProductosController : BaseApiController
             resultado.totalRegistros, listaProductosDTO, productParams.Search);
 	}
 
+	/// <summary>
+	/// Este método devuelve todos los productos de la base de datos sin paginar
+	/// </summary>
+	/// <returns>IEnumerable<ProductoDTO></returns>
     [HttpGet]
     [MapToApiVersion("1.1")]
     [ProducesResponseType(StatusCodes.Status200OK)]

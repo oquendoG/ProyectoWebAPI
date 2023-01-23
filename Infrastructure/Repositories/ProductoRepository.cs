@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
 public class ProductoRepository : GenericRepository<Producto>,
-    IProductoRepository
+													IProductoRepository
 {
 	public ProductoRepository(TiendaContext context) : base(context)
 	{
