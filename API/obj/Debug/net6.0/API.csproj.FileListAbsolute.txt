@@ -61,3 +61,13 @@ F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\Microsoft.IdentityModel.
 F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
 F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\Serilog.dll
+F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\Serilog.AspNetCore.dll
+F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\Serilog.Extensions.Hosting.dll
+F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\Serilog.Extensions.Logging.dll
+F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\Serilog.Formatting.Compact.dll
+F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\Serilog.Settings.Configuration.dll
+F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\Serilog.Sinks.Console.dll
+F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\Serilog.Sinks.Debug.dll
+F:\Proyectos .NET\Proyectos\Tienda\API\bin\Debug\net6.0\Serilog.Sinks.File.dll

@@ -1,7 +1,11 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace API.Dtos;
 public class ProductoAddUpdateDTO
 {
     public int Id { get; set; }
+
+    [Required(ErrorMessage = "El nombre es requerido")]
     public string Nombre { get; set; }
     public decimal Precio { get; set; }
     public DateTime FechaCreacion { get; set; }

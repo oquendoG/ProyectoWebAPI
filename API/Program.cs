@@ -3,8 +3,20 @@ using Infrastructure.Data;
 using API.Extensions;
 using System.Reflection;
 using AspNetCoreRateLimit;
+using Serilog;
+using Serilog.Core;
+using API.Helpers.Errors;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+//Configuramos serilog
+Logger logger = new LoggerConfiguration()
+                            .ReadFrom.Configuration(builder.Configuration)
+                            .Enrich.FromLogContext()
+                            .CreateLogger();
+
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
 
 // Add services to the container.
 builder.Services.AddAutoMapper(Assembly.GetEntryAssembly());
@@ -21,11 +33,12 @@ builder.Services.AddControllers(options =>
 builder.Services.AddAplicacionServices();
 builder.Services.ConfigureApiVersioning();
 builder.Services.AddJwt(builder.Configuration);
+builder.Services.AddValidtionErrors();
 
 builder.Services.AddDbContext<TiendaContext>(options =>
 {
     options.UseMySql(builder.Configuration.GetConnectionString("Conexion"),
-        new MySqlServerVersion(new Version(8, 0, 28)));
+                                             new MySqlServerVersion(new Version(8, 0, 28)));
 });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -33,6 +46,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 WebApplication app = builder.Build();
+
+//usamos mensajes personalizados para las exepciones
+app.UseMiddleware<ExceptionMiddleware>();
+app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
 app.UseIpRateLimiting();
 
@@ -57,8 +74,8 @@ using (IServiceScope scope = app.Services.CreateScope())
     }
     catch (Exception ex)
     {
-        ILogger logger = loggerFactory.CreateLogger<Program>();
-        logger.LogError(ex, "Ocurrió un error durante la migración");
+        ILogger<Program> _logger = loggerFactory.CreateLogger<Program>();
+        _logger.LogError(ex, "Ocurrió un error durante la migración");
     }
 }
 

@@ -108,11 +108,17 @@ public class UserService : IUserService
             await AssingRefreshToken(datosUsuarioDto, usuarioDB);
             return datosUsuarioDto;
         }
+
         datosUsuarioDto.EstaAutenticado = false;
         datosUsuarioDto.Mensaje = $"Credenciales incorrectas para el usuario {usuarioDB.UserName}.";
         return datosUsuarioDto;
     }
 
+    /// <summary>
+    /// Método usado para generar el JWT
+    /// </summary>
+    /// <param name="usuario">Recibe un objeto de Clase Core.Entities.Usuario</param>
+    /// <returns>El JWT</returns>
     private JwtSecurityToken CreateJwtToken(Usuario usuario)
     {
         ICollection<Rol> roles = usuario.Roles;
@@ -148,26 +154,37 @@ public class UserService : IUserService
         return jwtSecurityToken;
     }
 
+    /// <summary>
+    /// Asignamos un refresh token a un usuario determinado
+    /// </summary>
+    /// <param name="datosUsuarioDto">Un dto que recive los datos del usuario</param>
+    /// <param name="usuario">Un objeto Usuario ya instanciado</param>
     private async Task AssingRefreshToken(DatosUsuarioDto datosUsuarioDto, Usuario usuario)
     {
-        if (usuario.RefreshTokens.Any(rt => rt.IsActive))
+        if (usuario.RefreshTokens.Any(refreshToken => refreshToken.IsActive))
         {
             RefreshToken activeRefreshToken =
-                usuario.RefreshTokens.Where(rt => rt.IsActive).FirstOrDefault();
+                usuario.RefreshTokens.Where(refreshToken => refreshToken.IsActive).FirstOrDefault();
             datosUsuarioDto.RefreshToken = activeRefreshToken.Token;
             datosUsuarioDto.RefreshTokenExpiration = activeRefreshToken.Expires;
         }
         else
         {
-            var refreshToken = CreateRefreshToken();
+            RefreshToken refreshToken = CreateRefreshToken();
             datosUsuarioDto.RefreshToken = refreshToken.Token;
             datosUsuarioDto.RefreshTokenExpiration = refreshToken.Expires;
+
             usuario.RefreshTokens.Add(refreshToken);
             _unitOfWork.Usuarios.Update(usuario);
             await _unitOfWork.SaveAsync();
         }
     }
 
+    /// <summary>
+    /// Permite agregar un nuevo rol al usuario
+    /// </summary>
+    /// <param name="model">Es un DTO con los datos de login del usuario</param>
+    /// <returns>Un texto de validación</returns>
     public async Task<string> AddRoleAsync(AddRoleDto model)
     {
 
@@ -209,6 +226,10 @@ public class UserService : IUserService
         return $" El usuario ya tiene el Rol {model.Role} asignado";
     }
 
+    /// <summary>
+    /// Nos permite crear un nuevo refresh token para el Usuario
+    /// </summary>
+    /// <returns>Una instancia de Core.Entities.RefreshToken</returns>
     private RefreshToken CreateRefreshToken()
     {
         var randomNumber = new byte[32];
@@ -224,9 +245,8 @@ public class UserService : IUserService
 
     public async Task<DatosUsuarioDto> RefreshTokenAsync(string refreshToken)
     {
-        var datosUsuarioDto = new DatosUsuarioDto();
-        Usuario usuario = await _unitOfWork.Usuarios
-                        .GetByRefreshTokenAsync(refreshToken);
+        DatosUsuarioDto datosUsuarioDto = new();
+        Usuario usuario = await _unitOfWork.Usuarios.GetByRefreshTokenAsync(refreshToken);
         if (usuario is null)
         {
             datosUsuarioDto.EstaAutenticado = false;
@@ -234,7 +254,7 @@ public class UserService : IUserService
             return datosUsuarioDto;
         }
 
-        RefreshToken refreshTokenBd = usuario.RefreshTokens.Single(rt => rt.Token == refreshToken);
+        RefreshToken refreshTokenBd = usuario.RefreshTokens.SingleOrDefault(rt => rt.Token == refreshToken);
         if (!refreshTokenBd.IsActive)
         {
             datosUsuarioDto.EstaAutenticado = false;
@@ -254,6 +274,8 @@ public class UserService : IUserService
         //Generamos un nuevo Json Web Token
         datosUsuarioDto.EstaAutenticado = true;
         JwtSecurityToken jwtSecurityToken = CreateJwtToken(usuario);
+
+        //Cargamos el dto
         datosUsuarioDto.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
         datosUsuarioDto.Email = usuario.Email;
         datosUsuarioDto.Username = usuario.UserName;

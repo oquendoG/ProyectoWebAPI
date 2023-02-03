@@ -1,4 +1,5 @@
 ﻿using API.Helpers;
+using API.Helpers.Errors;
 using API.Services;
 using AspNetCoreRateLimit;
 using CORE.Entities;
@@ -101,6 +102,31 @@ public static class ApplicationServiceExtensions
                 ValidAudience = configuration["JWT:Audience"],
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
                                                 .GetBytes(configuration["JWT:Key"]))
+            };
+        });
+    }
+
+    /// <summary>
+    /// Método de extensión que permite manejar los errores del modelstate
+    /// </summary>
+    /// <param name="services"></param>
+    public static void AddValidtionErrors(this IServiceCollection services)
+    {
+        services.Configure<ApiBehaviorOptions>(options =>
+        {
+            options.InvalidModelStateResponseFactory = actionContext =>
+            {
+                string[] errors = actionContext.ModelState
+                                        .Where(u => u.Value.Errors.Count > 0)
+                                        .SelectMany(u => u.Value.Errors)
+                                        .Select(u => u.ErrorMessage).ToArray();
+
+                ApiValidation errorResponse = new ApiValidation()
+                {
+                    Errors = errors
+                };
+
+                return new BadRequestObjectResult(errorResponse);
             };
         });
     }

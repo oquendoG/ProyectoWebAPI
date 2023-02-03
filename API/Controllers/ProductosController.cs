@@ -1,5 +1,6 @@
 ﻿using API.Dtos;
 using API.Helpers;
+using API.Helpers.Errors;
 using AutoMapper;
 using CORE.Entities;
 using CORE.Interfaces;
@@ -15,12 +16,16 @@ public class ProductosController : BaseApiController
 {
 	private readonly IUnitOfWork _unitOfWork;
 	private readonly IMapper _mapper;
+    private readonly ILogger<ProductosController> _logger;
 
-	public ProductosController(IUnitOfWork unitOfWork, IMapper mapper)
+    public ProductosController(IUnitOfWork unitOfWork, IMapper mapper,
+														ILogger<ProductosController> logger)
 	{
 		_unitOfWork = unitOfWork;
 		_mapper = mapper;
-	}
+        _logger = logger;
+        _logger.LogInformation("Ejecutando productos");
+    }
 
 	/// <summary>
 	/// Version 1 del método que devuelve todos los productos páginados y permite
@@ -64,7 +69,7 @@ public class ProductosController : BaseApiController
         IEnumerable<Producto> productos = await _unitOfWork.Productos.GetAllAsync();
         if (productos is null)
         {
-            return NotFound();
+            return NotFound(new ApiResponse(404, "Los productos solicitados no existen"));
         }
 
         return _mapper.Map<List<ProductoDTO>>(productos);
@@ -79,7 +84,7 @@ public class ProductosController : BaseApiController
 		Producto producto = await _unitOfWork.Productos.GetByIdAsync(id);
 		if (producto is null)
 		{
-			return NotFound();
+			return NotFound(new ApiResponse(404, "El producto solicitado no existe"));
 		}
 
 		return _mapper.Map<ProductoDTO>(producto);
@@ -96,7 +101,7 @@ public class ProductosController : BaseApiController
 		await _unitOfWork.SaveAsync();
 		if (producto is null)
 		{
-			return BadRequest();
+			return BadRequest(new ApiResponse(400));
 		}
 
 		productoDTO.Id = producto.Id;
@@ -112,8 +117,14 @@ public class ProductosController : BaseApiController
 	{
         if (productoDTO is null)
 		{
-			return NotFound();
+			return NotFound(new ApiResponse(404, "El producto solicitado no existe"));
 		}
+
+        Producto productoDB = await _unitOfWork.Productos.GetByIdAsync(id);
+        if (productoDB is null)
+        {
+            return NotFound(new ApiResponse(404, "El producto solicitado no existe"));
+        }
 
         Producto producto = _mapper.Map<Producto>(productoDTO);
 		_unitOfWork.Productos.Update(producto);
@@ -130,7 +141,7 @@ public class ProductosController : BaseApiController
 		Producto producto = await _unitOfWork.Productos.GetByIdAsync(id);
 		if (producto is null)
         {
-            return NotFound();
+            return NotFound(new ApiResponse(404, "El producto solicitado no existe"));
         }
 
         _unitOfWork.Productos.Remove(producto);

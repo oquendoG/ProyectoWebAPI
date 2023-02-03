@@ -1,0 +1,457 @@
+[ INF Entity Framework Core 6.0.10 initialized 'TiendaContext' using provider 'Pomelo.EntityFrameworkCore.MySql:6.0.2' with options: ServerVersion 8.0.28-mysql  
+ ][ INF Executed DbCommand (42ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='tiendaBd' AND TABLE_NAME='__EFMigrationsHistory'; 
+ ][ INF Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='tiendaBd' AND TABLE_NAME='__EFMigrationsHistory'; 
+ ][ INF Executed DbCommand (64ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `MigrationId`, `ProductVersion`
+FROM `__EFMigrationsHistory`
+ORDER BY `MigrationId`; 
+ ][ INF No migrations were applied. The database is already up to date. 
+ ][ INF Executed DbCommand (12ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Marca` AS `m`) 
+ ][ INF Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Categoria` AS `c`) 
+ ][ INF Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Producto` AS `p`) 
+ ][ INF Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Rol` AS `r`) 
+ ][ INF User profile is available. Using 'C:\Users\Wilson\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest. 
+ ][ INF Now listening on: https://localhost:5001 
+ ][ INF Now listening on: http://localhost:5000 
+ ][ INF Application started. Press Ctrl+C to shut down. 
+ ][ INF Hosting environment: Development 
+ ][ INF Content root path: F:\Proyectos .NET\Proyectos\Tienda\API\ 
+ ][ INF Request starting HTTP/2 GET https://localhost:5001/ - - 
+ ][ INF Request finished HTTP/2 GET https://localhost:5001/ - - - 404 0 - 874.7288ms 
+ ][ INF Request starting HTTP/2 GET https://localhost:5001/api/weatherforecast - - 
+ ][ INF Request finished HTTP/2 GET https://localhost:5001/api/weatherforecast - - - 404 0 - 5.1909ms 
+ ][ INF Request starting HTTP/2 GET https://localhost:5001/api/weatherforecast - - 
+ ][ INF Request finished HTTP/2 GET https://localhost:5001/api/weatherforecast - - - 404 0 - 7.6592ms 
+ ][ INF Request starting HTTP/2 GET https://localhost:5001/api/weatherforecast - - 
+ ][ INF Request finished HTTP/2 GET https://localhost:5001/api/weatherforecast - - - 404 0 - 2.0383ms 
+ ][ INF Entity Framework Core 6.0.10 initialized 'TiendaContext' using provider 'Pomelo.EntityFrameworkCore.MySql:6.0.2' with options: ServerVersion 8.0.28-mysql  
+ ][ INF Executed DbCommand (33ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='tiendaBd' AND TABLE_NAME='__EFMigrationsHistory'; 
+ ][ INF Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='tiendaBd' AND TABLE_NAME='__EFMigrationsHistory'; 
+ ][ INF Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `MigrationId`, `ProductVersion`
+FROM `__EFMigrationsHistory`
+ORDER BY `MigrationId`; 
+ ][ INF No migrations were applied. The database is already up to date. 
+ ][ INF Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Marca` AS `m`) 
+ ][ INF Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Categoria` AS `c`) 
+ ][ INF Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Producto` AS `p`) 
+ ][ INF Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Rol` AS `r`) 
+ ][ INF User profile is available. Using 'C:\Users\Wilson\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest. 
+ ][ INF Now listening on: https://localhost:5001 
+ ][ INF Now listening on: http://localhost:5000 
+ ][ INF Application started. Press Ctrl+C to shut down. 
+ ][ INF Hosting environment: Development 
+ ][ INF Content root path: F:\Proyectos .NET\Proyectos\Tienda\API\ 
+ ][ INF Request starting HTTP/2 GET https://localhost:5001/ - - 
+ ][ INF Request finished HTTP/2 GET https://localhost:5001/ - - - 404 0 - 311.7737ms 
+ ][ INF Request starting HTTP/2 GET https://localhost:5001/favicon.ico - - 
+ ][ INF Request finished HTTP/2 GET https://localhost:5001/favicon.ico - - - 404 0 - 11.7464ms 
+ ][ INF Request starting HTTP/2 GET https://localhost:5001/api/weatherforecast - - 
+ ][ INF Request finished HTTP/2 GET https://localhost:5001/api/weatherforecast - - - 404 0 - 6.5637ms 
+ ][2023-01-31 07:16:37.73 -05:00 INF Entity Framework Core 6.0.10 initialized 'TiendaContext' using provider 'Pomelo.EntityFrameworkCore.MySql:6.0.2' with options: ServerVersion 8.0.28-mysql  
+ ][2023-01-31 07:16:38.12 -05:00 INF Executed DbCommand (19ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='tiendaBd' AND TABLE_NAME='__EFMigrationsHistory'; 
+ ][2023-01-31 07:16:38.14 -05:00 INF Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='tiendaBd' AND TABLE_NAME='__EFMigrationsHistory'; 
+ ][2023-01-31 07:16:38.18 -05:00 INF Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `MigrationId`, `ProductVersion`
+FROM `__EFMigrationsHistory`
+ORDER BY `MigrationId`; 
+ ][2023-01-31 07:16:38.21 -05:00 INF No migrations were applied. The database is already up to date. 
+ ][2023-01-31 07:16:38.52 -05:00 INF Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Marca` AS `m`) 
+ ][2023-01-31 07:16:38.52 -05:00 INF Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Categoria` AS `c`) 
+ ][2023-01-31 07:16:38.52 -05:00 INF Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Producto` AS `p`) 
+ ][2023-01-31 07:16:38.53 -05:00 INF Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Rol` AS `r`) 
+ ][2023-01-31 07:16:38.69 -05:00 INF User profile is available. Using 'C:\Users\Wilson\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest. 
+ ][2023-01-31 07:16:38.84 -05:00 INF Now listening on: https://localhost:5001 
+ ][2023-01-31 07:16:38.84 -05:00 INF Now listening on: http://localhost:5000 
+ ][2023-01-31 07:16:38.85 -05:00 INF Application started. Press Ctrl+C to shut down. 
+ ][2023-01-31 07:16:38.85 -05:00 INF Hosting environment: Development 
+ ][2023-01-31 07:16:38.85 -05:00 INF Content root path: F:\Proyectos .NET\Proyectos\Tienda\API\ 
+ ][2023-01-31 07:16:59.36 -05:00 INF Request starting HTTP/2 GET https://localhost:5001/ - - 
+ ][2023-01-31 07:16:59.52 -05:00 INF Request finished HTTP/2 GET https://localhost:5001/ - - - 404 0 - 161.5154ms 
+ ][2023-01-31 07:17:12.46 -05:00 INF Request starting HTTP/2 GET https://localhost:5001/ - - 
+ ][2023-01-31 07:17:12.46 -05:00 INF Request finished HTTP/2 GET https://localhost:5001/ - - - 404 0 - 3.3246ms 
+ ][2023-01-31 07:17:21.51 -05:00 INF Request starting HTTP/2 GET https://localhost:5001/api/weatherforecast - - 
+ ][2023-01-31 07:17:21.52 -05:00 INF Request finished HTTP/2 GET https://localhost:5001/api/weatherforecast - - - 404 0 - 9.8464ms 
+ ][2023-01-31 07:17:54.11 -05:00 INF Request starting HTTP/2 GET https://localhost:5001/api/weatherforecast - - 
+ ][2023-01-31 07:17:54.12 -05:00 INF Request finished HTTP/2 GET https://localhost:5001/api/weatherforecast - - - 404 0 - 7.6576ms 
+ ][2023-01-31 07:17:54.29 -05:00 INF Request starting HTTP/2 GET https://localhost:5001/favicon.ico - - 
+ ][2023-01-31 07:17:54.29 -05:00 INF Request finished HTTP/2 GET https://localhost:5001/favicon.ico - - - 0 - - 0.9249ms 
+ ][2023-01-31 07:18:04.20 -05:00 INF Request starting HTTP/2 GET https://localhost:5001/api/weatherforecast - - 
+ ][2023-01-31 07:18:04.20 -05:00 INF Request finished HTTP/2 GET https://localhost:5001/api/weatherforecast - - - 404 0 - 1.5879ms 
+ ][2023-01-31 07:22:25.18 -05:00 INF Request starting HTTP/2 GET https://localhost:5001/api/weatherforecast - - 
+ ][2023-01-31 07:22:25.18 -05:00 INF Request finished HTTP/2 GET https://localhost:5001/api/weatherforecast - - - 404 0 - 2.5583ms 
+ ][2023-01-31 07:22:25.40 -05:00 INF Request starting HTTP/2 GET https://localhost:5001/favicon.ico - - 
+ ][2023-01-31 07:22:25.40 -05:00 INF Request finished HTTP/2 GET https://localhost:5001/favicon.ico - - - 0 - - 0.5769ms 
+ ][2023-01-31 07:22:27.04 -05:00 INF Request starting HTTP/2 GET https://localhost:5001/api/weatherforecast - - 
+ ][2023-01-31 07:22:27.04 -05:00 INF Request finished HTTP/2 GET https://localhost:5001/api/weatherforecast - - - 404 0 - 2.3300ms 
+ ][2023-01-31 07:22:28.64 -05:00 INF Request starting HTTP/2 GET https://localhost:5001/api/weatherforecast - - 
+ ][2023-01-31 07:22:28.64 -05:00 INF Request get:/api/weatherforecast from IP 127.0.0.1 has been blocked, quota 2/10s exceeded by 1. Blocked by rule *, TraceIdentifier 0HMO3GK23EUTM:00000015. MonitorMode: False 
+ ][2023-01-31 07:22:28.65 -05:00 INF Request finished HTTP/2 GET https://localhost:5001/api/weatherforecast - - - 429 - text/plain 11.6428ms 
+ ]2023-01-31 07:22:48.06 -05:00 INFEntity Framework Core 6.0.10 initialized 'TiendaContext' using provider 'Pomelo.EntityFrameworkCore.MySql:6.0.2' with options: ServerVersion 8.0.28-mysql 
+2023-01-31 07:22:48.75 -05:00 INFExecuted DbCommand (41ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='tiendaBd' AND TABLE_NAME='__EFMigrationsHistory';
+2023-01-31 07:22:48.83 -05:00 INFExecuted DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='tiendaBd' AND TABLE_NAME='__EFMigrationsHistory';
+2023-01-31 07:22:48.92 -05:00 INFExecuted DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `MigrationId`, `ProductVersion`
+FROM `__EFMigrationsHistory`
+ORDER BY `MigrationId`;
+2023-01-31 07:22:48.97 -05:00 INFNo migrations were applied. The database is already up to date.
+2023-01-31 07:22:49.59 -05:00 INFExecuted DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Marca` AS `m`)
+2023-01-31 07:22:49.60 -05:00 INFExecuted DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Categoria` AS `c`)
+2023-01-31 07:22:49.61 -05:00 INFExecuted DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Producto` AS `p`)
+2023-01-31 07:22:49.62 -05:00 INFExecuted DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Rol` AS `r`)
+2023-01-31 07:22:49.91 -05:00 INFUser profile is available. Using 'C:\Users\Wilson\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-01-31 07:22:50.22 -05:00 INFNow listening on: https://localhost:5001
+2023-01-31 07:22:50.22 -05:00 INFNow listening on: http://localhost:5000
+2023-01-31 07:22:50.24 -05:00 INFApplication started. Press Ctrl+C to shut down.
+2023-01-31 07:22:50.24 -05:00 INFHosting environment: Development
+2023-01-31 07:22:50.24 -05:00 INFContent root path: F:\Proyectos .NET\Proyectos\Tienda\API\
+2023-01-31 07:22:50.59 -05:00 INFRequest starting HTTP/2 GET https://localhost:5001/api/weatherforecast - -
+2023-01-31 07:22:50.91 -05:00 INFRequest finished HTTP/2 GET https://localhost:5001/api/weatherforecast - - - 404 0 - 325.6029ms
+[2023-01-31 08:09:36.65 -05:00 INF]Entity Framework Core 6.0.10 initialized 'TiendaContext' using provider 'Pomelo.EntityFrameworkCore.MySql:6.0.2' with options: ServerVersion 8.0.28-mysql 
+][2023-01-31 08:09:37.33 -05:00 INF]Executed DbCommand (32ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='tiendaBd' AND TABLE_NAME='__EFMigrationsHistory';
+][2023-01-31 08:09:37.42 -05:00 INF]Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='tiendaBd' AND TABLE_NAME='__EFMigrationsHistory';
+][2023-01-31 08:09:37.51 -05:00 INF]Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `MigrationId`, `ProductVersion`
+FROM `__EFMigrationsHistory`
+ORDER BY `MigrationId`;
+][2023-01-31 08:09:37.55 -05:00 INF]No migrations were applied. The database is already up to date.
+][2023-01-31 08:09:38.14 -05:00 INF]Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Marca` AS `m`)
+][2023-01-31 08:09:38.15 -05:00 INF]Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Categoria` AS `c`)
+][2023-01-31 08:09:38.16 -05:00 INF]Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Producto` AS `p`)
+][2023-01-31 08:09:38.16 -05:00 INF]Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Rol` AS `r`)
+][2023-01-31 08:09:38.46 -05:00 INF]User profile is available. Using 'C:\Users\Wilson\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+][2023-01-31 08:09:38.77 -05:00 INF]Now listening on: https://localhost:5001
+][2023-01-31 08:09:38.78 -05:00 INF]Now listening on: http://localhost:5000
+][2023-01-31 08:09:38.79 -05:00 INF]Application started. Press Ctrl+C to shut down.
+][2023-01-31 08:09:38.79 -05:00 INF]Hosting environment: Development
+][2023-01-31 08:09:38.80 -05:00 INF]Content root path: F:\Proyectos .NET\Proyectos\Tienda\API\
+][2023-01-31 08:10:25.03 -05:00 INF]Request starting HTTP/2 GET https://localhost:5001/ - -
+][2023-01-31 08:10:25.35 -05:00 INF]Request finished HTTP/2 GET https://localhost:5001/ - - - 404 0 - 328.7374ms
+][2023-01-31 08:10:25.53 -05:00 INF]Request starting HTTP/2 GET https://localhost:5001/favicon.ico - -
+][2023-01-31 08:10:25.59 -05:00 INF]Request finished HTTP/2 GET https://localhost:5001/favicon.ico - - - 0 - - 60.9860ms
+][2023-01-31 08:10:34.77 -05:00 INF]Request starting HTTP/2 GET https://localhost:5001/API/WatherForecast - -
+][2023-01-31 08:10:34.78 -05:00 INF]Request finished HTTP/2 GET https://localhost:5001/API/WatherForecast - - - 404 0 - 7.1443ms
+][2023-01-31 08:11:44.22 -05:00 INF]Request starting HTTP/2 GET https://localhost:5001/api/weatherforecast - -
+][2023-01-31 08:11:44.22 -05:00 INF]Request finished HTTP/2 GET https://localhost:5001/api/weatherforecast - - - 404 0 - 3.4449ms
+][2023-01-31 08:11:48.70 -05:00 INF]Request starting HTTP/2 GET https://localhost:5001/api/weatherforecast - -
+][2023-01-31 08:11:48.71 -05:00 INF]Request finished HTTP/2 GET https://localhost:5001/api/weatherforecast - - - 404 0 - 2.0942ms
+][2023-01-31 08:11:49.27 -05:00 INF]Request starting HTTP/2 GET https://localhost:5001/api/weatherforecast - -
+][2023-01-31 08:11:49.29 -05:00 INF]Request get:/api/weatherforecast from IP ::1 has been blocked, quota 2/10s exceeded by 1. Blocked by rule *, TraceIdentifier 0HMO3HI209J8A:00000005. MonitorMode: False
+][2023-01-31 08:11:49.31 -05:00 INF]Request finished HTTP/2 GET https://localhost:5001/api/weatherforecast - - - 429 - text/plain 42.5649ms
+][2023-01-31 08:11:49.37 -05:00 INF]Request starting HTTP/2 GET https://localhost:5001/favicon.ico - -
+][2023-01-31 08:11:49.37 -05:00 INF]Request finished HTTP/2 GET https://localhost:5001/favicon.ico - - - 404 0 - 0.7425ms
+][2023-01-31 08:11:49.42 -05:00 INF]Request starting HTTP/2 GET https://localhost:5001/api/weatherforecast - -
+][2023-01-31 08:11:49.43 -05:00 INF]Request get:/api/weatherforecast from IP ::1 has been blocked, quota 2/10s exceeded by 2. Blocked by rule *, TraceIdentifier 0HMO3HI209J8A:00000009. MonitorMode: False
+][2023-01-31 08:11:49.43 -05:00 INF]Request finished HTTP/2 GET https://localhost:5001/api/weatherforecast - - - 429 - text/plain 4.3770ms
+][2023-01-31 08:11:49.60 -05:00 INF]Request starting HTTP/2 GET https://localhost:5001/api/weatherforecast - -
+][2023-01-31 08:11:49.60 -05:00 INF]Request get:/api/weatherforecast from IP ::1 has been blocked, quota 2/10s exceeded by 3. Blocked by rule *, TraceIdentifier 0HMO3HI209J8A:0000000B. MonitorMode: False
+][2023-01-31 08:11:49.60 -05:00 INF]Request finished HTTP/2 GET https://localhost:5001/api/weatherforecast - - - 429 - text/plain 4.0999ms
+][2023-01-31 08:11:49.79 -05:00 INF]Request starting HTTP/2 GET https://localhost:5001/api/weatherforecast - -
+][2023-01-31 08:11:49.79 -05:00 INF]Request get:/api/weatherforecast from IP ::1 has been blocked, quota 2/10s exceeded by 4. Blocked by rule *, TraceIdentifier 0HMO3HI209J8A:0000000D. MonitorMode: False
+][2023-01-31 08:11:49.79 -05:00 INF]Request finished HTTP/2 GET https://localhost:5001/api/weatherforecast - - - 429 - text/plain 3.4965ms
+][2023-01-31 08:12:33.79 -05:00 INF]Entity Framework Core 6.0.10 initialized 'TiendaContext' using provider 'Pomelo.EntityFrameworkCore.MySql:6.0.2' with options: ServerVersion 8.0.28-mysql 
+][2023-01-31 08:12:34.46 -05:00 INF]Executed DbCommand (33ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='tiendaBd' AND TABLE_NAME='__EFMigrationsHistory';
+][2023-01-31 08:12:34.54 -05:00 INF]Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='tiendaBd' AND TABLE_NAME='__EFMigrationsHistory';
+][2023-01-31 08:12:34.62 -05:00 INF]Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `MigrationId`, `ProductVersion`
+FROM `__EFMigrationsHistory`
+ORDER BY `MigrationId`;
+][2023-01-31 08:12:34.66 -05:00 INF]No migrations were applied. The database is already up to date.
+][2023-01-31 08:12:35.24 -05:00 INF]Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Marca` AS `m`)
+][2023-01-31 08:12:35.25 -05:00 INF]Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Categoria` AS `c`)
+][2023-01-31 08:12:35.25 -05:00 INF]Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Producto` AS `p`)
+][2023-01-31 08:12:35.25 -05:00 INF]Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Rol` AS `r`)
+][2023-01-31 08:12:35.54 -05:00 INF]User profile is available. Using 'C:\Users\Wilson\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+][2023-01-31 08:12:35.80 -05:00 INF]Now listening on: https://localhost:5001
+][2023-01-31 08:12:35.80 -05:00 INF]Now listening on: http://localhost:5000
+][2023-01-31 08:12:35.81 -05:00 INF]Application started. Press Ctrl+C to shut down.
+][2023-01-31 08:12:35.81 -05:00 INF]Hosting environment: Development
+][2023-01-31 08:12:35.81 -05:00 INF]Content root path: F:\Proyectos .NET\Proyectos\Tienda\API\
+][2023-01-31 08:12:38.94 -05:00 INF]Request starting HTTP/2 GET https://localhost:5001/API/WatherForecast - -
+][2023-01-31 08:12:39.27 -05:00 INF]Request finished HTTP/2 GET https://localhost:5001/API/WatherForecast - - - 404 0 - 337.4634ms
+][2023-01-31 08:13:33.46 -05:00 INF]Request starting HTTP/1.1 GET https://localhost:5001/API/weatherforecast - -
+][2023-01-31 08:13:34.18 -05:00 INF]Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '26/01/2023 12:21:54', Current time: '31/01/2023 1:13:34'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateJWS(String token, TokenValidationParameters validationParameters, BaseConfiguration currentConfiguration, SecurityToken& signatureValidatedToken, ExceptionDispatchInfo& exceptionThrown)
+--- End of stack trace from previous location ---
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, JwtSecurityToken outerToken, TokenValidationParameters validationParameters, SecurityToken& signatureValidatedToken)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+][2023-01-31 08:13:34.23 -05:00 INF]Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '26/01/2023 12:21:54', Current time: '31/01/2023 1:13:34'.
+][2023-01-31 08:13:34.25 -05:00 INF]Request finished HTTP/1.1 GET https://localhost:5001/API/weatherforecast - - - 404 0 - 795.6448ms
+][2023-01-31 08:14:10.85 -05:00 INF]Request starting HTTP/2 GET https://localhost:5001/API/WeatherForecast - -
+][2023-01-31 08:14:10.86 -05:00 INF]Request finished HTTP/2 GET https://localhost:5001/API/WeatherForecast - - - 404 0 - 6.0173ms
+][2023-01-31 08:14:57.61 -05:00 INF]Request starting HTTP/1.1 GET https://localhost:5001/API/usuarios - -
+][2023-01-31 08:14:57.61 -05:00 INF]Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '26/01/2023 12:21:54', Current time: '31/01/2023 1:14:57'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateJWS(String token, TokenValidationParameters validationParameters, BaseConfiguration currentConfiguration, SecurityToken& signatureValidatedToken, ExceptionDispatchInfo& exceptionThrown)
+--- End of stack trace from previous location ---
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, JwtSecurityToken outerToken, TokenValidationParameters validationParameters, SecurityToken& signatureValidatedToken)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+][2023-01-31 08:14:57.61 -05:00 INF]Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '26/01/2023 12:21:54', Current time: '31/01/2023 1:14:57'.
+][2023-01-31 08:14:57.61 -05:00 INF]Request finished HTTP/1.1 GET https://localhost:5001/API/usuarios - - - 404 0 - 2.5237ms
+][2023-01-31 08:15:44.15 -05:00 INF]Request starting HTTP/1.1 GET https://localhost:5001/API/weatherforecast - -
+][2023-01-31 08:15:44.16 -05:00 INF]Request finished HTTP/1.1 GET https://localhost:5001/API/weatherforecast - - - 404 0 - 7.1858ms
+][2023-01-31 08:18:36.04 -05:00 INF]Entity Framework Core 6.0.10 initialized 'TiendaContext' using provider 'Pomelo.EntityFrameworkCore.MySql:6.0.2' with options: ServerVersion 8.0.28-mysql 
+][2023-01-31 08:18:36.80 -05:00 INF]Executed DbCommand (41ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='tiendaBd' AND TABLE_NAME='__EFMigrationsHistory';
+][2023-01-31 08:18:36.87 -05:00 INF]Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='tiendaBd' AND TABLE_NAME='__EFMigrationsHistory';
+][2023-01-31 08:18:36.95 -05:00 INF]Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `MigrationId`, `ProductVersion`
+FROM `__EFMigrationsHistory`
+ORDER BY `MigrationId`;
+][2023-01-31 08:18:36.98 -05:00 INF]No migrations were applied. The database is already up to date.
+][2023-01-31 08:18:37.58 -05:00 INF]Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Marca` AS `m`)
+][2023-01-31 08:18:37.59 -05:00 INF]Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Categoria` AS `c`)
+][2023-01-31 08:18:37.59 -05:00 INF]Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Producto` AS `p`)
+][2023-01-31 08:18:37.60 -05:00 INF]Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Rol` AS `r`)
+][2023-01-31 08:18:37.87 -05:00 INF]User profile is available. Using 'C:\Users\Wilson\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+][2023-01-31 08:18:38.19 -05:00 INF]Now listening on: https://localhost:5001
+][2023-01-31 08:18:38.19 -05:00 INF]Now listening on: http://localhost:5000
+][2023-01-31 08:18:38.20 -05:00 INF]Application started. Press Ctrl+C to shut down.
+][2023-01-31 08:18:38.20 -05:00 INF]Hosting environment: Development
+][2023-01-31 08:18:38.20 -05:00 INF]Content root path: F:\Proyectos .NET\Proyectos\Tienda\API\
+][2023-01-31 08:18:50.06 -05:00 INF]Request starting HTTP/1.1 POST https://localhost:5001/API/Usuarios/token application/json 76
+][2023-01-31 08:18:50.69 -05:00 INF]Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '26/01/2023 12:21:54', Current time: '31/01/2023 1:18:50'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateJWS(String token, TokenValidationParameters validationParameters, BaseConfiguration currentConfiguration, SecurityToken& signatureValidatedToken, ExceptionDispatchInfo& exceptionThrown)
+--- End of stack trace from previous location ---
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, JwtSecurityToken outerToken, TokenValidationParameters validationParameters, SecurityToken& signatureValidatedToken)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+][2023-01-31 08:18:50.73 -05:00 INF]Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '26/01/2023 12:21:54', Current time: '31/01/2023 1:18:50'.
+][2023-01-31 08:18:50.74 -05:00 INF]Executing endpoint 'API.Controllers.UsuariosController.GetTokenAsync (API)'
+][2023-01-31 08:18:50.79 -05:00 INF]Route matched with {action = "GetToken", controller = "Usuarios"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetTokenAsync(API.Dtos.LoginDTO) on controller API.Controllers.UsuariosController (API).
+][2023-01-31 08:18:50.89 -05:00 INF]Entity Framework Core 6.0.10 initialized 'TiendaContext' using provider 'Pomelo.EntityFrameworkCore.MySql:6.0.2' with options: ServerVersion 8.0.28-mysql 
+][2023-01-31 08:18:51.43 -05:00 WRN]Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+][2023-01-31 08:18:51.66 -05:00 INF]Executed DbCommand (114ms) [Parameters=[@__ToLower_0='?' (Size = 200)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t`.`Id`, `t`.`ApellidoMaterno`, `t`.`ApellidoPaterno`, `t`.`Email`, `t`.`Nombre`, `t`.`Password`, `t`.`UserName`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`, `t0`.`Nombre`, `r0`.`Id`, `r0`.`Created`, `r0`.`Expires`, `r0`.`Revoked`, `r0`.`Token`, `r0`.`UsuarioId`
+FROM (
+    SELECT `u`.`Id`, `u`.`ApellidoMaterno`, `u`.`ApellidoPaterno`, `u`.`Email`, `u`.`Nombre`, `u`.`Password`, `u`.`UserName`
+    FROM `Usuario` AS `u`
+    WHERE LOWER(`u`.`UserName`) = @__ToLower_0
+    LIMIT 1
+) AS `t`
+LEFT JOIN (
+    SELECT `u0`.`UsuarioId`, `u0`.`RolId`, `r`.`Id`, `r`.`Nombre`
+    FROM `UsuariosRoles` AS `u0`
+    INNER JOIN `Rol` AS `r` ON `u0`.`RolId` = `r`.`Id`
+) AS `t0` ON `t`.`Id` = `t0`.`UsuarioId`
+LEFT JOIN `RefreshToken` AS `r0` ON `t`.`Id` = `r0`.`UsuarioId`
+ORDER BY `t`.`Id`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`
+][2023-01-31 08:18:52.34 -05:00 INF]Executed DbCommand (17ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (DbType = DateTime), @p2='?' (DbType = DateTime), @p3='?' (Size = 4000), @p4='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `RefreshToken` (`Created`, `Expires`, `Revoked`, `Token`, `UsuarioId`)
+VALUES (@p0, @p1, @p2, @p3, @p4);
+SELECT `Id`
+FROM `RefreshToken`
+WHERE ROW_COUNT() = 1 AND `Id` = LAST_INSERT_ID();
+][2023-01-31 08:18:52.40 -05:00 INF]Executed DbCommand (3ms) [Parameters=[@p6='?' (DbType = Int32), @p0='?' (Size = 4000), @p1='?' (Size = 200), @p2='?' (Size = 200), @p3='?' (Size = 200), @p4='?' (Size = 4000), @p5='?' (Size = 200)], CommandType='"Text"', CommandTimeout='30']
+UPDATE `Usuario` SET `ApellidoMaterno` = @p0, `ApellidoPaterno` = @p1, `Email` = @p2, `Nombre` = @p3, `Password` = @p4, `UserName` = @p5
+WHERE `Id` = @p6;
+SELECT ROW_COUNT();
+][2023-01-31 08:18:52.48 -05:00 INF]Executing OkObjectResult, writing value of type 'API.Dtos.DatosUsuarioDto'.
+][2023-01-31 08:18:52.53 -05:00 INF]Executed action API.Controllers.UsuariosController.GetTokenAsync (API) in 1729.7989ms
+][2023-01-31 08:18:52.53 -05:00 INF]Executed endpoint 'API.Controllers.UsuariosController.GetTokenAsync (API)'
+][2023-01-31 08:18:52.55 -05:00 INF]Request finished HTTP/1.1 POST https://localhost:5001/API/Usuarios/token application/json 76 - 200 - application/json;+charset=utf-8 2496.9963ms
+][2023-01-31 08:19:00.11 -05:00 INF]Request starting HTTP/1.1 GET https://localhost:5001/API/productos/25 - -
+][2023-01-31 08:19:00.15 -05:00 INF]Executing endpoint 'API.Controllers.ProductosController.Get (API)'
+][2023-01-31 08:19:00.15 -05:00 INF]Route matched with {action = "Get", controller = "Productos"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[API.Dtos.ProductoDTO]] Get(Int32) on controller API.Controllers.ProductosController (API).
+][2023-01-31 08:19:00.46 -05:00 INF]Entity Framework Core 6.0.10 initialized 'TiendaContext' using provider 'Pomelo.EntityFrameworkCore.MySql:6.0.2' with options: ServerVersion 8.0.28-mysql 
+][2023-01-31 08:19:00.49 -05:00 INF]Executed DbCommand (3ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `p`.`Id`, `p`.`CategoriaId`, `p`.`FechaCreacion`, `p`.`MarcaId`, `p`.`Nombre`, `p`.`Precio`, `m`.`Id`, `m`.`Nombre`, `c`.`Id`, `c`.`Nombre`
+FROM `Producto` AS `p`
+INNER JOIN `Marca` AS `m` ON `p`.`MarcaId` = `m`.`Id`
+INNER JOIN `Categoria` AS `c` ON `p`.`CategoriaId` = `c`.`Id`
+WHERE `p`.`Id` = @__id_0
+LIMIT 1
+][2023-01-31 08:19:00.55 -05:00 INF]Executing ObjectResult, writing value of type 'API.Dtos.ProductoDTO'.
+][2023-01-31 08:19:00.56 -05:00 INF]Executed action API.Controllers.ProductosController.Get (API) in 408.9213ms
+][2023-01-31 08:19:00.56 -05:00 INF]Executed endpoint 'API.Controllers.ProductosController.Get (API)'
+][2023-01-31 08:19:00.56 -05:00 INF]Request finished HTTP/1.1 GET https://localhost:5001/API/productos/25 - - - 200 - application/json;+charset=utf-8 453.9720ms
+][2023-01-31 08:24:18.66 -05:00 INF]Entity Framework Core 6.0.10 initialized 'TiendaContext' using provider 'Pomelo.EntityFrameworkCore.MySql:6.0.2' with options: ServerVersion 8.0.28-mysql 
+][2023-01-31 08:24:19.35 -05:00 INF]Executed DbCommand (35ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='tiendaBd' AND TABLE_NAME='__EFMigrationsHistory';
+][2023-01-31 08:24:19.43 -05:00 INF]Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='tiendaBd' AND TABLE_NAME='__EFMigrationsHistory';
+][2023-01-31 08:24:19.51 -05:00 INF]Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `MigrationId`, `ProductVersion`
+FROM `__EFMigrationsHistory`
+ORDER BY `MigrationId`;
+][2023-01-31 08:24:19.55 -05:00 INF]No migrations were applied. The database is already up to date.
+][2023-01-31 08:24:20.11 -05:00 INF]Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Marca` AS `m`)
+][2023-01-31 08:24:20.12 -05:00 INF]Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Categoria` AS `c`)
+][2023-01-31 08:24:20.12 -05:00 INF]Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Producto` AS `p`)
+][2023-01-31 08:24:20.13 -05:00 INF]Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Rol` AS `r`)
+][2023-01-31 08:24:20.42 -05:00 INF]User profile is available. Using 'C:\Users\Wilson\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+][2023-01-31 08:24:20.69 -05:00 INF]Now listening on: https://localhost:5001
+][2023-01-31 08:24:20.69 -05:00 INF]Now listening on: http://localhost:5000
+][2023-01-31 08:24:20.69 -05:00 INF]Application started. Press Ctrl+C to shut down.
+][2023-01-31 08:24:20.69 -05:00 INF]Hosting environment: Development
+][2023-01-31 08:24:20.69 -05:00 INF]Content root path: F:\Proyectos .NET\Proyectos\Tienda\API\
+][2023-01-31 08:24:27.85 -05:00 INF]Request starting HTTP/1.1 POST https://localhost:5001/API/Usuarios/token application/json 76
+][2023-01-31 08:24:28.51 -05:00 INF]Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '31/01/2023 1:19:51', Current time: '31/01/2023 1:24:28'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateJWS(String token, TokenValidationParameters validationParameters, BaseConfiguration currentConfiguration, SecurityToken& signatureValidatedToken, ExceptionDispatchInfo& exceptionThrown)
+--- End of stack trace from previous location ---
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, JwtSecurityToken outerToken, TokenValidationParameters validationParameters, SecurityToken& signatureValidatedToken)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+][2023-01-31 08:24:28.55 -05:00 INF]Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '31/01/2023 1:19:51', Current time: '31/01/2023 1:24:28'.
+][2023-01-31 08:24:28.56 -05:00 INF]Executing endpoint 'API.Controllers.UsuariosController.GetTokenAsync (API)'
+][2023-01-31 08:24:28.60 -05:00 INF]Route matched with {action = "GetToken", controller = "Usuarios"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetTokenAsync(API.Dtos.LoginDTO) on controller API.Controllers.UsuariosController (API).
+][2023-01-31 08:24:28.70 -05:00 INF]Entity Framework Core 6.0.10 initialized 'TiendaContext' using provider 'Pomelo.EntityFrameworkCore.MySql:6.0.2' with options: ServerVersion 8.0.28-mysql 
+][2023-01-31 08:24:29.20 -05:00 WRN]Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+][2023-01-31 08:24:29.40 -05:00 INF]Executed DbCommand (73ms) [Parameters=[@__ToLower_0='?' (Size = 200)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t`.`Id`, `t`.`ApellidoMaterno`, `t`.`ApellidoPaterno`, `t`.`Email`, `t`.`Nombre`, `t`.`Password`, `t`.`UserName`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`, `t0`.`Nombre`, `r0`.`Id`, `r0`.`Created`, `r0`.`Expires`, `r0`.`Revoked`, `r0`.`Token`, `r0`.`UsuarioId`
+FROM (
+    SELECT `u`.`Id`, `u`.`ApellidoMaterno`, `u`.`ApellidoPaterno`, `u`.`Email`, `u`.`Nombre`, `u`.`Password`, `u`.`UserName`
+    FROM `Usuario` AS `u`
+    WHERE LOWER(`u`.`UserName`) = @__ToLower_0
+    LIMIT 1
+) AS `t`
+LEFT JOIN (
+    SELECT `u0`.`UsuarioId`, `u0`.`RolId`, `r`.`Id`, `r`.`Nombre`
+    FROM `UsuariosRoles` AS `u0`
+    INNER JOIN `Rol` AS `r` ON `u0`.`RolId` = `r`.`Id`
+) AS `t0` ON `t`.`Id` = `t0`.`UsuarioId`
+LEFT JOIN `RefreshToken` AS `r0` ON `t`.`Id` = `r0`.`UsuarioId`
+ORDER BY `t`.`Id`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`
+][2023-01-31 08:24:29.69 -05:00 INF]Executing OkObjectResult, writing value of type 'API.Dtos.DatosUsuarioDto'.
+][2023-01-31 08:24:29.73 -05:00 INF]Executed action API.Controllers.UsuariosController.GetTokenAsync (API) in 1119.4516ms
+][2023-01-31 08:24:29.73 -05:00 INF]Executed endpoint 'API.Controllers.UsuariosController.GetTokenAsync (API)'
+][2023-01-31 08:24:29.75 -05:00 INF]Request finished HTTP/1.1 POST https://localhost:5001/API/Usuarios/token application/json 76 - 200 - application/json;+charset=utf-8 1911.3244ms
+][2023-01-31 08:24:32.11 -05:00 INF]Request starting HTTP/1.1 GET https://localhost:5001/API/productos/25 - -
+][2023-01-31 08:24:32.15 -05:00 INF]Executing endpoint 'API.Controllers.ProductosController.Get (API)'
+][2023-01-31 08:24:32.15 -05:00 INF]Route matched with {action = "Get", controller = "Productos"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[API.Dtos.ProductoDTO]] Get(Int32) on controller API.Controllers.ProductosController (API).
+][2023-01-31 08:24:32.35 -05:00 INF]Ejecutando productos
+][2023-01-31 08:24:32.42 -05:00 INF]Entity Framework Core 6.0.10 initialized 'TiendaContext' using provider 'Pomelo.EntityFrameworkCore.MySql:6.0.2' with options: ServerVersion 8.0.28-mysql 
+][2023-01-31 08:24:32.46 -05:00 INF]Executed DbCommand (9ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `p`.`Id`, `p`.`CategoriaId`, `p`.`FechaCreacion`, `p`.`MarcaId`, `p`.`Nombre`, `p`.`Precio`, `m`.`Id`, `m`.`Nombre`, `c`.`Id`, `c`.`Nombre`
+FROM `Producto` AS `p`
+INNER JOIN `Marca` AS `m` ON `p`.`MarcaId` = `m`.`Id`
+INNER JOIN `Categoria` AS `c` ON `p`.`CategoriaId` = `c`.`Id`
+WHERE `p`.`Id` = @__id_0
+LIMIT 1
+][2023-01-31 08:24:32.52 -05:00 INF]Executing ObjectResult, writing value of type 'API.Dtos.ProductoDTO'.
+][2023-01-31 08:24:32.53 -05:00 INF]Executed action API.Controllers.ProductosController.Get (API) in 373.612ms
+][2023-01-31 08:24:32.53 -05:00 INF]Executed endpoint 'API.Controllers.ProductosController.Get (API)'
+][2023-01-31 08:24:32.53 -05:00 INF]Request finished HTTP/1.1 GET https://localhost:5001/API/productos/25 - - - 200 - application/json;+charset=utf-8 422.9531ms
+]

@@ -24,6 +24,6 @@ public class UsuarioRepository : GenericRepository<Usuario>, IUsuarioRepository
         return await _context.Usuarios
                  .Include(user => user.Roles)
                  .Include(user => user.RefreshTokens)
-                 .FirstOrDefaultAsync(u => u.RefreshTokens.Any(rt => rt.Token==refreshToken));
+                 .FirstOrDefaultAsync(user => user.RefreshTokens.Any(rt => rt.Token==refreshToken));
     }
 }

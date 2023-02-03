@@ -26,6 +26,11 @@ public class UsuariosController : BaseApiController
         return Ok(result);
     }
 
+    /// <summary>
+    /// Permite logear al usuario y generar el JWT usando el objeto API.Services.UserService
+    /// </summary>
+    /// <param name="model">Recive un objeto LoginDTO desde el cuerpo de la petición</param>
+    /// <returns></returns>
     [HttpPost("token")]
     public async Task<IActionResult> GetTokenAsync(LoginDTO model)
     {
@@ -46,6 +51,8 @@ public class UsuariosController : BaseApiController
     {
         string refreshToken = Request.Cookies["refreshToken"];
         DatosUsuarioDto response = await _userService.RefreshTokenAsync(refreshToken);
+
+        //Si es valido se pone nuevamente en la cookie
         if (!string.IsNullOrEmpty(response.RefreshToken))
             SetRefreshTokenInCookie(response.RefreshToken);
         return Ok(response);
