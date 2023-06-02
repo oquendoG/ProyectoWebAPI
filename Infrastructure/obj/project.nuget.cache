@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Qxm7CMvQqAwC6BepOu3Ym/2n1/5KZ4v527Ctnmjeihpokfh3GMnQkb0O3Cts+dagkXh8vdyWeMMTUPTJQ5TC6Q==",
+  "dgSpecHash": "II2WWDJHq0UUA9YCze/Ghtf9ysmqhclzIbbx4064qojrPdqAr7++LzFA4KdyVj/sX3713Y9dkxF4kVKNvg3nyQ==",
   "success": true,
-  "projectFilePath": "F:\\Proyectos .NET\\Proyectos\\Tienda\\Infrastructure\\Infrastructure.csproj",
+  "projectFilePath": "F:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\Infrastructure\\Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Wilson\\.nuget\\packages\\csvhelper\\29.0.0\\csvhelper.29.0.0.nupkg.sha512",
     "C:\\Users\\Wilson\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",

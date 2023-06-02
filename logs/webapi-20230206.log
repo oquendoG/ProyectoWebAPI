@@ -1,0 +1,107 @@
+[2023-02-06 08:13:05.49 -05:00 INF]Entity Framework Core 6.0.10 initialized 'TiendaContext' using provider 'Pomelo.EntityFrameworkCore.MySql:6.0.2' with options: ServerVersion 8.0.28-mysql 
+][2023-02-06 08:13:05.93 -05:00 INF]Executed DbCommand (45ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='tiendaBd' AND TABLE_NAME='__EFMigrationsHistory';
+][2023-02-06 08:13:05.95 -05:00 INF]Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='tiendaBd' AND TABLE_NAME='__EFMigrationsHistory';
+][2023-02-06 08:13:06.06 -05:00 INF]Executed DbCommand (80ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `MigrationId`, `ProductVersion`
+FROM `__EFMigrationsHistory`
+ORDER BY `MigrationId`;
+][2023-02-06 08:13:06.08 -05:00 INF]No migrations were applied. The database is already up to date.
+][2023-02-06 08:13:06.49 -05:00 INF]Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Marca` AS `m`)
+][2023-02-06 08:13:06.50 -05:00 INF]Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Categoria` AS `c`)
+][2023-02-06 08:13:06.52 -05:00 INF]Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Producto` AS `p`)
+][2023-02-06 08:13:06.53 -05:00 INF]Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Rol` AS `r`)
+][2023-02-06 08:13:06.75 -05:00 INF]User profile is available. Using 'C:\Users\Wilson\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+][2023-02-06 08:13:07.01 -05:00 INF]Now listening on: https://localhost:5001
+][2023-02-06 08:13:07.01 -05:00 INF]Now listening on: http://localhost:5000
+][2023-02-06 08:13:07.01 -05:00 INF]Application started. Press Ctrl+C to shut down.
+][2023-02-06 08:13:07.01 -05:00 INF]Hosting environment: Development
+][2023-02-06 08:13:07.01 -05:00 INF]Content root path: F:\Proyectos .NET\Proyectos\APIs\Tienda\API\
+][2023-02-06 08:13:10.85 -05:00 INF]Request starting HTTP/1.1 POST https://localhost:5001/API/Usuarios/token application/json 76
+][2023-02-06 08:13:11.29 -05:00 INF]Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '03/02/2023 1:41:54', Current time: '06/02/2023 1:13:11'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateJWS(String token, TokenValidationParameters validationParameters, BaseConfiguration currentConfiguration, SecurityToken& signatureValidatedToken, ExceptionDispatchInfo& exceptionThrown)
+--- End of stack trace from previous location ---
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, JwtSecurityToken outerToken, TokenValidationParameters validationParameters, SecurityToken& signatureValidatedToken)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+][2023-02-06 08:13:11.33 -05:00 INF]Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '03/02/2023 1:41:54', Current time: '06/02/2023 1:13:11'.
+][2023-02-06 08:13:11.34 -05:00 INF]Executing endpoint 'API.Controllers.UsuariosController.GetTokenAsync (API)'
+][2023-02-06 08:13:11.37 -05:00 INF]Route matched with {action = "GetToken", controller = "Usuarios"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetTokenAsync(API.Dtos.LoginDTO) on controller API.Controllers.UsuariosController (API).
+][2023-02-06 08:13:11.44 -05:00 INF]Entity Framework Core 6.0.10 initialized 'TiendaContext' using provider 'Pomelo.EntityFrameworkCore.MySql:6.0.2' with options: ServerVersion 8.0.28-mysql 
+][2023-02-06 08:13:11.72 -05:00 WRN]Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+][2023-02-06 08:13:11.90 -05:00 INF]Executed DbCommand (114ms) [Parameters=[@__ToLower_0='?' (Size = 200)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t`.`Id`, `t`.`ApellidoMaterno`, `t`.`ApellidoPaterno`, `t`.`Email`, `t`.`Nombre`, `t`.`Password`, `t`.`UserName`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`, `t0`.`Nombre`, `r0`.`Id`, `r0`.`Created`, `r0`.`Expires`, `r0`.`Revoked`, `r0`.`Token`, `r0`.`UsuarioId`
+FROM (
+    SELECT `u`.`Id`, `u`.`ApellidoMaterno`, `u`.`ApellidoPaterno`, `u`.`Email`, `u`.`Nombre`, `u`.`Password`, `u`.`UserName`
+    FROM `Usuario` AS `u`
+    WHERE LOWER(`u`.`UserName`) = @__ToLower_0
+    LIMIT 1
+) AS `t`
+LEFT JOIN (
+    SELECT `u0`.`UsuarioId`, `u0`.`RolId`, `r`.`Id`, `r`.`Nombre`
+    FROM `UsuariosRoles` AS `u0`
+    INNER JOIN `Rol` AS `r` ON `u0`.`RolId` = `r`.`Id`
+) AS `t0` ON `t`.`Id` = `t0`.`UsuarioId`
+LEFT JOIN `RefreshToken` AS `r0` ON `t`.`Id` = `r0`.`UsuarioId`
+ORDER BY `t`.`Id`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`
+][2023-02-06 08:13:12.10 -05:00 INF]Executing OkObjectResult, writing value of type 'API.Dtos.DatosUsuarioDto'.
+][2023-02-06 08:13:12.13 -05:00 INF]Executed action API.Controllers.UsuariosController.GetTokenAsync (API) in 747.3388ms
+][2023-02-06 08:13:12.13 -05:00 INF]Executed endpoint 'API.Controllers.UsuariosController.GetTokenAsync (API)'
+][2023-02-06 08:13:12.14 -05:00 INF]Request finished HTTP/1.1 POST https://localhost:5001/API/Usuarios/token application/json 76 - 200 - application/json;+charset=utf-8 1288.2445ms
+][2023-02-06 08:13:21.29 -05:00 INF]Request starting HTTP/1.1 GET https://localhost:5001/API/productos/25 - -
+][2023-02-06 08:13:21.33 -05:00 INF]Executing endpoint 'API.Controllers.ProductosController.Get (API)'
+][2023-02-06 08:13:21.34 -05:00 INF]Route matched with {action = "Get", controller = "Productos"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[API.Dtos.ProductoDTO]] Get(Int32) on controller API.Controllers.ProductosController (API).
+][2023-02-06 08:13:21.57 -05:00 INF]Ejecutando productos
+][2023-02-06 08:13:21.66 -05:00 INF]Entity Framework Core 6.0.10 initialized 'TiendaContext' using provider 'Pomelo.EntityFrameworkCore.MySql:6.0.2' with options: ServerVersion 8.0.28-mysql 
+][2023-02-06 08:13:21.69 -05:00 INF]Executed DbCommand (5ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `p`.`Id`, `p`.`CategoriaId`, `p`.`FechaCreacion`, `p`.`MarcaId`, `p`.`Nombre`, `p`.`Precio`, `m`.`Id`, `m`.`Nombre`, `c`.`Id`, `c`.`Nombre`
+FROM `Producto` AS `p`
+INNER JOIN `Marca` AS `m` ON `p`.`MarcaId` = `m`.`Id`
+INNER JOIN `Categoria` AS `c` ON `p`.`CategoriaId` = `c`.`Id`
+WHERE `p`.`Id` = @__id_0
+LIMIT 1
+][2023-02-06 08:13:21.73 -05:00 INF]Executing ObjectResult, writing value of type 'API.Dtos.ProductoDTO'.
+][2023-02-06 08:13:21.74 -05:00 INF]Executed action API.Controllers.ProductosController.Get (API) in 399.5038ms
+][2023-02-06 08:13:21.74 -05:00 INF]Executed endpoint 'API.Controllers.ProductosController.Get (API)'
+][2023-02-06 08:13:21.74 -05:00 INF]Request finished HTTP/1.1 GET https://localhost:5001/API/productos/25 - - - 200 - application/json;+charset=utf-8 451.1608ms
+][2023-02-06 08:17:12.93 -05:00 INF]Request starting HTTP/1.1 GET https://localhost:5001/API/productos - -
+][2023-02-06 08:17:12.93 -05:00 INF]Executing endpoint 'API.Controllers.ProductosController.Get (API)'
+][2023-02-06 08:17:12.94 -05:00 INF]Route matched with {action = "Get", controller = "Productos"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[API.Helpers.Pager`1[API.Dtos.ProductoListDTO]]] Get(API.Helpers.Params) on controller API.Controllers.ProductosController (API).
+][2023-02-06 08:17:12.94 -05:00 INF]Ejecutando productos
+][2023-02-06 08:17:12.95 -05:00 INF]Entity Framework Core 6.0.10 initialized 'TiendaContext' using provider 'Pomelo.EntityFrameworkCore.MySql:6.0.2' with options: ServerVersion 8.0.28-mysql 
+][2023-02-06 08:17:12.97 -05:00 INF]Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM `Producto` AS `p`
+][2023-02-06 08:17:12.98 -05:00 WRN]The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. If the 'Distinct' operator is used after 'OrderBy', then make sure to use the 'OrderBy' operator after 'Distinct' as the ordering would otherwise get erased.
+][2023-02-06 08:17:12.98 -05:00 WRN]The query uses a row limiting operator ('Skip'/'Take') without an 'OrderBy' operator. This may lead to unpredictable results. If the 'Distinct' operator is used after 'OrderBy', then make sure to use the 'OrderBy' operator after 'Distinct' as the ordering would otherwise get erased.
+][2023-02-06 08:17:13.00 -05:00 INF]Executed DbCommand (14ms) [Parameters=[@__p_1='?' (DbType = Int32), @__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t`.`Id`, `t`.`CategoriaId`, `t`.`FechaCreacion`, `t`.`MarcaId`, `t`.`Nombre`, `t`.`Precio`, `m`.`Id`, `m`.`Nombre`, `c`.`Id`, `c`.`Nombre`
+FROM (
+    SELECT `p`.`Id`, `p`.`CategoriaId`, `p`.`FechaCreacion`, `p`.`MarcaId`, `p`.`Nombre`, `p`.`Precio`
+    FROM `Producto` AS `p`
+    LIMIT @__p_1 OFFSET @__p_0
+) AS `t`
+INNER JOIN `Marca` AS `m` ON `t`.`MarcaId` = `m`.`Id`
+INNER JOIN `Categoria` AS `c` ON `t`.`CategoriaId` = `c`.`Id`
+][2023-02-06 08:17:13.02 -05:00 INF]Executing ObjectResult, writing value of type 'API.Helpers.Pager`1[[API.Dtos.ProductoListDTO, API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+][2023-02-06 08:17:13.02 -05:00 INF]Executed action API.Controllers.ProductosController.Get (API) in 84.8013ms
+][2023-02-06 08:17:13.02 -05:00 INF]Executed endpoint 'API.Controllers.ProductosController.Get (API)'
+][2023-02-06 08:17:13.02 -05:00 INF]Request finished HTTP/1.1 GET https://localhost:5001/API/productos - - - 200 - application/json;+charset=utf-8 97.3399ms
+]

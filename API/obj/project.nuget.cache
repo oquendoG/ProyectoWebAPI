@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "2H7Al9OMaW+0iA3CUZ0HDfGXzTPz/i9yA1e/TG6f3ij0VWxdwn+WYfsbltHmx7VSOE56CMOuKA7fm+Id+hqJSg==",
+  "dgSpecHash": "iL1mKVlQ0frAIx2HDKJpN8S9wXDAEYUdC0/QAP+psM/ajJ4cA+9dBKSKEhPxhvpnAQqCvKv8shb7nihOMRD4Ow==",
   "success": true,
-  "projectFilePath": "F:\\Proyectos .NET\\Proyectos\\Tienda\\API\\API.csproj",
+  "projectFilePath": "F:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\API\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Wilson\\.nuget\\packages\\aspnetcoreratelimit\\4.0.2\\aspnetcoreratelimit.4.0.2.nupkg.sha512",
     "C:\\Users\\Wilson\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",

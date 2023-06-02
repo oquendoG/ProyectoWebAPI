@@ -19,7 +19,7 @@ public class ApiResponse
     /// </summary>
     /// <param name="statusCode">Código de error como 400, 404</param>
     /// <returns>Un mensaje de error</returns>
-    private string GetDefaultMessage(int statusCode)
+    private static string GetDefaultMessage(int statusCode)
     {
         return statusCode switch
         {

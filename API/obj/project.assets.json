@@ -2494,41 +2494,40 @@
   },
   "packageFolders": {
     "C:\\Users\\Wilson\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
-    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\Proyectos .NET\\Proyectos\\Tienda\\API\\API.csproj",
+      "projectUniqueName": "F:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "F:\\Proyectos .NET\\Proyectos\\Tienda\\API\\API.csproj",
+      "projectPath": "F:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\API\\API.csproj",
       "packagesPath": "C:\\Users\\Wilson\\.nuget\\packages\\",
-      "outputPath": "F:\\Proyectos .NET\\Proyectos\\Tienda\\API\\obj\\",
+      "outputPath": "F:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
         "C:\\Users\\Wilson\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
+        "C:\\Program Files\\dotnet\\sdk\\7.0.302\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "F:\\Proyectos .NET\\Proyectos\\Tienda\\Infrastructure\\Infrastructure.csproj": {
-              "projectPath": "F:\\Proyectos .NET\\Proyectos\\Tienda\\Infrastructure\\Infrastructure.csproj"
+            "F:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\Infrastructure\\Infrastructure.csproj": {
+              "projectPath": "F:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\Infrastructure\\Infrastructure.csproj"
             }
           }
         }
@@ -2597,7 +2596,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   }

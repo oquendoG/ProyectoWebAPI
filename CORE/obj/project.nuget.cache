@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "uZFKEYnjKLBdxMtLamG72FMbwIshZTI0ymafXAaNRL6yxXGVXic2Wm5XVWovTzBhaTRGCedHFrnEy9VrnKo3Qw==",
+  "dgSpecHash": "0k4I61sIhm9r8TcWc8OlGBsILfuwsxzobmrnDZnv4Qncr5fEwT27VAC7XrmqCQoZgqXyvvzki6dpp7q7Kep8Bw==",
   "success": true,
-  "projectFilePath": "F:\\Proyectos .NET\\Proyectos\\Tienda\\CORE\\CORE.csproj",
+  "projectFilePath": "F:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\CORE\\CORE.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

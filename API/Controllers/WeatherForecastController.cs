@@ -18,9 +18,12 @@ public class WeatherForecastController : BaseApiController
     }
 
     [HttpGet(Name = "GetWeatherForecast")]
+    [Route("get/weather")]
+    [Route("get/forecast")]
+    [Route("[action]")]
     public IEnumerable<WeatherForecast> Get()
     {
-        throw new Exception("Excepción no controlada");
+        //throw new Exception("Excepción no controlada");
 
         return Enumerable.Range(1, 5).Select(index => new WeatherForecast
         {

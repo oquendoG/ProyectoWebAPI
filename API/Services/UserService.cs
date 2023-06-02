@@ -164,7 +164,7 @@ public class UserService : IUserService
         if (usuario.RefreshTokens.Any(refreshToken => refreshToken.IsActive))
         {
             RefreshToken activeRefreshToken =
-                usuario.RefreshTokens.Where(refreshToken => refreshToken.IsActive).FirstOrDefault();
+                usuario.RefreshTokens.FirstOrDefault(refreshToken => refreshToken.IsActive);
             datosUsuarioDto.RefreshToken = activeRefreshToken.Token;
             datosUsuarioDto.RefreshTokenExpiration = activeRefreshToken.Expires;
         }
@@ -187,7 +187,6 @@ public class UserService : IUserService
     /// <returns>Un texto de validación</returns>
     public async Task<string> AddRoleAsync(AddRoleDto model)
     {
-
         Usuario usuario = await _unitOfWork.Usuarios.GetByUsernameAsync(model.Username);
 
         if (usuario == null)
@@ -215,7 +214,7 @@ public class UserService : IUserService
 
         bool usuarioTieneRol = usuario.Roles.Any(rol => rol.Id == rolExisteEnBd.Id);
 
-        if (usuarioTieneRol is false)
+        if (!usuarioTieneRol)
         {
             usuario.Roles.Add(rolExisteEnBd);
             _unitOfWork.Usuarios.Update(usuario);
@@ -230,7 +229,7 @@ public class UserService : IUserService
     /// Nos permite crear un nuevo refresh token para el Usuario
     /// </summary>
     /// <returns>Una instancia de Core.Entities.RefreshToken</returns>
-    private RefreshToken CreateRefreshToken()
+    private static RefreshToken CreateRefreshToken()
     {
         var randomNumber = new byte[32];
         using var generator = RandomNumberGenerator.Create();
@@ -283,6 +282,5 @@ public class UserService : IUserService
         datosUsuarioDto.RefreshToken = newRefreshToken.Token;
         datosUsuarioDto.RefreshTokenExpiration = newRefreshToken.Expires;
         return datosUsuarioDto;
-
     }
 }
