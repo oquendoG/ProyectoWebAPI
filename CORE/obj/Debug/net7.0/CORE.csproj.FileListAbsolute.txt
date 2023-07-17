@@ -1,0 +1,12 @@
+F:\Proyectos .NET\Proyectos\APIs\Tienda\CORE\bin\Debug\net7.0\CORE.deps.json
+F:\Proyectos .NET\Proyectos\APIs\Tienda\CORE\bin\Debug\net7.0\CORE.dll
+F:\Proyectos .NET\Proyectos\APIs\Tienda\CORE\bin\Debug\net7.0\CORE.pdb
+F:\Proyectos .NET\Proyectos\APIs\Tienda\CORE\obj\Debug\net7.0\CORE.csproj.AssemblyReference.cache
+F:\Proyectos .NET\Proyectos\APIs\Tienda\CORE\obj\Debug\net7.0\CORE.GeneratedMSBuildEditorConfig.editorconfig
+F:\Proyectos .NET\Proyectos\APIs\Tienda\CORE\obj\Debug\net7.0\CORE.AssemblyInfoInputs.cache
+F:\Proyectos .NET\Proyectos\APIs\Tienda\CORE\obj\Debug\net7.0\CORE.AssemblyInfo.cs
+F:\Proyectos .NET\Proyectos\APIs\Tienda\CORE\obj\Debug\net7.0\CORE.csproj.CoreCompileInputs.cache
+F:\Proyectos .NET\Proyectos\APIs\Tienda\CORE\obj\Debug\net7.0\CORE.dll
+F:\Proyectos .NET\Proyectos\APIs\Tienda\CORE\obj\Debug\net7.0\refint\CORE.dll
+F:\Proyectos .NET\Proyectos\APIs\Tienda\CORE\obj\Debug\net7.0\CORE.pdb
+F:\Proyectos .NET\Proyectos\APIs\Tienda\CORE\obj\Debug\net7.0\ref\CORE.dll

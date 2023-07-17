@@ -27,7 +27,8 @@ public class ApiResponse
             401 => "Usuario no autorizado",
             404 => "El recurso no existe",
             405 => "Este método no estápermitido en el servidor",
-            500 => "Error del servidor, por favor comunicate con el administrador"
+            500 => "Error del servidor, por favor comunicate con el administrador",
+            _ => "Error desconocido"
         };
     }
 }

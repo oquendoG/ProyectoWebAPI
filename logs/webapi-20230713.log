@@ -1,0 +1,923 @@
+[2023-07-13 08:10:12.51 -05:00 INF]Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE DATABASE `tiendaBd`;
+][2023-07-13 08:10:12.74 -05:00 INF]Executed DbCommand (40ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `__EFMigrationsHistory` (
+    `MigrationId` varchar(150) CHARACTER SET utf8mb4 NOT NULL,
+    `ProductVersion` varchar(32) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PK___EFMigrationsHistory` PRIMARY KEY (`MigrationId`)
+) CHARACTER SET=utf8mb4;
+][2023-07-13 08:10:12.81 -05:00 INF]Executed DbCommand (50ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='tiendaBd' AND TABLE_NAME='__EFMigrationsHistory';
+][2023-07-13 08:10:12.83 -05:00 INF]Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `MigrationId`, `ProductVersion`
+FROM `__EFMigrationsHistory`
+ORDER BY `MigrationId`;
+][2023-07-13 08:10:12.86 -05:00 INF]Applying migration '20221018134455_MarcasCategorias'.
+][2023-07-13 08:10:12.89 -05:00 INF]Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER DATABASE CHARACTER SET utf8mb4;
+][2023-07-13 08:10:12.92 -05:00 INF]Executed DbCommand (21ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `Categoria` (
+    `Id` int NOT NULL AUTO_INCREMENT,
+    `Nombre` varchar(100) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PK_Categoria` PRIMARY KEY (`Id`)
+) CHARACTER SET=utf8mb4;
+][2023-07-13 08:10:12.94 -05:00 INF]Executed DbCommand (19ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `Marca` (
+    `Id` int NOT NULL AUTO_INCREMENT,
+    `Nombre` varchar(100) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PK_Marca` PRIMARY KEY (`Id`)
+) CHARACTER SET=utf8mb4;
+][2023-07-13 08:10:12.97 -05:00 INF]Executed DbCommand (32ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `Producto` (
+    `Id` int NOT NULL AUTO_INCREMENT,
+    `Nombre` longtext CHARACTER SET utf8mb4 NOT NULL,
+    `Precio` decimal(18,2) NOT NULL,
+    `FechaCreación` datetime(6) NOT NULL,
+    `MarcaId` int NOT NULL,
+    `CategoriaId` int NOT NULL,
+    CONSTRAINT `PK_Producto` PRIMARY KEY (`Id`),
+    CONSTRAINT `FK_Producto_Categoria_CategoriaId` FOREIGN KEY (`CategoriaId`) REFERENCES `Categoria` (`Id`) ON DELETE CASCADE,
+    CONSTRAINT `FK_Producto_Marca_MarcaId` FOREIGN KEY (`MarcaId`) REFERENCES `Marca` (`Id`) ON DELETE CASCADE
+) CHARACTER SET=utf8mb4;
+][2023-07-13 08:10:13.00 -05:00 INF]Executed DbCommand (29ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_Producto_CategoriaId` ON `Producto` (`CategoriaId`);
+][2023-07-13 08:10:13.01 -05:00 INF]Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_Producto_MarcaId` ON `Producto` (`MarcaId`);
+][2023-07-13 08:10:13.02 -05:00 INF]Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
+VALUES ('20221018134455_MarcasCategorias', '7.0.9');
+][2023-07-13 08:10:13.02 -05:00 INF]Applying migration '20221019023442_añadidaFechaAProducto'.
+][2023-07-13 08:10:13.04 -05:00 INF]Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE `Producto` ADD `FechaCreacion` datetime(6) NOT NULL DEFAULT '0001-01-01 00:00:00';
+][2023-07-13 08:10:13.05 -05:00 INF]Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
+VALUES ('20221019023442_añadidaFechaAProducto', '7.0.9');
+][2023-07-13 08:10:13.05 -05:00 INF]Applying migration '20221019023645_modificadoProducto'.
+][2023-07-13 08:10:13.07 -05:00 INF]Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE `Producto` DROP COLUMN `FechaCreación`;
+][2023-07-13 08:10:13.07 -05:00 INF]Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
+VALUES ('20221019023645_modificadoProducto', '7.0.9');
+][2023-07-13 08:10:13.07 -05:00 INF]Applying migration '20221128134212_UsuariosRoles'.
+][2023-07-13 08:10:13.11 -05:00 INF]Executed DbCommand (19ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `Rol` (
+    `Id` int NOT NULL AUTO_INCREMENT,
+    `Nombre` varchar(200) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PK_Rol` PRIMARY KEY (`Id`)
+) CHARACTER SET=utf8mb4;
+][2023-07-13 08:10:13.13 -05:00 INF]Executed DbCommand (21ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `Usuario` (
+    `Id` int NOT NULL AUTO_INCREMENT,
+    `Nombre` varchar(200) CHARACTER SET utf8mb4 NOT NULL,
+    `ApellidoPaterno` varchar(200) CHARACTER SET utf8mb4 NOT NULL,
+    `ApellidoMaterno` longtext CHARACTER SET utf8mb4 NULL,
+    `UserName` varchar(200) CHARACTER SET utf8mb4 NOT NULL,
+    `Email` varchar(200) CHARACTER SET utf8mb4 NOT NULL,
+    `Password` longtext CHARACTER SET utf8mb4 NULL,
+    CONSTRAINT `PK_Usuario` PRIMARY KEY (`Id`)
+) CHARACTER SET=utf8mb4;
+][2023-07-13 08:10:13.16 -05:00 INF]Executed DbCommand (28ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `UsuariosRoles` (
+    `UsuarioId` int NOT NULL,
+    `RolId` int NOT NULL,
+    CONSTRAINT `PK_UsuariosRoles` PRIMARY KEY (`UsuarioId`, `RolId`),
+    CONSTRAINT `FK_UsuariosRoles_Rol_RolId` FOREIGN KEY (`RolId`) REFERENCES `Rol` (`Id`) ON DELETE CASCADE,
+    CONSTRAINT `FK_UsuariosRoles_Usuario_UsuarioId` FOREIGN KEY (`UsuarioId`) REFERENCES `Usuario` (`Id`) ON DELETE CASCADE
+) CHARACTER SET=utf8mb4;
+][2023-07-13 08:10:13.17 -05:00 INF]Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_UsuariosRoles_RolId` ON `UsuariosRoles` (`RolId`);
+][2023-07-13 08:10:13.17 -05:00 INF]Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
+VALUES ('20221128134212_UsuariosRoles', '7.0.9');
+][2023-07-13 08:10:13.17 -05:00 INF]Applying migration '20221213131433_AddRefreshToken'.
+][2023-07-13 08:10:13.22 -05:00 INF]Executed DbCommand (29ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `RefreshToken` (
+    `Id` int NOT NULL AUTO_INCREMENT,
+    `UsuarioId` int NOT NULL,
+    `Token` longtext CHARACTER SET utf8mb4 NULL,
+    `Expires` datetime(6) NOT NULL,
+    `Created` datetime(6) NOT NULL,
+    `Revoked` datetime(6) NULL,
+    CONSTRAINT `PK_RefreshToken` PRIMARY KEY (`Id`),
+    CONSTRAINT `FK_RefreshToken_Usuario_UsuarioId` FOREIGN KEY (`UsuarioId`) REFERENCES `Usuario` (`Id`) ON DELETE CASCADE
+) CHARACTER SET=utf8mb4;
+][2023-07-13 08:10:13.24 -05:00 INF]Executed DbCommand (22ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_RefreshToken_UsuarioId` ON `RefreshToken` (`UsuarioId`);
+][2023-07-13 08:10:13.24 -05:00 INF]Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
+VALUES ('20221213131433_AddRefreshToken', '7.0.9');
+][2023-07-13 08:10:13.70 -05:00 INF]Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Marca` AS `m`)
+][2023-07-13 08:10:14.02 -05:00 INF]Executed DbCommand (48ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (Size = 100), @p2='?' (DbType = Int32), @p3='?' (Size = 100), @p4='?' (DbType = Int32), @p5='?' (Size = 100), @p6='?' (DbType = Int32), @p7='?' (Size = 100), @p8='?' (DbType = Int32), @p9='?' (Size = 100), @p10='?' (DbType = Int32), @p11='?' (Size = 100), @p12='?' (DbType = Int32), @p13='?' (Size = 100), @p14='?' (DbType = Int32), @p15='?' (Size = 100)], CommandType='"Text"', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+INSERT INTO `Marca` (`Id`, `Nombre`)
+VALUES (@p0, @p1),
+(@p2, @p3),
+(@p4, @p5),
+(@p6, @p7),
+(@p8, @p9),
+(@p10, @p11),
+(@p12, @p13),
+(@p14, @p15);
+][2023-07-13 08:10:14.04 -05:00 INF]Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Categoria` AS `c`)
+][2023-07-13 08:10:14.07 -05:00 INF]Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (Size = 100), @p2='?' (DbType = Int32), @p3='?' (Size = 100), @p4='?' (DbType = Int32), @p5='?' (Size = 100), @p6='?' (DbType = Int32), @p7='?' (Size = 100), @p8='?' (DbType = Int32), @p9='?' (Size = 100)], CommandType='"Text"', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+INSERT INTO `Categoria` (`Id`, `Nombre`)
+VALUES (@p0, @p1),
+(@p2, @p3),
+(@p4, @p5),
+(@p6, @p7),
+(@p8, @p9);
+][2023-07-13 08:10:14.08 -05:00 INF]Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Producto` AS `p`)
+][2023-07-13 08:10:14.18 -05:00 INF]Executed DbCommand (5ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime), @p3='?' (DbType = Int32), @p4='?' (Size = 4000), @p5='?' (DbType = Decimal), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32), @p8='?' (DbType = DateTime), @p9='?' (DbType = Int32), @p10='?' (Size = 4000), @p11='?' (DbType = Decimal), @p12='?' (DbType = Int32), @p13='?' (DbType = Int32), @p14='?' (DbType = DateTime), @p15='?' (DbType = Int32), @p16='?' (Size = 4000), @p17='?' (DbType = Decimal), @p18='?' (DbType = Int32), @p19='?' (DbType = Int32), @p20='?' (DbType = DateTime), @p21='?' (DbType = Int32), @p22='?' (Size = 4000), @p23='?' (DbType = Decimal), @p24='?' (DbType = Int32), @p25='?' (DbType = Int32), @p26='?' (DbType = DateTime), @p27='?' (DbType = Int32), @p28='?' (Size = 4000), @p29='?' (DbType = Decimal), @p30='?' (DbType = Int32), @p31='?' (DbType = Int32), @p32='?' (DbType = DateTime), @p33='?' (DbType = Int32), @p34='?' (Size = 4000), @p35='?' (DbType = Decimal), @p36='?' (DbType = Int32), @p37='?' (DbType = Int32), @p38='?' (DbType = DateTime), @p39='?' (DbType = Int32), @p40='?' (Size = 4000), @p41='?' (DbType = Decimal), @p42='?' (DbType = Int32), @p43='?' (DbType = Int32), @p44='?' (DbType = DateTime), @p45='?' (DbType = Int32), @p46='?' (Size = 4000), @p47='?' (DbType = Decimal), @p48='?' (DbType = Int32), @p49='?' (DbType = Int32), @p50='?' (DbType = DateTime), @p51='?' (DbType = Int32), @p52='?' (Size = 4000), @p53='?' (DbType = Decimal), @p54='?' (DbType = Int32), @p55='?' (DbType = Int32), @p56='?' (DbType = DateTime), @p57='?' (DbType = Int32), @p58='?' (Size = 4000), @p59='?' (DbType = Decimal), @p60='?' (DbType = Int32), @p61='?' (DbType = Int32), @p62='?' (DbType = DateTime), @p63='?' (DbType = Int32), @p64='?' (Size = 4000), @p65='?' (DbType = Decimal), @p66='?' (DbType = Int32), @p67='?' (DbType = Int32), @p68='?' (DbType = DateTime), @p69='?' (DbType = Int32), @p70='?' (Size = 4000), @p71='?' (DbType = Decimal), @p72='?' (DbType = Int32), @p73='?' (DbType = Int32), @p74='?' (DbType = DateTime), @p75='?' (DbType = Int32), @p76='?' (Size = 4000), @p77='?' (DbType = Decimal), @p78='?' (DbType = Int32), @p79='?' (DbType = Int32), @p80='?' (DbType = DateTime), @p81='?' (DbType = Int32), @p82='?' (Size = 4000), @p83='?' (DbType = Decimal), @p84='?' (DbType = Int32), @p85='?' (DbType = Int32), @p86='?' (DbType = DateTime), @p87='?' (DbType = Int32), @p88='?' (Size = 4000), @p89='?' (DbType = Decimal), @p90='?' (DbType = Int32), @p91='?' (DbType = Int32), @p92='?' (DbType = DateTime), @p93='?' (DbType = Int32), @p94='?' (Size = 4000), @p95='?' (DbType = Decimal), @p96='?' (DbType = Int32), @p97='?' (DbType = Int32), @p98='?' (DbType = DateTime), @p99='?' (DbType = Int32), @p100='?' (Size = 4000), @p101='?' (DbType = Decimal), @p102='?' (DbType = Int32), @p103='?' (DbType = Int32), @p104='?' (DbType = DateTime), @p105='?' (DbType = Int32), @p106='?' (Size = 4000), @p107='?' (DbType = Decimal), @p108='?' (DbType = Int32), @p109='?' (DbType = Int32), @p110='?' (DbType = DateTime), @p111='?' (DbType = Int32), @p112='?' (Size = 4000), @p113='?' (DbType = Decimal), @p114='?' (DbType = Int32), @p115='?' (DbType = Int32), @p116='?' (DbType = DateTime), @p117='?' (DbType = Int32), @p118='?' (Size = 4000), @p119='?' (DbType = Decimal), @p120='?' (DbType = Int32), @p121='?' (DbType = Int32), @p122='?' (DbType = DateTime), @p123='?' (DbType = Int32), @p124='?' (Size = 4000), @p125='?' (DbType = Decimal), @p126='?' (DbType = Int32), @p127='?' (DbType = Int32), @p128='?' (DbType = DateTime), @p129='?' (DbType = Int32), @p130='?' (Size = 4000), @p131='?' (DbType = Decimal), @p132='?' (DbType = Int32), @p133='?' (DbType = Int32), @p134='?' (DbType = DateTime), @p135='?' (DbType = Int32), @p136='?' (Size = 4000), @p137='?' (DbType = Decimal), @p138='?' (DbType = Int32), @p139='?' (DbType = Int32), @p140='?' (DbType = DateTime), @p141='?' (DbType = Int32), @p142='?' (Size = 4000), @p143='?' (DbType = Decimal), @p144='?' (DbType = Int32), @p145='?' (DbType = Int32), @p146='?' (DbType = DateTime), @p147='?' (DbType = Int32), @p148='?' (Size = 4000), @p149='?' (DbType = Decimal), @p150='?' (DbType = Int32), @p151='?' (DbType = Int32), @p152='?' (DbType = DateTime), @p153='?' (DbType = Int32), @p154='?' (Size = 4000), @p155='?' (DbType = Decimal), @p156='?' (DbType = Int32), @p157='?' (DbType = Int32), @p158='?' (DbType = DateTime), @p159='?' (DbType = Int32), @p160='?' (Size = 4000), @p161='?' (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+INSERT INTO `Producto` (`Id`, `CategoriaId`, `FechaCreacion`, `MarcaId`, `Nombre`, `Precio`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5),
+(@p6, @p7, @p8, @p9, @p10, @p11),
+(@p12, @p13, @p14, @p15, @p16, @p17),
+(@p18, @p19, @p20, @p21, @p22, @p23),
+(@p24, @p25, @p26, @p27, @p28, @p29),
+(@p30, @p31, @p32, @p33, @p34, @p35),
+(@p36, @p37, @p38, @p39, @p40, @p41),
+(@p42, @p43, @p44, @p45, @p46, @p47),
+(@p48, @p49, @p50, @p51, @p52, @p53),
+(@p54, @p55, @p56, @p57, @p58, @p59),
+(@p60, @p61, @p62, @p63, @p64, @p65),
+(@p66, @p67, @p68, @p69, @p70, @p71),
+(@p72, @p73, @p74, @p75, @p76, @p77),
+(@p78, @p79, @p80, @p81, @p82, @p83),
+(@p84, @p85, @p86, @p87, @p88, @p89),
+(@p90, @p91, @p92, @p93, @p94, @p95),
+(@p96, @p97, @p98, @p99, @p100, @p101),
+(@p102, @p103, @p104, @p105, @p106, @p107),
+(@p108, @p109, @p110, @p111, @p112, @p113),
+(@p114, @p115, @p116, @p117, @p118, @p119),
+(@p120, @p121, @p122, @p123, @p124, @p125),
+(@p126, @p127, @p128, @p129, @p130, @p131),
+(@p132, @p133, @p134, @p135, @p136, @p137),
+(@p138, @p139, @p140, @p141, @p142, @p143),
+(@p144, @p145, @p146, @p147, @p148, @p149),
+(@p150, @p151, @p152, @p153, @p154, @p155),
+(@p156, @p157, @p158, @p159, @p160, @p161);
+][2023-07-13 08:10:14.18 -05:00 INF]Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Rol` AS `r`)
+][2023-07-13 08:10:14.20 -05:00 INF]Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (Size = 200), @p2='?' (DbType = Int32), @p3='?' (Size = 200), @p4='?' (DbType = Int32), @p5='?' (Size = 200)], CommandType='"Text"', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+INSERT INTO `Rol` (`Id`, `Nombre`)
+VALUES (@p0, @p1),
+(@p2, @p3),
+(@p4, @p5);
+][2023-07-13 08:10:14.58 -05:00 INF]User profile is available. Using 'C:\Users\Wilson\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+][2023-07-13 08:10:14.88 -05:00 INF]Now listening on: https://localhost:5001
+][2023-07-13 08:10:14.88 -05:00 INF]Now listening on: http://localhost:5000
+][2023-07-13 08:10:14.88 -05:00 INF]Application started. Press Ctrl+C to shut down.
+][2023-07-13 08:10:14.88 -05:00 INF]Hosting environment: Development
+][2023-07-13 08:10:14.88 -05:00 INF]Content root path: F:\Proyectos .NET\Proyectos\APIs\Tienda\API
+][2023-07-13 08:12:21.76 -05:00 INF]Request starting HTTP/1.1 POST https://localhost:5001/API/Usuarios/token application/json 76
+][2023-07-13 08:12:23.37 -05:00 INF]Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenSignatureKeyNotFoundException: IDX10503: Signature validation failed. Token does not have a kid. Keys tried: '[PII of type 'System.Text.StringBuilder' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'. 
+Exceptions caught:
+ '[PII of type 'System.Text.StringBuilder' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'System.IdentityModel.Tokens.Jwt.JwtSecurityToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateSignature(String token, JwtSecurityToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateSignatureAndIssuerSecurityKey(String token, JwtSecurityToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateJWS(String token, TokenValidationParameters validationParameters, BaseConfiguration currentConfiguration, SecurityToken& signatureValidatedToken, ExceptionDispatchInfo& exceptionThrown)
+--- End of stack trace from previous location ---
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, JwtSecurityToken outerToken, TokenValidationParameters validationParameters, SecurityToken& signatureValidatedToken)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+][2023-07-13 08:12:23.37 -05:00 INF]Bearer was not authenticated. Failure message: IDX10503: Signature validation failed. Token does not have a kid. Keys tried: '[PII of type 'System.Text.StringBuilder' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'. 
+Exceptions caught:
+ '[PII of type 'System.Text.StringBuilder' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'System.IdentityModel.Tokens.Jwt.JwtSecurityToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+][2023-07-13 08:12:23.37 -05:00 INF]Executing endpoint 'API.Controllers.UsuariosController.GetTokenAsync (API)'
+][2023-07-13 08:12:23.40 -05:00 INF]Route matched with {action = "GetToken", controller = "Usuarios"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetTokenAsync(API.Dtos.LoginDTO) on controller API.Controllers.UsuariosController (API).
+][2023-07-13 08:12:23.76 -05:00 WRN]Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+][2023-07-13 08:12:23.80 -05:00 INF]Executed DbCommand (7ms) [Parameters=[@__ToLower_0='?' (Size = 200)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t`.`Id`, `t`.`ApellidoMaterno`, `t`.`ApellidoPaterno`, `t`.`Email`, `t`.`Nombre`, `t`.`Password`, `t`.`UserName`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`, `t0`.`Nombre`, `r0`.`Id`, `r0`.`Created`, `r0`.`Expires`, `r0`.`Revoked`, `r0`.`Token`, `r0`.`UsuarioId`
+FROM (
+    SELECT `u`.`Id`, `u`.`ApellidoMaterno`, `u`.`ApellidoPaterno`, `u`.`Email`, `u`.`Nombre`, `u`.`Password`, `u`.`UserName`
+    FROM `Usuario` AS `u`
+    WHERE LOWER(`u`.`UserName`) = @__ToLower_0
+    LIMIT 1
+) AS `t`
+LEFT JOIN (
+    SELECT `u0`.`UsuarioId`, `u0`.`RolId`, `r`.`Id`, `r`.`Nombre`
+    FROM `UsuariosRoles` AS `u0`
+    INNER JOIN `Rol` AS `r` ON `u0`.`RolId` = `r`.`Id`
+) AS `t0` ON `t`.`Id` = `t0`.`UsuarioId`
+LEFT JOIN `RefreshToken` AS `r0` ON `t`.`Id` = `r0`.`UsuarioId`
+ORDER BY `t`.`Id`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`
+][2023-07-13 08:12:23.81 -05:00 INF]Executed action API.Controllers.UsuariosController.GetTokenAsync (API) in 407.6544ms
+][2023-07-13 08:12:23.82 -05:00 INF]Executed endpoint 'API.Controllers.UsuariosController.GetTokenAsync (API)'
+][2023-07-13 08:12:23.82 -05:00 ERR]Value cannot be null. (Parameter 'stringToEscape')
+System.ArgumentNullException: Value cannot be null. (Parameter 'stringToEscape')
+   at System.ArgumentNullException.Throw(String paramName)
+   at System.ArgumentNullException.ThrowIfNull(Object argument, String paramName)
+   at System.UriHelper.EscapeString(String stringToEscape, Boolean checkExistingEscaped, ReadOnlySpan`1 unreserved, Char forceEscape1, Char forceEscape2)
+   at System.Uri.EscapeDataString(String stringToEscape)
+   at Microsoft.AspNetCore.Http.ResponseCookies.Append(String key, String value, CookieOptions options)
+   at API.Controllers.UsuariosController.SetRefreshTokenInCookie(String refreshToken) in F:\Proyectos .NET\Proyectos\APIs\Tienda\API\Controllers\UsuariosController.cs:line 68
+   at API.Controllers.UsuariosController.GetTokenAsync(LoginDTO model) in F:\Proyectos .NET\Proyectos\APIs\Tienda\API\Controllers\UsuariosController.cs:line 38
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at AspNetCoreRateLimit.RateLimitMiddleware`1.Invoke(HttpContext context) in C:\Users\User\Documents\Github\AspNetCoreRateLimit\src\AspNetCoreRateLimit\Middleware\RateLimitMiddleware.cs:line 124
+   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)
+   at API.Helpers.Errors.ExceptionMiddleware.InvokeAsync(HttpContext context) in F:\Proyectos .NET\Proyectos\APIs\Tienda\API\Helpers\Errors\ExceptionMiddleware.cs:line 24
+][2023-07-13 08:12:23.98 -05:00 INF]Request finished HTTP/1.1 POST https://localhost:5001/API/Usuarios/token application/json 76 - 500 - application/json 2216.9064ms
+][2023-07-13 08:13:13.39 -05:00 INF]Request starting HTTP/1.1 POST https://localhost:5001/API/usuarios/refresh-token - 0
+][2023-07-13 08:13:13.40 -05:00 INF]Bearer was not authenticated. Failure message: No SecurityTokenValidator available for token.
+][2023-07-13 08:13:13.40 -05:00 INF]Executing endpoint 'API.Controllers.UsuariosController.RefreshToken (API)'
+][2023-07-13 08:13:13.40 -05:00 INF]Route matched with {action = "RefreshToken", controller = "Usuarios"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] RefreshToken() on controller API.Controllers.UsuariosController (API).
+][2023-07-13 08:13:13.49 -05:00 WRN]Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+][2023-07-13 08:13:13.51 -05:00 INF]Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `t`.`Id`, `t`.`ApellidoMaterno`, `t`.`ApellidoPaterno`, `t`.`Email`, `t`.`Nombre`, `t`.`Password`, `t`.`UserName`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`, `t0`.`Nombre`, `r1`.`Id`, `r1`.`Created`, `r1`.`Expires`, `r1`.`Revoked`, `r1`.`Token`, `r1`.`UsuarioId`
+FROM (
+    SELECT `u`.`Id`, `u`.`ApellidoMaterno`, `u`.`ApellidoPaterno`, `u`.`Email`, `u`.`Nombre`, `u`.`Password`, `u`.`UserName`
+    FROM `Usuario` AS `u`
+    WHERE EXISTS (
+        SELECT 1
+        FROM `RefreshToken` AS `r`
+        WHERE (`u`.`Id` = `r`.`UsuarioId`) AND `r`.`Token` IS NULL)
+    LIMIT 1
+) AS `t`
+LEFT JOIN (
+    SELECT `u0`.`UsuarioId`, `u0`.`RolId`, `r0`.`Id`, `r0`.`Nombre`
+    FROM `UsuariosRoles` AS `u0`
+    INNER JOIN `Rol` AS `r0` ON `u0`.`RolId` = `r0`.`Id`
+) AS `t0` ON `t`.`Id` = `t0`.`UsuarioId`
+LEFT JOIN `RefreshToken` AS `r1` ON `t`.`Id` = `r1`.`UsuarioId`
+ORDER BY `t`.`Id`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`
+][2023-07-13 08:13:13.51 -05:00 INF]Executing OkObjectResult, writing value of type 'API.Dtos.DatosUsuarioDto'.
+][2023-07-13 08:13:13.54 -05:00 INF]Executed action API.Controllers.UsuariosController.RefreshToken (API) in 136.208ms
+][2023-07-13 08:13:13.54 -05:00 INF]Executed endpoint 'API.Controllers.UsuariosController.RefreshToken (API)'
+][2023-07-13 08:13:13.54 -05:00 INF]Request finished HTTP/1.1 POST https://localhost:5001/API/usuarios/refresh-token - 0 - 200 - application/json;+charset=utf-8 149.3218ms
+][2023-07-13 08:13:23.54 -05:00 INF]Request starting HTTP/1.1 POST https://localhost:5001/API/Usuarios/token application/json 76
+][2023-07-13 08:13:23.55 -05:00 INF]Bearer was not authenticated. Failure message: No SecurityTokenValidator available for token.
+][2023-07-13 08:13:23.55 -05:00 INF]Executing endpoint 'API.Controllers.UsuariosController.GetTokenAsync (API)'
+][2023-07-13 08:13:23.55 -05:00 INF]Route matched with {action = "GetToken", controller = "Usuarios"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetTokenAsync(API.Dtos.LoginDTO) on controller API.Controllers.UsuariosController (API).
+][2023-07-13 08:13:23.56 -05:00 INF]Executed DbCommand (1ms) [Parameters=[@__ToLower_0='?' (Size = 200)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t`.`Id`, `t`.`ApellidoMaterno`, `t`.`ApellidoPaterno`, `t`.`Email`, `t`.`Nombre`, `t`.`Password`, `t`.`UserName`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`, `t0`.`Nombre`, `r0`.`Id`, `r0`.`Created`, `r0`.`Expires`, `r0`.`Revoked`, `r0`.`Token`, `r0`.`UsuarioId`
+FROM (
+    SELECT `u`.`Id`, `u`.`ApellidoMaterno`, `u`.`ApellidoPaterno`, `u`.`Email`, `u`.`Nombre`, `u`.`Password`, `u`.`UserName`
+    FROM `Usuario` AS `u`
+    WHERE LOWER(`u`.`UserName`) = @__ToLower_0
+    LIMIT 1
+) AS `t`
+LEFT JOIN (
+    SELECT `u0`.`UsuarioId`, `u0`.`RolId`, `r`.`Id`, `r`.`Nombre`
+    FROM `UsuariosRoles` AS `u0`
+    INNER JOIN `Rol` AS `r` ON `u0`.`RolId` = `r`.`Id`
+) AS `t0` ON `t`.`Id` = `t0`.`UsuarioId`
+LEFT JOIN `RefreshToken` AS `r0` ON `t`.`Id` = `r0`.`UsuarioId`
+ORDER BY `t`.`Id`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`
+][2023-07-13 08:13:23.56 -05:00 INF]Executed action API.Controllers.UsuariosController.GetTokenAsync (API) in 12.5197ms
+][2023-07-13 08:13:23.56 -05:00 INF]Executed endpoint 'API.Controllers.UsuariosController.GetTokenAsync (API)'
+][2023-07-13 08:13:23.56 -05:00 ERR]Value cannot be null. (Parameter 'stringToEscape')
+System.ArgumentNullException: Value cannot be null. (Parameter 'stringToEscape')
+   at System.ArgumentNullException.Throw(String paramName)
+   at System.ArgumentNullException.ThrowIfNull(Object argument, String paramName)
+   at System.UriHelper.EscapeString(String stringToEscape, Boolean checkExistingEscaped, ReadOnlySpan`1 unreserved, Char forceEscape1, Char forceEscape2)
+   at System.Uri.EscapeDataString(String stringToEscape)
+   at Microsoft.AspNetCore.Http.ResponseCookies.Append(String key, String value, CookieOptions options)
+   at API.Controllers.UsuariosController.SetRefreshTokenInCookie(String refreshToken) in F:\Proyectos .NET\Proyectos\APIs\Tienda\API\Controllers\UsuariosController.cs:line 68
+   at API.Controllers.UsuariosController.GetTokenAsync(LoginDTO model) in F:\Proyectos .NET\Proyectos\APIs\Tienda\API\Controllers\UsuariosController.cs:line 38
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at AspNetCoreRateLimit.RateLimitMiddleware`1.Invoke(HttpContext context) in C:\Users\User\Documents\Github\AspNetCoreRateLimit\src\AspNetCoreRateLimit\Middleware\RateLimitMiddleware.cs:line 124
+   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)
+   at API.Helpers.Errors.ExceptionMiddleware.InvokeAsync(HttpContext context) in F:\Proyectos .NET\Proyectos\APIs\Tienda\API\Helpers\Errors\ExceptionMiddleware.cs:line 24
+][2023-07-13 08:13:23.57 -05:00 INF]Request finished HTTP/1.1 POST https://localhost:5001/API/Usuarios/token application/json 76 - 500 - application/json 23.5754ms
+][2023-07-13 08:14:00.79 -05:00 INF]Request starting HTTP/1.1 POST https://localhost:5001/API/Usuarios/token application/json 76
+][2023-07-13 08:14:00.79 -05:00 INF]Bearer was not authenticated. Failure message: No SecurityTokenValidator available for token.
+][2023-07-13 08:14:00.79 -05:00 INF]Executing endpoint 'API.Controllers.UsuariosController.GetTokenAsync (API)'
+][2023-07-13 08:14:00.79 -05:00 INF]Route matched with {action = "GetToken", controller = "Usuarios"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetTokenAsync(API.Dtos.LoginDTO) on controller API.Controllers.UsuariosController (API).
+][2023-07-13 08:14:00.80 -05:00 INF]Executed DbCommand (1ms) [Parameters=[@__ToLower_0='?' (Size = 200)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t`.`Id`, `t`.`ApellidoMaterno`, `t`.`ApellidoPaterno`, `t`.`Email`, `t`.`Nombre`, `t`.`Password`, `t`.`UserName`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`, `t0`.`Nombre`, `r0`.`Id`, `r0`.`Created`, `r0`.`Expires`, `r0`.`Revoked`, `r0`.`Token`, `r0`.`UsuarioId`
+FROM (
+    SELECT `u`.`Id`, `u`.`ApellidoMaterno`, `u`.`ApellidoPaterno`, `u`.`Email`, `u`.`Nombre`, `u`.`Password`, `u`.`UserName`
+    FROM `Usuario` AS `u`
+    WHERE LOWER(`u`.`UserName`) = @__ToLower_0
+    LIMIT 1
+) AS `t`
+LEFT JOIN (
+    SELECT `u0`.`UsuarioId`, `u0`.`RolId`, `r`.`Id`, `r`.`Nombre`
+    FROM `UsuariosRoles` AS `u0`
+    INNER JOIN `Rol` AS `r` ON `u0`.`RolId` = `r`.`Id`
+) AS `t0` ON `t`.`Id` = `t0`.`UsuarioId`
+LEFT JOIN `RefreshToken` AS `r0` ON `t`.`Id` = `r0`.`UsuarioId`
+ORDER BY `t`.`Id`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`
+][2023-07-13 08:14:00.80 -05:00 INF]Executed action API.Controllers.UsuariosController.GetTokenAsync (API) in 4.3201ms
+][2023-07-13 08:14:00.80 -05:00 INF]Executed endpoint 'API.Controllers.UsuariosController.GetTokenAsync (API)'
+][2023-07-13 08:14:00.80 -05:00 ERR]Value cannot be null. (Parameter 'stringToEscape')
+System.ArgumentNullException: Value cannot be null. (Parameter 'stringToEscape')
+   at System.ArgumentNullException.Throw(String paramName)
+   at System.ArgumentNullException.ThrowIfNull(Object argument, String paramName)
+   at System.UriHelper.EscapeString(String stringToEscape, Boolean checkExistingEscaped, ReadOnlySpan`1 unreserved, Char forceEscape1, Char forceEscape2)
+   at System.Uri.EscapeDataString(String stringToEscape)
+   at Microsoft.AspNetCore.Http.ResponseCookies.Append(String key, String value, CookieOptions options)
+   at API.Controllers.UsuariosController.SetRefreshTokenInCookie(String refreshToken) in F:\Proyectos .NET\Proyectos\APIs\Tienda\API\Controllers\UsuariosController.cs:line 68
+   at API.Controllers.UsuariosController.GetTokenAsync(LoginDTO model) in F:\Proyectos .NET\Proyectos\APIs\Tienda\API\Controllers\UsuariosController.cs:line 38
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at AspNetCoreRateLimit.RateLimitMiddleware`1.Invoke(HttpContext context) in C:\Users\User\Documents\Github\AspNetCoreRateLimit\src\AspNetCoreRateLimit\Middleware\RateLimitMiddleware.cs:line 124
+   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)
+   at API.Helpers.Errors.ExceptionMiddleware.InvokeAsync(HttpContext context) in F:\Proyectos .NET\Proyectos\APIs\Tienda\API\Helpers\Errors\ExceptionMiddleware.cs:line 24
+][2023-07-13 08:14:00.80 -05:00 INF]Request finished HTTP/1.1 POST https://localhost:5001/API/Usuarios/token application/json 76 - 500 - application/json 8.3313ms
+][2023-07-13 08:21:02.71 -05:00 INF]Executed DbCommand (21ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='tiendaBd' AND TABLE_NAME='__EFMigrationsHistory';
+][2023-07-13 08:21:02.82 -05:00 INF]Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='tiendaBd' AND TABLE_NAME='__EFMigrationsHistory';
+][2023-07-13 08:21:02.90 -05:00 INF]Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `MigrationId`, `ProductVersion`
+FROM `__EFMigrationsHistory`
+ORDER BY `MigrationId`;
+][2023-07-13 08:21:02.94 -05:00 INF]No migrations were applied. The database is already up to date.
+][2023-07-13 08:21:03.27 -05:00 INF]Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Marca` AS `m`)
+][2023-07-13 08:21:03.28 -05:00 INF]Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Categoria` AS `c`)
+][2023-07-13 08:21:03.28 -05:00 INF]Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Producto` AS `p`)
+][2023-07-13 08:21:03.29 -05:00 INF]Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Rol` AS `r`)
+][2023-07-13 08:21:03.63 -05:00 INF]User profile is available. Using 'C:\Users\Wilson\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+][2023-07-13 08:21:03.85 -05:00 INF]Now listening on: https://localhost:5001
+][2023-07-13 08:21:03.85 -05:00 INF]Now listening on: http://localhost:5000
+][2023-07-13 08:21:03.86 -05:00 INF]Application started. Press Ctrl+C to shut down.
+][2023-07-13 08:21:03.86 -05:00 INF]Hosting environment: Development
+][2023-07-13 08:21:03.86 -05:00 INF]Content root path: F:\Proyectos .NET\Proyectos\APIs\Tienda\API
+][2023-07-13 08:22:39.06 -05:00 INF]Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='tiendaBd' AND TABLE_NAME='__EFMigrationsHistory';
+][2023-07-13 08:22:39.16 -05:00 INF]Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='tiendaBd' AND TABLE_NAME='__EFMigrationsHistory';
+][2023-07-13 08:22:39.20 -05:00 INF]Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `MigrationId`, `ProductVersion`
+FROM `__EFMigrationsHistory`
+ORDER BY `MigrationId`;
+][2023-07-13 08:22:39.23 -05:00 INF]No migrations were applied. The database is already up to date.
+][2023-07-13 08:22:39.51 -05:00 INF]Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Marca` AS `m`)
+][2023-07-13 08:22:39.52 -05:00 INF]Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Categoria` AS `c`)
+][2023-07-13 08:22:39.53 -05:00 INF]Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Producto` AS `p`)
+][2023-07-13 08:22:39.53 -05:00 INF]Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Rol` AS `r`)
+][2023-07-13 08:22:39.80 -05:00 INF]User profile is available. Using 'C:\Users\Wilson\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+][2023-07-13 08:22:39.98 -05:00 INF]Now listening on: https://localhost:5001
+][2023-07-13 08:22:39.98 -05:00 INF]Now listening on: http://localhost:5000
+][2023-07-13 08:22:39.99 -05:00 INF]Application started. Press Ctrl+C to shut down.
+][2023-07-13 08:22:39.99 -05:00 INF]Hosting environment: Development
+][2023-07-13 08:22:39.99 -05:00 INF]Content root path: F:\Proyectos .NET\Proyectos\APIs\Tienda\API
+][2023-07-13 08:23:01.77 -05:00 INF]Request starting HTTP/1.1 POST https://localhost:5001/API/Usuarios/token application/json 76
+][2023-07-13 08:23:02.18 -05:00 INF]Bearer was not authenticated. Failure message: No SecurityTokenValidator available for token.
+][2023-07-13 08:23:02.19 -05:00 INF]Executing endpoint 'API.Controllers.UsuariosController.GetTokenAsync (API)'
+][2023-07-13 08:23:02.22 -05:00 INF]Route matched with {action = "GetToken", controller = "Usuarios"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetTokenAsync(API.Dtos.LoginDTO) on controller API.Controllers.UsuariosController (API).
+][2023-07-13 08:23:02.73 -05:00 WRN]Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+][2023-07-13 08:23:02.85 -05:00 INF]Executed DbCommand (54ms) [Parameters=[@__ToLower_0='?' (Size = 200)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t`.`Id`, `t`.`ApellidoMaterno`, `t`.`ApellidoPaterno`, `t`.`Email`, `t`.`Nombre`, `t`.`Password`, `t`.`UserName`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`, `t0`.`Nombre`, `r0`.`Id`, `r0`.`Created`, `r0`.`Expires`, `r0`.`Revoked`, `r0`.`Token`, `r0`.`UsuarioId`
+FROM (
+    SELECT `u`.`Id`, `u`.`ApellidoMaterno`, `u`.`ApellidoPaterno`, `u`.`Email`, `u`.`Nombre`, `u`.`Password`, `u`.`UserName`
+    FROM `Usuario` AS `u`
+    WHERE LOWER(`u`.`UserName`) = @__ToLower_0
+    LIMIT 1
+) AS `t`
+LEFT JOIN (
+    SELECT `u0`.`UsuarioId`, `u0`.`RolId`, `r`.`Id`, `r`.`Nombre`
+    FROM `UsuariosRoles` AS `u0`
+    INNER JOIN `Rol` AS `r` ON `u0`.`RolId` = `r`.`Id`
+) AS `t0` ON `t`.`Id` = `t0`.`UsuarioId`
+LEFT JOIN `RefreshToken` AS `r0` ON `t`.`Id` = `r0`.`UsuarioId`
+ORDER BY `t`.`Id`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`
+][2023-07-13 08:23:03.19 -05:00 INF]Executed action API.Controllers.UsuariosController.GetTokenAsync (API) in 963.6177ms
+][2023-07-13 08:23:03.19 -05:00 INF]Executed endpoint 'API.Controllers.UsuariosController.GetTokenAsync (API)'
+][2023-07-13 08:23:03.40 -05:00 ERR]Value cannot be null. (Parameter 'stringToEscape')
+System.ArgumentNullException: Value cannot be null. (Parameter 'stringToEscape')
+   at System.ArgumentNullException.Throw(String paramName)
+   at System.ArgumentNullException.ThrowIfNull(Object argument, String paramName)
+   at System.UriHelper.EscapeString(String stringToEscape, Boolean checkExistingEscaped, ReadOnlySpan`1 unreserved, Char forceEscape1, Char forceEscape2)
+   at System.Uri.EscapeDataString(String stringToEscape)
+   at Microsoft.AspNetCore.Http.ResponseCookies.Append(String key, String value, CookieOptions options)
+   at API.Controllers.UsuariosController.SetRefreshTokenInCookie(String refreshToken) in F:\Proyectos .NET\Proyectos\APIs\Tienda\API\Controllers\UsuariosController.cs:line 68
+   at API.Controllers.UsuariosController.GetTokenAsync(LoginDTO model) in F:\Proyectos .NET\Proyectos\APIs\Tienda\API\Controllers\UsuariosController.cs:line 38
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at AspNetCoreRateLimit.RateLimitMiddleware`1.Invoke(HttpContext context) in C:\Users\User\Documents\Github\AspNetCoreRateLimit\src\AspNetCoreRateLimit\Middleware\RateLimitMiddleware.cs:line 124
+   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)
+   at API.Helpers.Errors.ExceptionMiddleware.InvokeAsync(HttpContext context) in F:\Proyectos .NET\Proyectos\APIs\Tienda\API\Helpers\Errors\ExceptionMiddleware.cs:line 24
+][2023-07-13 08:23:03.50 -05:00 INF]Request finished HTTP/1.1 POST https://localhost:5001/API/Usuarios/token application/json 76 - 500 - application/json 1731.9103ms
+][2023-07-13 08:23:28.83 -05:00 INF]Request starting HTTP/1.1 POST https://localhost:5001/API/usuarios/refresh-token - 0
+][2023-07-13 08:23:28.84 -05:00 INF]Bearer was not authenticated. Failure message: No SecurityTokenValidator available for token.
+][2023-07-13 08:23:28.85 -05:00 INF]Executing endpoint 'API.Controllers.UsuariosController.RefreshToken (API)'
+][2023-07-13 08:23:28.85 -05:00 INF]Route matched with {action = "RefreshToken", controller = "Usuarios"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] RefreshToken() on controller API.Controllers.UsuariosController (API).
+][2023-07-13 08:23:29.06 -05:00 WRN]Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+][2023-07-13 08:23:29.11 -05:00 INF]Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `t`.`Id`, `t`.`ApellidoMaterno`, `t`.`ApellidoPaterno`, `t`.`Email`, `t`.`Nombre`, `t`.`Password`, `t`.`UserName`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`, `t0`.`Nombre`, `r1`.`Id`, `r1`.`Created`, `r1`.`Expires`, `r1`.`Revoked`, `r1`.`Token`, `r1`.`UsuarioId`
+FROM (
+    SELECT `u`.`Id`, `u`.`ApellidoMaterno`, `u`.`ApellidoPaterno`, `u`.`Email`, `u`.`Nombre`, `u`.`Password`, `u`.`UserName`
+    FROM `Usuario` AS `u`
+    WHERE EXISTS (
+        SELECT 1
+        FROM `RefreshToken` AS `r`
+        WHERE (`u`.`Id` = `r`.`UsuarioId`) AND `r`.`Token` IS NULL)
+    LIMIT 1
+) AS `t`
+LEFT JOIN (
+    SELECT `u0`.`UsuarioId`, `u0`.`RolId`, `r0`.`Id`, `r0`.`Nombre`
+    FROM `UsuariosRoles` AS `u0`
+    INNER JOIN `Rol` AS `r0` ON `u0`.`RolId` = `r0`.`Id`
+) AS `t0` ON `t`.`Id` = `t0`.`UsuarioId`
+LEFT JOIN `RefreshToken` AS `r1` ON `t`.`Id` = `r1`.`UsuarioId`
+ORDER BY `t`.`Id`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`
+][2023-07-13 08:23:29.13 -05:00 INF]Executing OkObjectResult, writing value of type 'API.Dtos.DatosUsuarioDto'.
+][2023-07-13 08:23:29.16 -05:00 INF]Executed action API.Controllers.UsuariosController.RefreshToken (API) in 299.7298ms
+][2023-07-13 08:23:29.16 -05:00 INF]Executed endpoint 'API.Controllers.UsuariosController.RefreshToken (API)'
+][2023-07-13 08:23:29.16 -05:00 INF]Request finished HTTP/1.1 POST https://localhost:5001/API/usuarios/refresh-token - 0 - 200 - application/json;+charset=utf-8 335.4836ms
+][2023-07-13 08:24:29.31 -05:00 INF]Request starting HTTP/1.1 POST https://localhost:5001/API/Usuarios/token application/json 76
+][2023-07-13 08:24:29.32 -05:00 INF]Bearer was not authenticated. Failure message: No SecurityTokenValidator available for token.
+][2023-07-13 08:24:29.32 -05:00 INF]Executing endpoint 'API.Controllers.UsuariosController.GetTokenAsync (API)'
+][2023-07-13 08:24:29.33 -05:00 INF]Route matched with {action = "GetToken", controller = "Usuarios"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetTokenAsync(API.Dtos.LoginDTO) on controller API.Controllers.UsuariosController (API).
+][2023-07-13 08:24:52.76 -05:00 INF]Executed DbCommand (12ms) [Parameters=[@__ToLower_0='?' (Size = 200)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t`.`Id`, `t`.`ApellidoMaterno`, `t`.`ApellidoPaterno`, `t`.`Email`, `t`.`Nombre`, `t`.`Password`, `t`.`UserName`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`, `t0`.`Nombre`, `r0`.`Id`, `r0`.`Created`, `r0`.`Expires`, `r0`.`Revoked`, `r0`.`Token`, `r0`.`UsuarioId`
+FROM (
+    SELECT `u`.`Id`, `u`.`ApellidoMaterno`, `u`.`ApellidoPaterno`, `u`.`Email`, `u`.`Nombre`, `u`.`Password`, `u`.`UserName`
+    FROM `Usuario` AS `u`
+    WHERE LOWER(`u`.`UserName`) = @__ToLower_0
+    LIMIT 1
+) AS `t`
+LEFT JOIN (
+    SELECT `u0`.`UsuarioId`, `u0`.`RolId`, `r`.`Id`, `r`.`Nombre`
+    FROM `UsuariosRoles` AS `u0`
+    INNER JOIN `Rol` AS `r` ON `u0`.`RolId` = `r`.`Id`
+) AS `t0` ON `t`.`Id` = `t0`.`UsuarioId`
+LEFT JOIN `RefreshToken` AS `r0` ON `t`.`Id` = `r0`.`UsuarioId`
+ORDER BY `t`.`Id`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`
+][2023-07-13 08:26:55.78 -05:00 INF]Executed DbCommand (28ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='tiendaBd' AND TABLE_NAME='__EFMigrationsHistory';
+][2023-07-13 08:26:55.89 -05:00 INF]Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='tiendaBd' AND TABLE_NAME='__EFMigrationsHistory';
+][2023-07-13 08:26:56.02 -05:00 INF]Executed DbCommand (69ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `MigrationId`, `ProductVersion`
+FROM `__EFMigrationsHistory`
+ORDER BY `MigrationId`;
+][2023-07-13 08:26:56.05 -05:00 INF]No migrations were applied. The database is already up to date.
+][2023-07-13 08:26:56.40 -05:00 INF]Executed DbCommand (19ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Marca` AS `m`)
+][2023-07-13 08:26:56.43 -05:00 INF]Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Categoria` AS `c`)
+][2023-07-13 08:26:56.45 -05:00 INF]Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Producto` AS `p`)
+][2023-07-13 08:26:56.47 -05:00 INF]Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Rol` AS `r`)
+][2023-07-13 08:26:56.78 -05:00 INF]User profile is available. Using 'C:\Users\Wilson\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+][2023-07-13 08:26:57.06 -05:00 INF]Now listening on: https://localhost:5001
+][2023-07-13 08:26:57.06 -05:00 INF]Now listening on: http://localhost:5000
+][2023-07-13 08:26:57.07 -05:00 INF]Application started. Press Ctrl+C to shut down.
+][2023-07-13 08:26:57.07 -05:00 INF]Hosting environment: Development
+][2023-07-13 08:26:57.07 -05:00 INF]Content root path: F:\Proyectos .NET\Proyectos\APIs\Tienda\API
+][2023-07-13 08:27:29.78 -05:00 INF]Request starting HTTP/1.1 POST https://localhost:5001/API/Usuarios/token application/json 76
+][2023-07-13 08:27:30.15 -05:00 INF]Bearer was not authenticated. Failure message: No SecurityTokenValidator available for token.
+][2023-07-13 08:27:30.16 -05:00 INF]Executing endpoint 'API.Controllers.UsuariosController.GetTokenAsync (API)'
+][2023-07-13 08:27:30.20 -05:00 INF]Route matched with {action = "GetToken", controller = "Usuarios"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetTokenAsync(API.Dtos.LoginDTO) on controller API.Controllers.UsuariosController (API).
+][2023-07-13 08:27:30.64 -05:00 WRN]Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+][2023-07-13 08:27:30.86 -05:00 INF]Executed DbCommand (147ms) [Parameters=[@__ToLower_0='?' (Size = 200)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t`.`Id`, `t`.`ApellidoMaterno`, `t`.`ApellidoPaterno`, `t`.`Email`, `t`.`Nombre`, `t`.`Password`, `t`.`UserName`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`, `t0`.`Nombre`, `r0`.`Id`, `r0`.`Created`, `r0`.`Expires`, `r0`.`Revoked`, `r0`.`Token`, `r0`.`UsuarioId`
+FROM (
+    SELECT `u`.`Id`, `u`.`ApellidoMaterno`, `u`.`ApellidoPaterno`, `u`.`Email`, `u`.`Nombre`, `u`.`Password`, `u`.`UserName`
+    FROM `Usuario` AS `u`
+    WHERE LOWER(`u`.`UserName`) = @__ToLower_0
+    LIMIT 1
+) AS `t`
+LEFT JOIN (
+    SELECT `u0`.`UsuarioId`, `u0`.`RolId`, `r`.`Id`, `r`.`Nombre`
+    FROM `UsuariosRoles` AS `u0`
+    INNER JOIN `Rol` AS `r` ON `u0`.`RolId` = `r`.`Id`
+) AS `t0` ON `t`.`Id` = `t0`.`UsuarioId`
+LEFT JOIN `RefreshToken` AS `r0` ON `t`.`Id` = `r0`.`UsuarioId`
+ORDER BY `t`.`Id`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`
+][2023-07-13 08:27:31.28 -05:00 INF]Executed action API.Controllers.UsuariosController.GetTokenAsync (API) in 1068.338ms
+][2023-07-13 08:27:31.28 -05:00 INF]Executed endpoint 'API.Controllers.UsuariosController.GetTokenAsync (API)'
+][2023-07-13 08:27:31.49 -05:00 ERR]Value cannot be null. (Parameter 'stringToEscape')
+System.ArgumentNullException: Value cannot be null. (Parameter 'stringToEscape')
+   at System.ArgumentNullException.Throw(String paramName)
+   at System.ArgumentNullException.ThrowIfNull(Object argument, String paramName)
+   at System.UriHelper.EscapeString(String stringToEscape, Boolean checkExistingEscaped, ReadOnlySpan`1 unreserved, Char forceEscape1, Char forceEscape2)
+   at System.Uri.EscapeDataString(String stringToEscape)
+   at Microsoft.AspNetCore.Http.ResponseCookies.Append(String key, String value, CookieOptions options)
+   at API.Controllers.UsuariosController.SetRefreshTokenInCookie(String refreshToken) in F:\Proyectos .NET\Proyectos\APIs\Tienda\API\Controllers\UsuariosController.cs:line 68
+   at API.Controllers.UsuariosController.GetTokenAsync(LoginDTO model) in F:\Proyectos .NET\Proyectos\APIs\Tienda\API\Controllers\UsuariosController.cs:line 38
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at AspNetCoreRateLimit.RateLimitMiddleware`1.Invoke(HttpContext context) in C:\Users\User\Documents\Github\AspNetCoreRateLimit\src\AspNetCoreRateLimit\Middleware\RateLimitMiddleware.cs:line 124
+   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)
+   at API.Helpers.Errors.ExceptionMiddleware.InvokeAsync(HttpContext context) in F:\Proyectos .NET\Proyectos\APIs\Tienda\API\Helpers\Errors\ExceptionMiddleware.cs:line 24
+][2023-07-13 08:27:31.60 -05:00 INF]Request finished HTTP/1.1 POST https://localhost:5001/API/Usuarios/token application/json 76 - 500 - application/json 1822.9731ms
+][2023-07-13 08:28:29.43 -05:00 INF]Request starting HTTP/1.1 POST https://localhost:5001/API/Usuarios/token application/json 76
+][2023-07-13 08:28:29.46 -05:00 INF]Bearer was not authenticated. Failure message: No SecurityTokenValidator available for token.
+][2023-07-13 08:28:29.46 -05:00 INF]Executing endpoint 'API.Controllers.UsuariosController.GetTokenAsync (API)'
+][2023-07-13 08:28:29.46 -05:00 INF]Route matched with {action = "GetToken", controller = "Usuarios"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetTokenAsync(API.Dtos.LoginDTO) on controller API.Controllers.UsuariosController (API).
+][2023-07-13 08:28:38.49 -05:00 INF]Executed DbCommand (35ms) [Parameters=[@__ToLower_0='?' (Size = 200)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t`.`Id`, `t`.`ApellidoMaterno`, `t`.`ApellidoPaterno`, `t`.`Email`, `t`.`Nombre`, `t`.`Password`, `t`.`UserName`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`, `t0`.`Nombre`, `r0`.`Id`, `r0`.`Created`, `r0`.`Expires`, `r0`.`Revoked`, `r0`.`Token`, `r0`.`UsuarioId`
+FROM (
+    SELECT `u`.`Id`, `u`.`ApellidoMaterno`, `u`.`ApellidoPaterno`, `u`.`Email`, `u`.`Nombre`, `u`.`Password`, `u`.`UserName`
+    FROM `Usuario` AS `u`
+    WHERE LOWER(`u`.`UserName`) = @__ToLower_0
+    LIMIT 1
+) AS `t`
+LEFT JOIN (
+    SELECT `u0`.`UsuarioId`, `u0`.`RolId`, `r`.`Id`, `r`.`Nombre`
+    FROM `UsuariosRoles` AS `u0`
+    INNER JOIN `Rol` AS `r` ON `u0`.`RolId` = `r`.`Id`
+) AS `t0` ON `t`.`Id` = `t0`.`UsuarioId`
+LEFT JOIN `RefreshToken` AS `r0` ON `t`.`Id` = `r0`.`UsuarioId`
+ORDER BY `t`.`Id`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`
+][2023-07-13 08:28:47.72 -05:00 INF]Executed action API.Controllers.UsuariosController.GetTokenAsync (API) in 18252.3601ms
+][2023-07-13 08:28:47.73 -05:00 INF]Executed endpoint 'API.Controllers.UsuariosController.GetTokenAsync (API)'
+][2023-07-13 08:28:47.89 -05:00 ERR]Value cannot be null. (Parameter 'stringToEscape')
+System.ArgumentNullException: Value cannot be null. (Parameter 'stringToEscape')
+   at System.ArgumentNullException.Throw(String paramName)
+   at System.ArgumentNullException.ThrowIfNull(Object argument, String paramName)
+   at System.UriHelper.EscapeString(String stringToEscape, Boolean checkExistingEscaped, ReadOnlySpan`1 unreserved, Char forceEscape1, Char forceEscape2)
+   at System.Uri.EscapeDataString(String stringToEscape)
+   at Microsoft.AspNetCore.Http.ResponseCookies.Append(String key, String value, CookieOptions options)
+   at API.Controllers.UsuariosController.SetRefreshTokenInCookie(String refreshToken) in F:\Proyectos .NET\Proyectos\APIs\Tienda\API\Controllers\UsuariosController.cs:line 68
+   at API.Controllers.UsuariosController.GetTokenAsync(LoginDTO model) in F:\Proyectos .NET\Proyectos\APIs\Tienda\API\Controllers\UsuariosController.cs:line 38
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at AspNetCoreRateLimit.RateLimitMiddleware`1.Invoke(HttpContext context) in C:\Users\User\Documents\Github\AspNetCoreRateLimit\src\AspNetCoreRateLimit\Middleware\RateLimitMiddleware.cs:line 124
+   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)
+   at API.Helpers.Errors.ExceptionMiddleware.InvokeAsync(HttpContext context) in F:\Proyectos .NET\Proyectos\APIs\Tienda\API\Helpers\Errors\ExceptionMiddleware.cs:line 24
+][2023-07-13 08:28:47.90 -05:00 INF]Request finished HTTP/1.1 POST https://localhost:5001/API/Usuarios/token application/json 76 - 500 - application/json 18467.2596ms
+][2023-07-13 08:28:52.84 -05:00 INF]Request starting HTTP/1.1 POST https://localhost:5001/API/Usuarios/token application/json 76
+][2023-07-13 08:29:14.72 -05:00 INF]Bearer was not authenticated. Failure message: No SecurityTokenValidator available for token.
+][2023-07-13 08:29:14.72 -05:00 INF]Executing endpoint 'API.Controllers.UsuariosController.GetTokenAsync (API)'
+][2023-07-13 08:29:14.73 -05:00 INF]Route matched with {action = "GetToken", controller = "Usuarios"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetTokenAsync(API.Dtos.LoginDTO) on controller API.Controllers.UsuariosController (API).
+][2023-07-13 08:29:37.24 -05:00 INF]Executed DbCommand (89ms) [Parameters=[@__ToLower_0='?' (Size = 200)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t`.`Id`, `t`.`ApellidoMaterno`, `t`.`ApellidoPaterno`, `t`.`Email`, `t`.`Nombre`, `t`.`Password`, `t`.`UserName`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`, `t0`.`Nombre`, `r0`.`Id`, `r0`.`Created`, `r0`.`Expires`, `r0`.`Revoked`, `r0`.`Token`, `r0`.`UsuarioId`
+FROM (
+    SELECT `u`.`Id`, `u`.`ApellidoMaterno`, `u`.`ApellidoPaterno`, `u`.`Email`, `u`.`Nombre`, `u`.`Password`, `u`.`UserName`
+    FROM `Usuario` AS `u`
+    WHERE LOWER(`u`.`UserName`) = @__ToLower_0
+    LIMIT 1
+) AS `t`
+LEFT JOIN (
+    SELECT `u0`.`UsuarioId`, `u0`.`RolId`, `r`.`Id`, `r`.`Nombre`
+    FROM `UsuariosRoles` AS `u0`
+    INNER JOIN `Rol` AS `r` ON `u0`.`RolId` = `r`.`Id`
+) AS `t0` ON `t`.`Id` = `t0`.`UsuarioId`
+LEFT JOIN `RefreshToken` AS `r0` ON `t`.`Id` = `r0`.`UsuarioId`
+ORDER BY `t`.`Id`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`
+][2023-07-13 08:29:51.61 -05:00 INF]Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `u`.`Id`, `u`.`ApellidoMaterno`, `u`.`ApellidoPaterno`, `u`.`Email`, `u`.`Nombre`, `u`.`Password`, `u`.`UserName`
+FROM `Usuario` AS `u`
+][2023-07-13 08:30:43.64 -05:00 INF]Executed action API.Controllers.UsuariosController.GetTokenAsync (API) in 88897.2911ms
+][2023-07-13 08:30:43.64 -05:00 INF]Executed endpoint 'API.Controllers.UsuariosController.GetTokenAsync (API)'
+][2023-07-13 08:30:43.80 -05:00 ERR]Value cannot be null. (Parameter 'stringToEscape')
+System.ArgumentNullException: Value cannot be null. (Parameter 'stringToEscape')
+   at System.ArgumentNullException.Throw(String paramName)
+   at System.ArgumentNullException.ThrowIfNull(Object argument, String paramName)
+   at System.UriHelper.EscapeString(String stringToEscape, Boolean checkExistingEscaped, ReadOnlySpan`1 unreserved, Char forceEscape1, Char forceEscape2)
+   at System.Uri.EscapeDataString(String stringToEscape)
+   at Microsoft.AspNetCore.Http.ResponseCookies.Append(String key, String value, CookieOptions options)
+   at API.Controllers.UsuariosController.SetRefreshTokenInCookie(String refreshToken)
+   at API.Controllers.UsuariosController.GetTokenAsync(LoginDTO model)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at AspNetCoreRateLimit.RateLimitMiddleware`1.Invoke(HttpContext context) in C:\Users\User\Documents\Github\AspNetCoreRateLimit\src\AspNetCoreRateLimit\Middleware\RateLimitMiddleware.cs:line 124
+   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)
+   at API.Helpers.Errors.ExceptionMiddleware.InvokeAsync(HttpContext context)
+][2023-07-13 08:30:43.82 -05:00 INF]Request finished HTTP/1.1 POST https://localhost:5001/API/Usuarios/token application/json 76 - 500 - application/json 110978.3014ms
+][2023-07-13 08:31:36.37 -05:00 INF]Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='tiendaBd' AND TABLE_NAME='__EFMigrationsHistory';
+][2023-07-13 08:31:36.46 -05:00 INF]Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='tiendaBd' AND TABLE_NAME='__EFMigrationsHistory';
+][2023-07-13 08:31:36.52 -05:00 INF]Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `MigrationId`, `ProductVersion`
+FROM `__EFMigrationsHistory`
+ORDER BY `MigrationId`;
+][2023-07-13 08:31:36.54 -05:00 INF]No migrations were applied. The database is already up to date.
+][2023-07-13 08:31:36.78 -05:00 INF]Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Marca` AS `m`)
+][2023-07-13 08:31:36.79 -05:00 INF]Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Categoria` AS `c`)
+][2023-07-13 08:31:36.80 -05:00 INF]Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Producto` AS `p`)
+][2023-07-13 08:31:36.81 -05:00 INF]Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM `Rol` AS `r`)
+][2023-07-13 08:31:36.97 -05:00 INF]User profile is available. Using 'C:\Users\Wilson\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+][2023-07-13 08:31:37.13 -05:00 INF]Now listening on: https://localhost:5001
+][2023-07-13 08:31:37.13 -05:00 INF]Now listening on: http://localhost:5000
+][2023-07-13 08:31:37.13 -05:00 INF]Application started. Press Ctrl+C to shut down.
+][2023-07-13 08:31:37.14 -05:00 INF]Hosting environment: Development
+][2023-07-13 08:31:37.14 -05:00 INF]Content root path: F:\Proyectos .NET\Proyectos\APIs\Tienda\API
+][2023-07-13 08:32:15.98 -05:00 INF]Request starting HTTP/1.1 POST https://localhost:5001/API/Usuarios/token application/json 76
+][2023-07-13 08:32:16.15 -05:00 INF]Bearer was not authenticated. Failure message: No SecurityTokenValidator available for token.
+][2023-07-13 08:32:16.16 -05:00 INF]Executing endpoint 'API.Controllers.UsuariosController.GetTokenAsync (API)'
+][2023-07-13 08:32:16.18 -05:00 INF]Route matched with {action = "GetToken", controller = "Usuarios"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetTokenAsync(API.Dtos.LoginDTO) on controller API.Controllers.UsuariosController (API).
+][2023-07-13 08:32:16.52 -05:00 WRN]Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+][2023-07-13 08:32:16.66 -05:00 INF]Executed DbCommand (82ms) [Parameters=[@__ToLower_0='?' (Size = 200)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t`.`Id`, `t`.`ApellidoMaterno`, `t`.`ApellidoPaterno`, `t`.`Email`, `t`.`Nombre`, `t`.`Password`, `t`.`UserName`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`, `t0`.`Nombre`, `r0`.`Id`, `r0`.`Created`, `r0`.`Expires`, `r0`.`Revoked`, `r0`.`Token`, `r0`.`UsuarioId`
+FROM (
+    SELECT `u`.`Id`, `u`.`ApellidoMaterno`, `u`.`ApellidoPaterno`, `u`.`Email`, `u`.`Nombre`, `u`.`Password`, `u`.`UserName`
+    FROM `Usuario` AS `u`
+    WHERE LOWER(`u`.`UserName`) = @__ToLower_0
+    LIMIT 1
+) AS `t`
+LEFT JOIN (
+    SELECT `u0`.`UsuarioId`, `u0`.`RolId`, `r`.`Id`, `r`.`Nombre`
+    FROM `UsuariosRoles` AS `u0`
+    INNER JOIN `Rol` AS `r` ON `u0`.`RolId` = `r`.`Id`
+) AS `t0` ON `t`.`Id` = `t0`.`UsuarioId`
+LEFT JOIN `RefreshToken` AS `r0` ON `t`.`Id` = `r0`.`UsuarioId`
+ORDER BY `t`.`Id`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`
+][2023-07-13 08:32:16.85 -05:00 INF]Executed action API.Controllers.UsuariosController.GetTokenAsync (API) in 656.752ms
+][2023-07-13 08:32:16.85 -05:00 INF]Executed endpoint 'API.Controllers.UsuariosController.GetTokenAsync (API)'
+][2023-07-13 08:32:16.86 -05:00 ERR]Value cannot be null. (Parameter 'stringToEscape')
+System.ArgumentNullException: Value cannot be null. (Parameter 'stringToEscape')
+   at System.ArgumentNullException.Throw(String paramName)
+   at System.ArgumentNullException.ThrowIfNull(Object argument, String paramName)
+   at System.UriHelper.EscapeString(String stringToEscape, Boolean checkExistingEscaped, ReadOnlySpan`1 unreserved, Char forceEscape1, Char forceEscape2)
+   at System.Uri.EscapeDataString(String stringToEscape)
+   at Microsoft.AspNetCore.Http.ResponseCookies.Append(String key, String value, CookieOptions options)
+   at API.Controllers.UsuariosController.SetRefreshTokenInCookie(String refreshToken) in F:\Proyectos .NET\Proyectos\APIs\Tienda\API\Controllers\UsuariosController.cs:line 68
+   at API.Controllers.UsuariosController.GetTokenAsync(LoginDTO model) in F:\Proyectos .NET\Proyectos\APIs\Tienda\API\Controllers\UsuariosController.cs:line 38
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at AspNetCoreRateLimit.RateLimitMiddleware`1.Invoke(HttpContext context) in C:\Users\User\Documents\Github\AspNetCoreRateLimit\src\AspNetCoreRateLimit\Middleware\RateLimitMiddleware.cs:line 124
+   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)
+   at API.Helpers.Errors.ExceptionMiddleware.InvokeAsync(HttpContext context) in F:\Proyectos .NET\Proyectos\APIs\Tienda\API\Helpers\Errors\ExceptionMiddleware.cs:line 24
+][2023-07-13 08:32:16.94 -05:00 INF]Request finished HTTP/1.1 POST https://localhost:5001/API/Usuarios/token application/json 76 - 500 - application/json 956.8914ms
+][2023-07-13 08:34:34.17 -05:00 INF]Request starting HTTP/1.1 POST https://localhost:5001/API/Usuarios/gettoken application/json 76
+][2023-07-13 08:34:34.18 -05:00 INF]Bearer was not authenticated. Failure message: No SecurityTokenValidator available for token.
+][2023-07-13 08:34:34.19 -05:00 INF]Bearer was not authenticated. Failure message: No SecurityTokenValidator available for token.
+][2023-07-13 08:34:34.19 -05:00 INF]Executing endpoint 'API.Controllers.ErrorsController.Error (API)'
+][2023-07-13 08:34:34.20 -05:00 INF]Route matched with {action = "Error", controller = "Errors"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Error(Int32) on controller API.Controllers.ErrorsController (API).
+][2023-07-13 08:34:34.20 -05:00 INF]Executing ObjectResult, writing value of type 'API.Helpers.Errors.ApiResponse'.
+][2023-07-13 08:34:34.21 -05:00 INF]Executed action API.Controllers.ErrorsController.Error (API) in 13.5623ms
+][2023-07-13 08:34:34.21 -05:00 INF]Executed endpoint 'API.Controllers.ErrorsController.Error (API)'
+][2023-07-13 08:34:34.22 -05:00 INF]Request finished HTTP/1.1 POST https://localhost:5001/API/Usuarios/gettoken application/json 76 - 404 - application/json;+charset=utf-8 47.0706ms
+][2023-07-13 08:34:54.38 -05:00 INF]Request starting HTTP/1.1 POST https://localhost:5001/API/Usuarios/token application/json 76
+][2023-07-13 08:34:54.39 -05:00 INF]Bearer was not authenticated. Failure message: No SecurityTokenValidator available for token.
+][2023-07-13 08:34:54.39 -05:00 INF]Executing endpoint 'API.Controllers.UsuariosController.GetTokenAsync (API)'
+][2023-07-13 08:34:54.39 -05:00 INF]Route matched with {action = "GetToken", controller = "Usuarios"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetTokenAsync(API.Dtos.LoginDTO) on controller API.Controllers.UsuariosController (API).
+][2023-07-13 08:34:54.51 -05:00 INF]Executed DbCommand (34ms) [Parameters=[@__ToLower_0='?' (Size = 200)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t`.`Id`, `t`.`ApellidoMaterno`, `t`.`ApellidoPaterno`, `t`.`Email`, `t`.`Nombre`, `t`.`Password`, `t`.`UserName`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`, `t0`.`Nombre`, `r0`.`Id`, `r0`.`Created`, `r0`.`Expires`, `r0`.`Revoked`, `r0`.`Token`, `r0`.`UsuarioId`
+FROM (
+    SELECT `u`.`Id`, `u`.`ApellidoMaterno`, `u`.`ApellidoPaterno`, `u`.`Email`, `u`.`Nombre`, `u`.`Password`, `u`.`UserName`
+    FROM `Usuario` AS `u`
+    WHERE LOWER(`u`.`UserName`) = @__ToLower_0
+    LIMIT 1
+) AS `t`
+LEFT JOIN (
+    SELECT `u0`.`UsuarioId`, `u0`.`RolId`, `r`.`Id`, `r`.`Nombre`
+    FROM `UsuariosRoles` AS `u0`
+    INNER JOIN `Rol` AS `r` ON `u0`.`RolId` = `r`.`Id`
+) AS `t0` ON `t`.`Id` = `t0`.`UsuarioId`
+LEFT JOIN `RefreshToken` AS `r0` ON `t`.`Id` = `r0`.`UsuarioId`
+ORDER BY `t`.`Id`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`
+][2023-07-13 08:34:54.54 -05:00 INF]Executed action API.Controllers.UsuariosController.GetTokenAsync (API) in 144.6506ms
+][2023-07-13 08:34:54.54 -05:00 INF]Executed endpoint 'API.Controllers.UsuariosController.GetTokenAsync (API)'
+][2023-07-13 08:34:54.54 -05:00 ERR]Value cannot be null. (Parameter 'stringToEscape')
+System.ArgumentNullException: Value cannot be null. (Parameter 'stringToEscape')
+   at System.ArgumentNullException.Throw(String paramName)
+   at System.ArgumentNullException.ThrowIfNull(Object argument, String paramName)
+   at System.UriHelper.EscapeString(String stringToEscape, Boolean checkExistingEscaped, ReadOnlySpan`1 unreserved, Char forceEscape1, Char forceEscape2)
+   at System.Uri.EscapeDataString(String stringToEscape)
+   at Microsoft.AspNetCore.Http.ResponseCookies.Append(String key, String value, CookieOptions options)
+   at API.Controllers.UsuariosController.SetRefreshTokenInCookie(String refreshToken) in F:\Proyectos .NET\Proyectos\APIs\Tienda\API\Controllers\UsuariosController.cs:line 68
+   at API.Controllers.UsuariosController.GetTokenAsync(LoginDTO model) in F:\Proyectos .NET\Proyectos\APIs\Tienda\API\Controllers\UsuariosController.cs:line 38
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at AspNetCoreRateLimit.RateLimitMiddleware`1.Invoke(HttpContext context) in C:\Users\User\Documents\Github\AspNetCoreRateLimit\src\AspNetCoreRateLimit\Middleware\RateLimitMiddleware.cs:line 124
+   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)
+   at API.Helpers.Errors.ExceptionMiddleware.InvokeAsync(HttpContext context) in F:\Proyectos .NET\Proyectos\APIs\Tienda\API\Helpers\Errors\ExceptionMiddleware.cs:line 24
+][2023-07-13 08:34:54.56 -05:00 INF]Request finished HTTP/1.1 POST https://localhost:5001/API/Usuarios/token application/json 76 - 500 - application/json 183.3753ms
+][2023-07-13 08:38:36.35 -05:00 INF]Request starting HTTP/1.1 POST https://localhost:5001/API/Usuarios/refresh-token application/json 227
+][2023-07-13 08:38:36.35 -05:00 INF]Bearer was not authenticated. Failure message: No SecurityTokenValidator available for token.
+][2023-07-13 08:38:36.36 -05:00 INF]Executing endpoint 'API.Controllers.UsuariosController.RefreshToken (API)'
+][2023-07-13 08:38:36.36 -05:00 INF]Route matched with {action = "RefreshToken", controller = "Usuarios"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] RefreshToken() on controller API.Controllers.UsuariosController (API).
+][2023-07-13 08:38:36.40 -05:00 WRN]Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+][2023-07-13 08:38:36.49 -05:00 INF]Executed DbCommand (73ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `t`.`Id`, `t`.`ApellidoMaterno`, `t`.`ApellidoPaterno`, `t`.`Email`, `t`.`Nombre`, `t`.`Password`, `t`.`UserName`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`, `t0`.`Nombre`, `r1`.`Id`, `r1`.`Created`, `r1`.`Expires`, `r1`.`Revoked`, `r1`.`Token`, `r1`.`UsuarioId`
+FROM (
+    SELECT `u`.`Id`, `u`.`ApellidoMaterno`, `u`.`ApellidoPaterno`, `u`.`Email`, `u`.`Nombre`, `u`.`Password`, `u`.`UserName`
+    FROM `Usuario` AS `u`
+    WHERE EXISTS (
+        SELECT 1
+        FROM `RefreshToken` AS `r`
+        WHERE (`u`.`Id` = `r`.`UsuarioId`) AND `r`.`Token` IS NULL)
+    LIMIT 1
+) AS `t`
+LEFT JOIN (
+    SELECT `u0`.`UsuarioId`, `u0`.`RolId`, `r0`.`Id`, `r0`.`Nombre`
+    FROM `UsuariosRoles` AS `u0`
+    INNER JOIN `Rol` AS `r0` ON `u0`.`RolId` = `r0`.`Id`
+) AS `t0` ON `t`.`Id` = `t0`.`UsuarioId`
+LEFT JOIN `RefreshToken` AS `r1` ON `t`.`Id` = `r1`.`UsuarioId`
+ORDER BY `t`.`Id`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`
+][2023-07-13 08:38:36.49 -05:00 INF]Executing OkObjectResult, writing value of type 'API.Dtos.DatosUsuarioDto'.
+][2023-07-13 08:38:36.53 -05:00 INF]Executed action API.Controllers.UsuariosController.RefreshToken (API) in 161.8136ms
+][2023-07-13 08:38:36.53 -05:00 INF]Executed endpoint 'API.Controllers.UsuariosController.RefreshToken (API)'
+][2023-07-13 08:38:36.53 -05:00 INF]Request finished HTTP/1.1 POST https://localhost:5001/API/Usuarios/refresh-token application/json 227 - 200 - application/json;+charset=utf-8 181.1537ms
+][2023-07-13 08:39:09.41 -05:00 INF]Request starting HTTP/1.1 POST https://localhost:5001/API/Usuarios/token application/json 76
+][2023-07-13 08:39:09.42 -05:00 INF]Bearer was not authenticated. Failure message: No SecurityTokenValidator available for token.
+][2023-07-13 08:39:09.42 -05:00 INF]Executing endpoint 'API.Controllers.UsuariosController.GetTokenAsync (API)'
+][2023-07-13 08:39:09.42 -05:00 INF]Route matched with {action = "GetToken", controller = "Usuarios"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetTokenAsync(API.Dtos.LoginDTO) on controller API.Controllers.UsuariosController (API).
+][2023-07-13 08:39:09.45 -05:00 INF]Executed DbCommand (30ms) [Parameters=[@__ToLower_0='?' (Size = 200)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t`.`Id`, `t`.`ApellidoMaterno`, `t`.`ApellidoPaterno`, `t`.`Email`, `t`.`Nombre`, `t`.`Password`, `t`.`UserName`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`, `t0`.`Nombre`, `r0`.`Id`, `r0`.`Created`, `r0`.`Expires`, `r0`.`Revoked`, `r0`.`Token`, `r0`.`UsuarioId`
+FROM (
+    SELECT `u`.`Id`, `u`.`ApellidoMaterno`, `u`.`ApellidoPaterno`, `u`.`Email`, `u`.`Nombre`, `u`.`Password`, `u`.`UserName`
+    FROM `Usuario` AS `u`
+    WHERE LOWER(`u`.`UserName`) = @__ToLower_0
+    LIMIT 1
+) AS `t`
+LEFT JOIN (
+    SELECT `u0`.`UsuarioId`, `u0`.`RolId`, `r`.`Id`, `r`.`Nombre`
+    FROM `UsuariosRoles` AS `u0`
+    INNER JOIN `Rol` AS `r` ON `u0`.`RolId` = `r`.`Id`
+) AS `t0` ON `t`.`Id` = `t0`.`UsuarioId`
+LEFT JOIN `RefreshToken` AS `r0` ON `t`.`Id` = `r0`.`UsuarioId`
+ORDER BY `t`.`Id`, `t0`.`UsuarioId`, `t0`.`RolId`, `t0`.`Id`
+][2023-07-13 08:39:09.47 -05:00 INF]Executed action API.Controllers.UsuariosController.GetTokenAsync (API) in 48.434ms
+][2023-07-13 08:39:09.47 -05:00 INF]Executed endpoint 'API.Controllers.UsuariosController.GetTokenAsync (API)'
+][2023-07-13 08:39:09.48 -05:00 ERR]Value cannot be null. (Parameter 'stringToEscape')
+System.ArgumentNullException: Value cannot be null. (Parameter 'stringToEscape')
+   at System.ArgumentNullException.Throw(String paramName)
+   at System.ArgumentNullException.ThrowIfNull(Object argument, String paramName)
+   at System.UriHelper.EscapeString(String stringToEscape, Boolean checkExistingEscaped, ReadOnlySpan`1 unreserved, Char forceEscape1, Char forceEscape2)
+   at System.Uri.EscapeDataString(String stringToEscape)
+   at Microsoft.AspNetCore.Http.ResponseCookies.Append(String key, String value, CookieOptions options)
+   at API.Controllers.UsuariosController.SetRefreshTokenInCookie(String refreshToken) in F:\Proyectos .NET\Proyectos\APIs\Tienda\API\Controllers\UsuariosController.cs:line 68
+   at API.Controllers.UsuariosController.GetTokenAsync(LoginDTO model) in F:\Proyectos .NET\Proyectos\APIs\Tienda\API\Controllers\UsuariosController.cs:line 38
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at AspNetCoreRateLimit.RateLimitMiddleware`1.Invoke(HttpContext context) in C:\Users\User\Documents\Github\AspNetCoreRateLimit\src\AspNetCoreRateLimit\Middleware\RateLimitMiddleware.cs:line 124
+   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)
+   at API.Helpers.Errors.ExceptionMiddleware.InvokeAsync(HttpContext context) in F:\Proyectos .NET\Proyectos\APIs\Tienda\API\Helpers\Errors\ExceptionMiddleware.cs:line 24
+][2023-07-13 08:39:09.49 -05:00 INF]Request finished HTTP/1.1 POST https://localhost:5001/API/Usuarios/token application/json 76 - 500 - application/json 74.6452ms
+]

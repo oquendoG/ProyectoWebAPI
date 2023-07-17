@@ -7,10 +7,7 @@ namespace Infrastructure.Repositories;
 public class ProductoRepository : GenericRepository<Producto>,
 													IProductoRepository
 {
-	public ProductoRepository(TiendaContext context) : base(context)
-	{
-
-	}
+	public ProductoRepository(TiendaContext context) : base(context) { }
 
 	public async Task<IEnumerable<Producto>> GetProductosMasCaros(int cantidad)
 	{
@@ -28,13 +25,13 @@ public class ProductoRepository : GenericRepository<Producto>,
 								.FirstOrDefaultAsync(p => p.Id == id);
 	}
 
-    public override async Task<IEnumerable<Producto>> GetAllAsync()
-    {
+	public override async Task<IEnumerable<Producto>> GetAllAsync()
+	{
 		return await _context.Productos
 								.Include(p => p.Marca)
 								.Include(p => p.Categoria)
 								.ToListAsync();
-    }
+	}
 
 	public override async Task<(int totalRegistros, IEnumerable<Producto> registros)>
 		GetAllAsync(int pageIndex, int pageSize, string search)
