@@ -37,8 +37,8 @@ builder.Services.AddValidtionErrors();
 
 builder.Services.AddDbContext<TiendaContext>(options =>
 {
-    options.UseMySql(builder.Configuration.GetConnectionString("Conexion"),
-                                    new MySqlServerVersion(new Version(8, 0, 28)));
+    string connectionString = builder.Configuration.GetConnectionString("conexion");
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

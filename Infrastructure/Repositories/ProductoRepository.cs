@@ -17,34 +17,39 @@ public class ProductoRepository : GenericRepository<Producto>,
 								.ToListAsync();
 	}
 
-	public override async Task<Producto> GetByIdAsync(int id)
+	public override async Task<Producto> GetByIdAsync(int id, bool noTracking = true)
 	{
-		return await _context.Productos
-								.Include(p => p.Marca)
-								.Include(p => p.Categoria)
-								.FirstOrDefaultAsync(p => p.Id == id);
-	}
+		IQueryable<Producto> queryProduct = noTracking ? _context.Productos.AsNoTracking()
+													   : _context.Productos;
+		return await queryProduct
+						.Include(p => p.Marca)
+						.Include(p => p.Categoria)
+						.FirstOrDefaultAsync(p => p.Id == id);
+}
 
-	public override async Task<IEnumerable<Producto>> GetAllAsync()
+	public override async Task<IEnumerable<Producto>> GetAllAsync(bool noTracking = true)
 	{
-		return await _context.Productos
-								.Include(p => p.Marca)
-								.Include(p => p.Categoria)
-								.ToListAsync();
+		IQueryable<Producto> queryProduct = noTracking ? _context.Productos.AsNoTracking()
+													   : _context.Productos;
+		return await queryProduct
+						.Include(p => p.Marca)
+						.Include(p => p.Categoria)
+						.ToListAsync();
 	}
 
 	public override async Task<(int totalRegistros, IEnumerable<Producto> registros)>
-		GetAllAsync(int pageIndex, int pageSize, string search)
+		GetAllAsync(int pageIndex, int pageSize, string search, bool noTracking = true)
 	{
-		IQueryable<Producto> consulta = _context.Productos;
+		IQueryable<Producto> queryProduct = noTracking ? _context.Productos.AsNoTracking()
+													   : _context.Productos;
 		if (!String.IsNullOrEmpty(search))
 		{
-			consulta = consulta.Where(p => p.Nombre.ToLower().Contains(search));
+			queryProduct = queryProduct.Where(p => p.Nombre.ToLower().Contains(search));
 		}
 
-		int totalRegistros = await consulta.CountAsync();
+		int totalRegistros = await queryProduct.CountAsync();
 
-		List<Producto> registros = await consulta
+		List<Producto> registros = await queryProduct
 											.Include(p => p.Marca)
 											.Include(p => p.Categoria)
 											.Skip((pageIndex - 1) * pageSize)

@@ -16,16 +16,16 @@ public class ProductosController : BaseApiController
 {
 	private readonly IUnitOfWork _unitOfWork;
 	private readonly IMapper _mapper;
-    private readonly ILogger<ProductosController> _logger;
+	private readonly ILogger<ProductosController> _logger;
 
-    public ProductosController(IUnitOfWork unitOfWork, IMapper mapper,
-														ILogger<ProductosController> logger)
+	public ProductosController(IUnitOfWork unitOfWork, IMapper mapper,
+											ILogger<ProductosController> logger)
 	{
 		_unitOfWork = unitOfWork;
 		_mapper = mapper;
-        _logger = logger;
-        _logger.LogInformation("Ejecutando productos");
-    }
+		_logger = logger;
+		_logger.LogInformation("Ejecutando productos");
+	}
 
 	/// <summary>
 	/// Version 1 del método que devuelve todos los productos páginados y permite
@@ -39,43 +39,41 @@ public class ProductosController : BaseApiController
 	[ProducesResponseType(StatusCodes.Status200OK)]
 	[ProducesResponseType(StatusCodes.Status404NotFound)]
 	[ProducesResponseType(StatusCodes.Status400BadRequest)]
-	public async Task<ActionResult<Pager<ProductoListDTO>>>
-											Get([FromQuery] Params productParams)
+	public async Task<ActionResult<Pager<ProductoListDTO>>>Get([FromQuery] Params productParams)
 	{
-		(int totalRegistros, IEnumerable<Producto> registros) resultado =
-			await _unitOfWork.Productos
-					.GetAllAsync(productParams.PageIndex, productParams.PageSize, productParams.Search);
+		(int totalRegistros, IEnumerable<Producto> registros) = await _unitOfWork.Productos
+			.GetAllAsync(productParams.PageIndex, productParams.PageSize, productParams.Search);
 
 		List<ProductoListDTO> listaProductosDTO =
-						_mapper.Map<List<ProductoListDTO>>(resultado.registros);
+						_mapper.Map<List<ProductoListDTO>>(registros);
 
-		Response.Headers.Add("X-InlineCount", resultado.totalRegistros.ToString());
+		Response.Headers.Add("X-InlineCount", totalRegistros.ToString());
 
 		return new Pager<ProductoListDTO>(productParams.PageIndex, productParams.PageSize,
-            resultado.totalRegistros, listaProductosDTO, productParams.Search);
+			totalRegistros, listaProductosDTO, productParams.Search);
 	}
 
 	/// <summary>
 	/// Este método devuelve todos los productos de la base de datos sin paginar
 	/// </summary>
 	/// <returns>IEnumerable<ProductoDTO></returns>
-    [HttpGet]
-    [MapToApiVersion("1.1")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<IEnumerable<ProductoDTO>>> Get11()
-    {
-        IEnumerable<Producto> productos = await _unitOfWork.Productos.GetAllAsync();
-        if (productos is null)
-        {
-            return NotFound(new ApiResponse(404, "Los productos solicitados no existen"));
-        }
+	[HttpGet]
+	[MapToApiVersion("1.1")]
+	[ProducesResponseType(StatusCodes.Status200OK)]
+	[ProducesResponseType(StatusCodes.Status404NotFound)]
+	[ProducesResponseType(StatusCodes.Status400BadRequest)]
+	public async Task<ActionResult<IEnumerable<ProductoDTO>>> Get11()
+	{
+		IEnumerable<Producto> productos = await _unitOfWork.Productos.GetAllAsync();
+		if (productos is null)
+		{
+			return NotFound(new ApiResponse(404, "Los productos solicitados no existen"));
+		}
 
-        return _mapper.Map<List<ProductoDTO>>(productos);
-    }
+		return _mapper.Map<List<ProductoDTO>>(productos);
+	}
 
-    [HttpGet("{id}")]
+	[HttpGet("{id}")]
 	[ProducesResponseType(StatusCodes.Status200OK)]
 	[ProducesResponseType(StatusCodes.Status404NotFound)]
 	[ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -109,24 +107,24 @@ public class ProductosController : BaseApiController
 	}
 
 	[HttpPut("{id}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<ProductoAddUpdateDTO>>
+	[ProducesResponseType(StatusCodes.Status200OK)]
+	[ProducesResponseType(StatusCodes.Status404NotFound)]
+	[ProducesResponseType(StatusCodes.Status400BadRequest)]
+	public async Task<ActionResult<ProductoAddUpdateDTO>>
 							Put(int id, [FromBody]ProductoAddUpdateDTO productoDTO)
 	{
-        if (productoDTO is null)
+		if (productoDTO is null)
 		{
 			return NotFound(new ApiResponse(404, "El producto solicitado no existe"));
 		}
 
-        Producto productoDB = await _unitOfWork.Productos.GetByIdAsync(id);
-        if (productoDB is null)
-        {
-            return NotFound(new ApiResponse(404, "El producto solicitado no existe"));
-        }
+		Producto productoDB = await _unitOfWork.Productos.GetByIdAsync(id);
+		if (productoDB is null)
+		{
+			return NotFound(new ApiResponse(404, "El producto solicitado no existe"));
+		}
 
-        Producto producto = _mapper.Map<Producto>(productoDTO);
+		Producto producto = _mapper.Map<Producto>(productoDTO);
 		_unitOfWork.Productos.Update(producto);
 		await _unitOfWork.SaveAsync();
 
@@ -140,11 +138,11 @@ public class ProductosController : BaseApiController
 	{
 		Producto producto = await _unitOfWork.Productos.GetByIdAsync(id);
 		if (producto is null)
-        {
-            return NotFound(new ApiResponse(404, "El producto solicitado no existe"));
-        }
+		{
+			return NotFound(new ApiResponse(404, "El producto solicitado no existe"));
+		}
 
-        _unitOfWork.Productos.Remove(producto);
+		_unitOfWork.Productos.Remove(producto);
 		await _unitOfWork.SaveAsync();
 
 		return NoContent();
