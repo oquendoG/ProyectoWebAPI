@@ -105,7 +105,7 @@ public class TiendaContextSeed
         catch (Exception ex)
         {
             var logger = loggerFactory.CreateLogger<TiendaContextSeed>();
-            logger.LogError(ex.Message);
+            logger.LogError(message: ex.Message);
         }
     }
 }

@@ -22,6 +22,6 @@ public class Params
     public string Search
     {
         get => _search;
-        set => _search = (!String.IsNullOrEmpty(value)) ? value.ToLower() : "";
+        set => _search = (!string.IsNullOrEmpty(value)) ? value.ToLower() : "";
     }
 }

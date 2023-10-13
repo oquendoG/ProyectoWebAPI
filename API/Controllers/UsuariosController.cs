@@ -54,7 +54,9 @@ public class UsuariosController : BaseApiController
 
         //Si es valido se pone nuevamente en la cookie
         if (!string.IsNullOrEmpty(response.RefreshToken))
+        {
             SetRefreshTokenInCookie(response.RefreshToken);
+        }
         return Ok(response);
     }
 

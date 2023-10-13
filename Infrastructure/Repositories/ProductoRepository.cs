@@ -42,7 +42,7 @@ public class ProductoRepository : GenericRepository<Producto>,
 	{
 		IQueryable<Producto> queryProduct = noTracking ? _context.Productos.AsNoTracking()
 													   : _context.Productos;
-		if (!String.IsNullOrEmpty(search))
+		if (!string.IsNullOrEmpty(search))
 		{
 			queryProduct = queryProduct.Where(p => p.Nombre.ToLower().Contains(search));
 		}

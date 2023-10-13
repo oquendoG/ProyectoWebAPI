@@ -41,8 +41,10 @@ public class ProductosController : BaseApiController
 	[ProducesResponseType(StatusCodes.Status400BadRequest)]
 	public async Task<ActionResult<Pager<ProductoListDTO>>>Get([FromQuery] Params productParams)
 	{
-		(int totalRegistros, IEnumerable<Producto> registros) = await _unitOfWork.Productos
-			.GetAllAsync(productParams.PageIndex, productParams.PageSize, productParams.Search);
+		(int totalRegistros, IEnumerable<Producto> registros) = await _unitOfWork
+			.Productos
+			.GetAllAsync(productParams.PageIndex, productParams.PageSize, 
+																productParams.Search);
 
 		List<ProductoListDTO> listaProductosDTO =
 						_mapper.Map<List<ProductoListDTO>>(registros);

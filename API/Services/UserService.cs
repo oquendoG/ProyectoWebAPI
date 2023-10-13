@@ -47,28 +47,26 @@ public class UserService : IUserService
                     .Find(user => user.UserName.ToLower() == registerDto.Username.ToLower())
                     .FirstOrDefault();
 
-        if (usuarioDB is null)
-        {
-            Rol rolPredeterminado = _unitOfWork.Roles
-                                    .Find(rol => rol.Nombre == Autorizacion.rol_predeterminado.ToString())
-                                    .FirstOrDefault();
-            try
-            {
-                usuario.Roles.Add(rolPredeterminado);
-                _unitOfWork.Usuarios.Add(usuario);
-                await _unitOfWork.SaveAsync();
-
-                return $"El usuario {registerDto.Username} ha sido registrado exitosamente";
-            }
-            catch (Exception ex)
-            {
-                string message = ex.Message;
-                return $"Error: {message}";
-            }
-        }
-        else
+        if (usuarioDB is not null)
         {
             return $"El usuario con {registerDto.Username} ya se encuentra registrado.";
+        }
+
+        Rol rolPredeterminado = _unitOfWork.Roles
+                                    .Find(rol => rol.Nombre == Autorizacion.rol_predeterminado.ToString())
+                                    .FirstOrDefault();
+        try
+        {
+            usuario.Roles.Add(rolPredeterminado);
+            _unitOfWork.Usuarios.Add(usuario);
+            await _unitOfWork.SaveAsync();
+
+            return $"El usuario {registerDto.Username} ha sido registrado exitosamente";
+        }
+        catch (Exception ex)
+        {
+            string message = ex.Message;
+            return $"Error: {message}";
         }
     }
 
@@ -95,23 +93,26 @@ public class UserService : IUserService
                             _passwordHasher
                             .VerifyHashedPassword(usuarioDB, usuarioDB.Password, model.Password);
 
-        if (resultado == PasswordVerificationResult.Success)
+        if (resultado != PasswordVerificationResult.Success)
         {
-            datosUsuarioDto.EstaAutenticado = true;
-            JwtSecurityToken jwtSecurityToken = CreateJwtToken(usuarioDB);
-            datosUsuarioDto.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
-            datosUsuarioDto.Email = usuarioDB.Email;
-            datosUsuarioDto.Username = usuarioDB.UserName;
-            datosUsuarioDto.Roles = usuarioDB.Roles
-                                            .Select(rol => rol.Nombre)
-                                            .ToList();
-            await AssingRefreshToken(datosUsuarioDto, usuarioDB);
+            datosUsuarioDto.EstaAutenticado = false;
+            datosUsuarioDto.Mensaje = $"Credenciales incorrectas para el usuario {usuarioDB.UserName}.";
             return datosUsuarioDto;
         }
 
-        datosUsuarioDto.EstaAutenticado = false;
-        datosUsuarioDto.Mensaje = $"Credenciales incorrectas para el usuario {usuarioDB.UserName}.";
-        return datosUsuarioDto;
+        datosUsuarioDto.EstaAutenticado = true;
+        JwtSecurityToken jwtSecurityToken = CreateJwtToken(usuarioDB);
+        datosUsuarioDto.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
+        datosUsuarioDto.Email = usuarioDB.Email;
+        datosUsuarioDto.Username = usuarioDB.UserName;
+        datosUsuarioDto.Roles = usuarioDB.Roles
+                                        .Select(rol => rol.Nombre)
+                                        .ToList();
+
+        DatosUsuarioDto datosUsuarioDtoWithRefreshToken =
+                        await AssingRefreshToken(datosUsuarioDto, usuarioDB);
+
+        return datosUsuarioDtoWithRefreshToken;
     }
 
     /// <summary>
@@ -124,7 +125,7 @@ public class UserService : IUserService
         ICollection<Rol> roles = usuario.Roles;
 
         List<Claim> roleClaims = new();
-        foreach (var role in roles)
+        foreach (Rol role in roles)
         {
             roleClaims.Add(new Claim("roles", role.Nombre));
         }
@@ -159,7 +160,7 @@ public class UserService : IUserService
     /// </summary>
     /// <param name="datosUsuarioDto">Un dto que recive los datos del usuario</param>
     /// <param name="usuario">Un objeto Usuario ya instanciado</param>
-    private async Task AssingRefreshToken(DatosUsuarioDto datosUsuarioDto, Usuario usuario)
+    private async Task<DatosUsuarioDto> AssingRefreshToken(DatosUsuarioDto datosUsuarioDto, Usuario usuario)
     {
         if (usuario.RefreshTokens.Any(refreshToken => refreshToken.IsActive))
         {
@@ -167,17 +168,18 @@ public class UserService : IUserService
                 usuario.RefreshTokens.FirstOrDefault(refreshToken => refreshToken.IsActive);
             datosUsuarioDto.RefreshToken = activeRefreshToken.Token;
             datosUsuarioDto.RefreshTokenExpiration = activeRefreshToken.Expires;
+            return datosUsuarioDto;
         }
-        else
-        {
-            RefreshToken refreshToken = CreateRefreshToken();
-            datosUsuarioDto.RefreshToken = refreshToken.Token;
-            datosUsuarioDto.RefreshTokenExpiration = refreshToken.Expires;
 
-            usuario.RefreshTokens.Add(refreshToken);
-            _unitOfWork.Usuarios.Update(usuario);
-            await _unitOfWork.SaveAsync();
-        }
+        RefreshToken refreshToken = CreateRefreshToken();
+        datosUsuarioDto.RefreshToken = refreshToken.Token;
+        datosUsuarioDto.RefreshTokenExpiration = refreshToken.Expires;
+
+        usuario.RefreshTokens.Add(refreshToken);
+        _unitOfWork.Usuarios.Update(usuario);
+        await _unitOfWork.SaveAsync();
+
+        return datosUsuarioDto;
     }
 
     /// <summary>
@@ -214,15 +216,16 @@ public class UserService : IUserService
 
         bool usuarioTieneRol = usuario.Roles.Any(rol => rol.Id == rolExisteEnBd.Id);
 
-        if (!usuarioTieneRol)
+        if (usuarioTieneRol)
         {
-            usuario.Roles.Add(rolExisteEnBd);
-            _unitOfWork.Usuarios.Update(usuario);
-            await _unitOfWork.SaveAsync();
-            return $"Rol {model.Role} agregado a la cuenta {model.Username} de forma exitosa.";
+            return $" El usuario ya tiene el Rol {model.Role} asignado";
         }
 
-        return $" El usuario ya tiene el Rol {model.Role} asignado";
+        usuario.Roles.Add(rolExisteEnBd);
+        _unitOfWork.Usuarios.Update(usuario);
+        await _unitOfWork.SaveAsync();
+
+        return $"Rol {model.Role} agregado a la cuenta {model.Username} de forma exitosa.";
     }
 
     /// <summary>

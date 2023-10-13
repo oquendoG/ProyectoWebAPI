@@ -121,7 +121,7 @@ public static class ApplicationServiceExtensions
                                         .SelectMany(u => u.Value.Errors)
                                         .Select(u => u.ErrorMessage).ToArray();
 
-                ApiValidation errorResponse = new ApiValidation()
+                ApiValidation errorResponse = new()
                 {
                     Errors = errors
                 };
