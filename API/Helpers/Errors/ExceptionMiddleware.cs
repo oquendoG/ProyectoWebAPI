@@ -5,32 +5,32 @@ namespace API.Helpers.Errors;
 
 public class ExceptionMiddleware
 {
-	private RequestDelegate Next { get; }
-	private ILogger<ExceptionMiddleware> Logger { get; }
-	private IHostEnvironment Env { get; }
+	private readonly RequestDelegate next;
+	private readonly ILogger<ExceptionMiddleware> logger;
+	private readonly IHostEnvironment env;
 
 	public ExceptionMiddleware(RequestDelegate next,
 				ILogger<ExceptionMiddleware> logger, IHostEnvironment env)
 	{
-		Next = next;
-		Logger = logger;
-		Env = env;
+		this.next = next;
+		this.logger = logger;
+		this.env = env;
 	}
 
 	public async Task InvokeAsync(HttpContext context)
 	{
 		try
 		{
-			await Next(context);
+			await next(context);
 		}
 		catch (Exception ex)
 		{
 			int statusCode = (int)HttpStatusCode.InternalServerError;
-			Logger.LogError(ex, ex.Message);
+			logger.LogError(ex, message: ex.Message);
 			context.Response.ContentType = "application/json";
 			context.Response.StatusCode = statusCode;
 
-			ApiException response = Env.IsDevelopment()
+			ApiException response = env.IsDevelopment()
 					? new ApiException(statusCode, ex.Message, ex.StackTrace.ToString())
 					: new ApiException(statusCode);
 

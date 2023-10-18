@@ -7,7 +7,7 @@ namespace API.Controllers;
 public class ErrorsController : BaseApiController
 {
     // GET: ErrorsController
-    public ActionResult Error(int code)
+    public IActionResult Error(int code)
     {
         return new ObjectResult(new ApiResponse(code));
     }
