@@ -1,40 +1,35 @@
 {
   "format": 1,
   "restore": {
-    "F:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\API\\API.csproj": {}
+    "E:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\API\\API.csproj": {}
   },
   "projects": {
-    "F:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\API\\API.csproj": {
+    "E:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\API\\API.csproj",
+        "projectUniqueName": "E:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "F:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\API\\API.csproj",
+        "projectPath": "E:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\API\\API.csproj",
         "packagesPath": "C:\\Users\\Wilson\\.nuget\\packages\\",
-        "outputPath": "F:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\API\\obj\\",
+        "outputPath": "E:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\API\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\Wilson\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net8.0": {
+            "targetAlias": "net8.0",
             "projectReferences": {
-              "F:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\Infrastructure\\Infrastructure.csproj": {
-                "projectPath": "F:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\Infrastructure\\Infrastructure.csproj"
+              "E:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\Infrastructure\\Infrastructure.csproj": {
+                "projectPath": "E:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\Infrastructure\\Infrastructure.csproj"
               }
             }
           }
@@ -43,11 +38,16 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "dependencies": {
             "AspNetCoreRateLimit": {
               "target": "Package",
@@ -59,21 +59,19 @@
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
-              "version": "[7.0.9, )"
+              "version": "[8.0.4, )"
             },
             "Microsoft.AspNetCore.Mvc.Versioning": {
               "target": "Package",
               "version": "[5.1.0, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
               "target": "Package",
-              "version": "[7.0.9, )"
+              "version": "[8.0.4, )"
             },
             "Serilog.AspNetCore": {
               "target": "Package",
-              "version": "[7.0.0, )"
+              "version": "[8.0.1, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -81,7 +79,7 @@
             },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
-              "version": "[6.32.0, )"
+              "version": "[7.5.1, )"
             }
           },
           "imports": [
@@ -103,38 +101,33 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "F:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\CORE\\CORE.csproj": {
+    "E:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\CORE\\CORE.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\CORE\\CORE.csproj",
+        "projectUniqueName": "E:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\CORE\\CORE.csproj",
         "projectName": "CORE",
-        "projectPath": "F:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\CORE\\CORE.csproj",
+        "projectPath": "E:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\CORE\\CORE.csproj",
         "packagesPath": "C:\\Users\\Wilson\\.nuget\\packages\\",
-        "outputPath": "F:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\CORE\\obj\\",
+        "outputPath": "E:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\CORE\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\Wilson\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net8.0": {
+            "targetAlias": "net8.0",
             "projectReferences": {}
           }
         },
@@ -142,11 +135,16 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "imports": [
             "net461",
             "net462",
@@ -163,41 +161,36 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "F:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\Infrastructure\\Infrastructure.csproj": {
+    "E:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\Infrastructure\\Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\Infrastructure\\Infrastructure.csproj",
+        "projectUniqueName": "E:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\Infrastructure\\Infrastructure.csproj",
         "projectName": "Infrastructure",
-        "projectPath": "F:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\Infrastructure\\Infrastructure.csproj",
+        "projectPath": "E:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\Infrastructure\\Infrastructure.csproj",
         "packagesPath": "C:\\Users\\Wilson\\.nuget\\packages\\",
-        "outputPath": "F:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\Infrastructure\\obj\\",
+        "outputPath": "E:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\Wilson\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net8.0": {
+            "targetAlias": "net8.0",
             "projectReferences": {
-              "F:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\CORE\\CORE.csproj": {
-                "projectPath": "F:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\CORE\\CORE.csproj"
+              "E:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\CORE\\CORE.csproj": {
+                "projectPath": "E:\\Proyectos .NET\\Proyectos\\APIs\\Tienda\\CORE\\CORE.csproj"
               }
             }
           }
@@ -206,29 +199,32 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "dependencies": {
             "CsvHelper": {
               "target": "Package",
-              "version": "[30.0.1, )"
+              "version": "[31.0.3, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[7.0.9, )"
+              "version": "[8.0.4, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
               "target": "Package",
-              "version": "[7.0.9, )"
+              "version": "[8.0.4, )"
             },
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
-              "version": "[7.0.0, )"
+              "version": "[8.0.2, )"
             }
           },
           "imports": [
@@ -247,7 +243,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
