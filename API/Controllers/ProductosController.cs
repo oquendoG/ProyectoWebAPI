@@ -1,6 +1,7 @@
 ﻿using API.Dtos;
 using API.Helpers;
 using API.Helpers.Errors;
+using Asp.Versioning;
 using AutoMapper;
 using CORE.Entities;
 using CORE.Interfaces;
@@ -49,7 +50,7 @@ public class ProductosController : BaseApiController
 		List<ProductoListDTO> listaProductosDTO =
 						_mapper.Map<List<ProductoListDTO>>(registros);
 
-		Response.Headers.Add("X-InlineCount", totalRegistros.ToString());
+		Response.Headers.Append("X-InlineCount", totalRegistros.ToString());
 
 		return new Pager<ProductoListDTO>(productParams.PageIndex, productParams.PageSize,
 			totalRegistros, listaProductosDTO, productParams.Search);
@@ -63,7 +64,6 @@ public class ProductosController : BaseApiController
 	[MapToApiVersion("1.1")]
 	[ProducesResponseType(StatusCodes.Status200OK)]
 	[ProducesResponseType(StatusCodes.Status404NotFound)]
-	[ProducesResponseType(StatusCodes.Status400BadRequest)]
 	public async Task<ActionResult<IEnumerable<ProductoDTO>>> Get11()
 	{
 		IEnumerable<Producto> productos = await _unitOfWork.Productos.GetAllAsync();

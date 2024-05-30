@@ -53,7 +53,7 @@ public class UserService : IUserService
         }
 
         Rol rolPredeterminado = _unitOfWork.Roles
-                                    .Find(rol => rol.Nombre == Autorizacion.rol_predeterminado.ToString())
+                                    .Find(rol => rol.Nombre == Autorizacion.rol_predeterminado.ToString(), false)
                                     .FirstOrDefault();
         try
         {

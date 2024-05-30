@@ -1,6 +1,7 @@
 ﻿using API.Helpers;
 using API.Helpers.Errors;
 using API.Services;
+using Asp.Versioning;
 using AspNetCoreRateLimit;
 using CORE.Entities;
 using CORE.Interfaces;
@@ -8,7 +9,6 @@ using Infrastructure.UnitOfWork;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -70,6 +70,10 @@ public static class ApplicationServiceExtensions
                     new HeaderApiVersionReader("version")
                 );
             options.ReportApiVersions = true;
+        }).AddApiExplorer(options =>
+        {
+            options.GroupNameFormat = "'v'V";
+            options.SubstituteApiVersionInUrl = true;
         });
     }
 
